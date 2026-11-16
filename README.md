@@ -6,9 +6,10 @@
 
   <a href="https://eierman.cc"><img src="https://img.shields.io/badge/Website-eierman.cc-D946EF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="eierman.cc"></a>
   <a href="https://discord.com/users/1253218430396403714"><img src="https://img.shields.io/badge/Discord-eierman-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://www.tiktok.com/@eierman.cc"><img src="https://img.shields.io/badge/TikTok-eierman.cc-000000?style=for-the-badge&logo=tiktok&logoColor=white" alt="TikTok"></a>
   <a href="https://www.youtube.com/@eierman324"><img src="https://img.shields.io/badge/YouTube-eierman324-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube"></a>
+  <a href="https://steamcommunity.com/id/eierman324/"><img src="https://img.shields.io/badge/Steam-eierman324-1B2838?style=for-the-badge&logo=steam&logoColor=white" alt="Steam"></a>
   <a href="https://anilist.co/user/eierman324/animelist"><img src="https://img.shields.io/badge/AniList-eierman324-02A9FF?style=for-the-badge&logo=anilist&logoColor=white" alt="AniList"></a>
-  <a href="https://steamcommunity.com/id/filexnahh/"><img src="https://img.shields.io/badge/Steam-filexnahh-1B2838?style=for-the-badge&logo=steam&logoColor=white" alt="Steam"></a>
 
 </div>
 
@@ -54,12 +55,12 @@ I'm mostly into **romance, drama and slice of life**: give me a show that makes 
 So far: **79 anime, 900 episodes**, and a planning list that keeps growing faster than I can watch.
 
 <p align="center">
-  <a href="https://anilist.co/anime/154587"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx154587-qQTzQnEJJ3oB.jpg" width="100" alt="Frieren"></a>
-  <a href="https://anilist.co/anime/20665"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20665-TLgkL8T8IRFd.png" width="100" alt="Your lie in April"></a>
-  <a href="https://anilist.co/anime/124080"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx124080-3i22mRVPBS0T.jpg" width="100" alt="Horimiya"></a>
-  <a href="https://anilist.co/anime/101291"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx101291-wfEdgPqtfU0l.jpg" width="100" alt="Rascal Does Not Dream of Bunny Girl Senpai"></a>
-  <a href="https://anilist.co/anime/20997"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20997-axVYrsIfjtYJ.jpg" width="100" alt="Charlotte"></a>
+  <a href="https://anilist.co/anime/99423"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx99423-8MBxtwCeHf8B.png" width="100" alt="DARLING in the FRANXX"></a>
+  <a href="https://anilist.co/anime/141391"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx141391-M3ZgUKTPENUk.jpg" width="100" alt="Call of the Night"></a>
   <a href="https://anilist.co/anime/120377"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx120377-ayZPoxiWt4Li.jpg" width="100" alt="Cyberpunk: Edgerunners"></a>
+  <a href="https://anilist.co/anime/20997"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20997-axVYrsIfjtYJ.jpg" width="100" alt="Charlotte"></a>
+  <a href="https://anilist.co/anime/101291"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx101291-wfEdgPqtfU0l.jpg" width="100" alt="Rascal Does Not Dream of Bunny Girl Senpai"></a>
+  <a href="https://anilist.co/anime/20665"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20665-TLgkL8T8IRFd.png" width="100" alt="Your lie in April"></a>
 </p>
 
 <p align="center"><sub>Some of my 10/10s · full list on <a href="https://anilist.co/user/eierman324/animelist">AniList</a></sub></p>
@@ -70,7 +71,7 @@ So far: **79 anime, 900 episodes**, and a planning list that keeps growing faste
 
 - 🌪️ **Fortnite:** my main game right now. Built [StormReport](https://github.com/eierman324/StormReport) because I wanted to know how many chests I actually open.
 - ⛏️ **Minecraft:** running and playing on SMPs with friends, which is where most of my plugins and mods come from.
-- 🔫 **Counter-Strike:** occasionally on [FACEIT](https://www.faceit.com/de/players/eierman324).
+- 🔫 **Valorant:** my shooter of choice these days. Used to play Counter-Strike on [FACEIT](https://www.faceit.com/de/players/eierman324).
 - 🧩 **Roblox:** poking at how games work under the hood, on my [second channel](https://www.youtube.com/@justloldog).
 
 ---
