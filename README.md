@@ -52,7 +52,11 @@
 <img src="./assets/oneko_scratch.gif" align="right" width="96" alt="Scratching oneko">
 
 I'm mostly into **romance, drama and slice of life**: give me a show that makes me cry and I'm happy.
-So far: **79 anime, 900 episodes**, and a planning list that keeps growing faster than I can watch.
+My planning list keeps growing faster than I can watch.
+
+<p align="center">
+  <a href="https://anilist.co/user/eierman324/animelist"><img src="./assets/anilist.svg" alt="AniList stats and currently watching" width="100%"></a>
+</p>
 
 <p align="center">
   <a href="https://anilist.co/anime/99423"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx99423-8MBxtwCeHf8B.png" width="100" alt="DARLING in the FRANXX"></a>

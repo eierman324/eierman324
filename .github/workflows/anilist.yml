@@ -1,0 +1,37 @@
+name: Update AniList card
+
+on:
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/scripts/anilist_card.py"
+      - ".github/workflows/anilist.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: anilist-card
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python .github/scripts/anilist_card.py
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- assets/anilist.svg; then
+            echo "No changes"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898233+github-actions[bot]@users.noreply.github.com"
+          git add assets/anilist.svg
+          git commit -m "Update AniList card"
+          git push
