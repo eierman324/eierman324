@@ -78,17 +78,69 @@ So far: **79 anime, 900 episodes**, and a planning list that keeps growing faste
 
 ### 🛠️ Tech Stack
 
-<p align="center">
+#### 💻 Languages
+
+<p>
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
   <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java">
   <img src="https://img.shields.io/badge/C%23-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="C#">
   <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" alt="Rust">
+  <img src="https://img.shields.io/badge/Luau-00A2FF?style=for-the-badge&logo=luau&logoColor=white" alt="Luau">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
-  <img src="https://img.shields.io/badge/Tampermonkey-00485B?style=for-the-badge&logo=tampermonkey&logoColor=white" alt="Tampermonkey">
-  <img src="https://img.shields.io/badge/Paper-444444?style=for-the-badge&logo=minecraft&logoColor=white" alt="Paper">
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+  <img src="https://img.shields.io/badge/CSS-663399?style=for-the-badge&logo=css&logoColor=white" alt="CSS">
   <img src="https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge&logo=powershell&logoColor=white" alt="PowerShell">
+  <img src="https://img.shields.io/badge/Batch-4D4D4D?style=for-the-badge&logo=windowsterminal&logoColor=white" alt="Batch">
+</p>
+
+#### 🧰 Frameworks & Tools
+
+<p>
+  <img src="https://img.shields.io/badge/.NET%20%2F%20WPF-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET / WPF">
+  <img src="https://img.shields.io/badge/Tauri-24C8D8?style=for-the-badge&logo=tauri&logoColor=black" alt="Tauri">
+  <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white" alt="Maven">
+  <img src="https://img.shields.io/badge/Tampermonkey-00485B?style=for-the-badge&logo=tampermonkey&logoColor=white" alt="Tampermonkey">
+  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git">
+  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+  <img src="https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="VS Code">
+  <img src="https://img.shields.io/badge/Claude%20Code-D97757?style=for-the-badge&logo=claude&logoColor=white" alt="Claude Code">
+</p>
+
+#### ⛏️ Gaming & Modding
+
+<p>
+  <img src="https://img.shields.io/badge/Paper-444444?style=for-the-badge&logo=minecraft&logoColor=white" alt="Paper">
+  <img src="https://img.shields.io/badge/Fabric-DBD0B4?style=for-the-badge" alt="Fabric">
+  <img src="https://img.shields.io/badge/MC%20Server-62B47A?style=for-the-badge&logo=minecraft&logoColor=white" alt="MC Server">
+  <img src="https://img.shields.io/badge/Infrared-E11D48?style=for-the-badge" alt="Infrared">
+  <img src="https://img.shields.io/badge/Roblox%20Studio-00A2FF?style=for-the-badge&logo=robloxstudio&logoColor=white" alt="Roblox Studio">
+  <img src="https://img.shields.io/badge/Discord%20Bots-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord Bots">
+</p>
+
+#### 🏠 Homelab & Self-hosting
+
+<p>
+  <img src="https://img.shields.io/badge/UGOS%20Pro-0A64F5?style=for-the-badge" alt="UGOS Pro">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+  <img src="https://img.shields.io/badge/Komodo-1F2937?style=for-the-badge" alt="Komodo">
+  <img src="https://img.shields.io/badge/Cloudflare-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Cloudflare">
+  <img src="https://img.shields.io/badge/Pangolin-F97316?style=for-the-badge&logo=pangolin&logoColor=white" alt="Pangolin">
+  <img src="https://img.shields.io/badge/Newt-F97316?style=for-the-badge" alt="Newt">
+  <img src="https://img.shields.io/badge/Jellyfin-00A4DC?style=for-the-badge&logo=jellyfin&logoColor=white" alt="Jellyfin">
+  <img src="https://img.shields.io/badge/Seerr-6366F1?style=for-the-badge" alt="Seerr">
+  <img src="https://img.shields.io/badge/Immich-4250AF?style=for-the-badge&logo=immich&logoColor=white" alt="Immich">
+  <img src="https://img.shields.io/badge/Nextcloud-0082C9?style=for-the-badge&logo=nextcloud&logoColor=white" alt="Nextcloud">
+  <img src="https://img.shields.io/badge/File%20Browser-40C4FF?style=for-the-badge&logo=files&logoColor=white" alt="File Browser">
+  <img src="https://img.shields.io/badge/Scrypted-8B5CF6?style=for-the-badge" alt="Scrypted">
+  <img src="https://img.shields.io/badge/AniWorld%20Downloader-E11D48?style=for-the-badge" alt="AniWorld Downloader">
+</p>
+
+#### 🖥️ OS & Hardware
+
+<p>
+  <img src="https://img.shields.io/badge/Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="Windows">
+  <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux">
+  <img src="https://img.shields.io/badge/SHU%20%2F%20SHFW-22D3EE?style=for-the-badge" alt="SHU / SHFW">
 </p>
 
 ---
