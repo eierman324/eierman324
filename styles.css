@@ -42,8 +42,34 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 
 .wrap { width: min(720px, 100% - 32px); margin-inline: auto; }
 
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Theme controls */
+.controls { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-bottom: clamp(32px, 7vw, 64px); }
+
+.controls button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: 500 0.875rem/1 var(--body);
+  cursor: pointer;
+}
+
+.controls button:hover { border-color: var(--accent); }
+.controls button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.swatch { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px var(--muted); }
+
+body, .controls button, .projects li, .hero { transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
+
 /* Hero */
-.hero { padding: clamp(56px, 12vw, 120px) 0 56px; border-bottom: 1px solid var(--line); overflow-x: clip; }
+.hero { padding: 20px 0 56px; border-bottom: 1px solid var(--line); overflow-x: clip; }
 
 .nameplate { position: relative; display: flex; align-items: flex-end; gap: 12px; }
 
@@ -124,4 +150,5 @@ footer .small { font-size: 0.875rem; color: var(--muted); }
 
 @media (prefers-reduced-motion: reduce) {
   .cat.running { animation: none; }
+  body, .controls button, .projects li, .hero { transition: none; }
 }

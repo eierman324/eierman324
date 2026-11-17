@@ -11,12 +11,49 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,700;1,400&family=Unbounded:wght@500;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // Palettes: [bg, surface, text, muted, accent, line]
+    window.PALETTES = {
+      Night:  { dark: ['#15122b', '#201b3d', '#eee8ff', '#a79fcb', '#f472d0', '#342d5c'],
+                light: ['#f6f2ff', '#ebe4fb', '#1c1633', '#5d5480', '#a8238f', '#d6cdef'] },
+      Matcha: { dark: ['#0f1a14', '#18271e', '#e6f2ea', '#9bb5a5', '#7ee0a1', '#284034'],
+                light: ['#f1f7f2', '#e2eee5', '#12221a', '#4c6657', '#1d7a45', '#cbded1'] },
+      Sunset: { dark: ['#1f1216', '#2c1a20', '#fbe9ea', '#c9a2a8', '#ff8a65', '#42282f'],
+                light: ['#fff4ef', '#fbe5dc', '#2a1418', '#7a5258', '#c2410c', '#f0cfc3'] },
+      Neon:   { dark: ['#0c1620', '#13222f', '#e3f1fa', '#92adc0', '#f5e14b', '#1f3446'],
+                light: ['#eef6fb', '#dcebf5', '#0f1c26', '#4b6577', '#0f6fa3', '#c5dbea'] },
+      Amber:  { dark: ['#17140f', '#221e17', '#f3ecdf', '#b3a68f', '#ffb648', '#362f24'],
+                light: ['#fbf7f0', '#f1e9da', '#221c12', '#6b5d45', '#a85d00', '#e2d6bf'] }
+    };
+    window.applyTheme = function (name, mode) {
+      var keys = ['bg', 'surface', 'text', 'muted', 'accent', 'line'];
+      var values = window.PALETTES[name][mode];
+      var root = document.documentElement;
+      keys.forEach(function (k, i) { root.style.setProperty('--' + k, values[i]); });
+      root.dataset.palette = name;
+      root.dataset.theme = mode;
+      root.style.colorScheme = mode;
+    };
+    (function () {
+      var names = Object.keys(window.PALETTES);
+      var saved = null;
+      try { saved = localStorage.getItem('eierman-mode'); } catch (e) {}
+      var mode = saved === 'light' || saved === 'dark' ? saved
+        : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      window.applyTheme(names[Math.floor(Math.random() * names.length)], mode);
+    })();
+  </script>
 </head>
 <body>
   <a class="skip" href="#projects">Skip to projects</a>
 
   <header class="hero">
     <div class="wrap">
+      <div class="controls">
+        <button type="button" id="palette-btn"><span class="swatch" aria-hidden="true"></span><span id="palette-name">Colours</span></button>
+        <button type="button" id="mode-btn">Switch to light</button>
+        <span class="sr-only" aria-live="polite" id="theme-status"></span>
+      </div>
       <div class="nameplate">
         <h1>eierman</h1>
         <img class="cat" src="assets/oneko_sleep.gif" width="64" height="64" alt="" data-run="assets/oneko_run.gif" data-sleep="assets/oneko_sleep.gif">
@@ -143,6 +180,40 @@
   </footer>
 
   <script>
+    (function () {
+      var root = document.documentElement;
+      var names = Object.keys(window.PALETTES);
+      var paletteBtn = document.getElementById('palette-btn');
+      var paletteName = document.getElementById('palette-name');
+      var modeBtn = document.getElementById('mode-btn');
+      var status = document.getElementById('theme-status');
+
+      function render() {
+        var mode = root.dataset.theme;
+        paletteName.textContent = root.dataset.palette;
+        paletteBtn.setAttribute('aria-label', 'Colour palette: ' + root.dataset.palette + '. Switch to other colours');
+        modeBtn.textContent = mode === 'dark' ? 'Switch to light' : 'Switch to dark';
+      }
+
+      paletteBtn.addEventListener('click', function () {
+        var i = names.indexOf(root.dataset.palette);
+        var next = names[(i + 1) % names.length];
+        window.applyTheme(next, root.dataset.theme);
+        render();
+        status.textContent = 'Colours: ' + next;
+      });
+
+      modeBtn.addEventListener('click', function () {
+        var mode = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        window.applyTheme(root.dataset.palette, mode);
+        try { localStorage.setItem('eierman-mode', mode); } catch (e) {}
+        render();
+        status.textContent = mode === 'dark' ? 'Dark colours on' : 'Light colours on';
+      });
+
+      render();
+    })();
+
     (function () {
       var cat = document.querySelector('.cat');
       if (!cat || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
