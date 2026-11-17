@@ -42,5 +42,22 @@ window.EDITIONS.tiktok = {
       '</div>', 190, 'tt-last');
 
     return '<main class="tt-feed">' + intro + projects + outro + '</main>';
+  },
+  mount: function (root) {
+    // Make every title as big as possible while its longest word still fits on one line.
+    function fit() {
+      root.querySelectorAll('.tt-glitch').forEach(function (el) {
+        var size = 96;
+        el.style.fontSize = size + 'px';
+        while (el.scrollWidth > el.clientWidth + 1 && size > 24) {
+          size -= 2;
+          el.style.fontSize = size + 'px';
+        }
+      });
+    }
+    fit();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    var t;
+    window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(fit, 150); });
   }
 };

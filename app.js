@@ -1,6 +1,8 @@
 // Picks an edition from #hash (or the referrer) and renders it.
 // Without an edition the static home page in index.html stays as it is.
 (function () {
+  // Bump this after changing files in editions/, so browsers fetch the new versions.
+  var VERSION = '2';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};
@@ -72,7 +74,7 @@
     if (id === shown) return;
     var root = document.documentElement;
     root.classList.add('edition-loading');
-    var ready = window.EDITIONS[id] ? Promise.resolve() : loadScript('editions/' + id + '.js');
+    var ready = window.EDITIONS[id] ? Promise.resolve() : loadScript('editions/' + id + '.js?v=' + VERSION);
     var css = document.getElementById('edition-css');
     if (!css) {
       css = document.createElement('link');
@@ -80,7 +82,7 @@
       document.head.appendChild(css);
     }
     var cssReady = new Promise(function (resolve) { css.onload = resolve; css.onerror = resolve; });
-    css.href = 'editions/' + id + '.css';
+    css.href = 'editions/' + id + '.css?v=' + VERSION;
     var base = document.getElementById('home-css');
     if (base) base.disabled = true;
 

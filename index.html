@@ -10,8 +10,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,700;1,400&family=Unbounded:wght@500;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" id="home-css">
-  <style>html.edition-loading body { visibility: hidden; }</style>
+  <link rel="stylesheet" href="styles.css?v=2" id="home-css">
+  <style>
+    html.edition-loading body { visibility: hidden; }
+    *, *::before, *::after { box-sizing: border-box; }
+  </style>
   <script>
     // Hide the home page right away when an edition will replace it.
     if (/^#(tiktok|youtube|github|steam|soundcloud|anilist|faceit|discord)$/i.test(location.hash) ||
@@ -188,8 +191,8 @@
     <div id="editions-slot"></div>
   </footer>
 
-  <script src="content.js"></script>
-  <script src="app.js"></script>
+  <script src="content.js?v=2"></script>
+  <script src="app.js?v=2"></script>
 
   <script>
     (function () {
