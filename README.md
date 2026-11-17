@@ -136,7 +136,6 @@ My planning list keeps growing faster than I can watch.
   <img src="https://img.shields.io/badge/Nextcloud-0082C9?style=for-the-badge&logo=nextcloud&logoColor=white" alt="Nextcloud">
   <img src="https://img.shields.io/badge/File%20Browser-40C4FF?style=for-the-badge&logo=files&logoColor=white" alt="File Browser">
   <img src="https://img.shields.io/badge/Scrypted-8B5CF6?style=for-the-badge" alt="Scrypted">
-  <img src="https://img.shields.io/badge/AniWorld%20Downloader-E11D48?style=for-the-badge" alt="AniWorld Downloader">
 </p>
 
 #### 🖥️ OS & Hardware
