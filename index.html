@@ -10,7 +10,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,700;1,400&family=Unbounded:wght@500;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" id="home-css">
+  <style>html.edition-loading body { visibility: hidden; }</style>
+  <script>
+    // Hide the home page right away when an edition will replace it.
+    if (/^#(tiktok|youtube|github|steam|soundcloud|anilist|faceit|discord)$/i.test(location.hash) ||
+        (!location.hash && /(tiktok|youtube|youtu\.be|github|steamcommunity|steampowered|soundcloud|anilist|faceit|discord)/i.test(document.referrer))) {
+      document.documentElement.classList.add('edition-loading');
+    }
+  </script>
   <script>
     // Palettes: [bg, surface, text, muted, accent, line]
     window.PALETTES = {
@@ -177,7 +185,11 @@
   <footer class="wrap">
     <p>Write me on <a href="https://discord.com/users/1253218430396403714">Discord</a>, I don't bite.</p>
     <p class="small">Cat from <a href="https://github.com/adryd325/oneko.js">oneko.js</a> (MIT).</p>
+    <div id="editions-slot"></div>
   </footer>
+
+  <script src="content.js"></script>
+  <script src="app.js"></script>
 
   <script>
     (function () {
