@@ -19,9 +19,9 @@ html[data-edition="tiktok"] { scroll-snap-type: y mandatory; background: #000; }
   min-height: 100svh;
   scroll-snap-align: start;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 16px;
-  padding: 48px 16px;
+  padding: 48px 16px max(56px, env(safe-area-inset-bottom));
   overflow: hidden;
   background:
     radial-gradient(120% 70% at 80% 10%, hsl(var(--h) 85% 35% / 0.55), transparent 60%),
