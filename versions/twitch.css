@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
+
+.vs-twitch {
+  --bg: #0e0e10; --panel: #18181b; --raised: #1f1f23; --line: #2f2f35; --text: #efeff1; --muted: #adadb8;
+  --purple: #9147ff; --purple-2: #bf94ff; --red: #eb0400;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 0.875rem/1.5 "Inter", system-ui, sans-serif;
+}
+.vs-twitch a { color: var(--purple-2); text-decoration: none; }
+.vs-twitch a:hover { text-decoration: underline; }
+.vs-twitch a:focus-visible, .vs-twitch button:focus-visible, .vs-twitch input:focus-visible { outline: 2px solid var(--purple-2); outline-offset: 2px; }
+.vs-twitch button { font: inherit; color: inherit; cursor: pointer; }
+.vs-twitch .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.tw-top {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: 20px; height: 50px; padding: 0 180px 0 16px;
+  background: var(--panel); box-shadow: 0 1px 2px rgb(0 0 0 / 0.6);
+}
+.tw-logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.02em; }
+.tw-logo em { font-style: normal; color: var(--purple-2); }
+.tw-nav { display: flex; gap: 4px; }
+.tw-nav button { padding: 6px 10px; border: 0; border-radius: 4px; background: none; font-weight: 600; font-size: 1rem; }
+.tw-nav button:hover { background: var(--raised); color: var(--purple-2); }
+
+.tw-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr) 340px; align-items: start; }
+
+/* Left: categories and links, like the followed-channels list */
+.tw-side { position: sticky; top: 50px; max-height: calc(100vh - 50px); overflow-y: auto; padding: 10px 0; background: var(--panel); }
+.tw-side h2 { margin: 6px 10px; color: var(--text); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.02em; }
+.tw-side ul { list-style: none; margin: 0 0 12px; padding: 0; }
+.tw-side li > * { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 10px; border: 0; background: none; color: var(--text) !important; text-align: left; text-decoration: none !important; }
+.tw-side li > *:hover { background: var(--raised); }
+.tw-side strong { display: block; font-weight: 600; }
+.tw-side small { display: block; color: var(--muted); font-size: 0.8125rem; }
+.tw-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--red); }
+.tw-dot.tw-off { background: #53535f; }
+
+/* Middle: offline player, channel row, videos, about */
+.tw-main { min-width: 0; padding-bottom: 32px; }
+.tw-player {
+  display: grid; place-items: center; aspect-ratio: 16 / 7; min-height: 220px;
+  background:
+    radial-gradient(circle at 20% 30%, rgb(145 71 255 / 0.45), transparent 55%),
+    radial-gradient(circle at 80% 70%, rgb(235 4 0 / 0.25), transparent 55%),
+    #000;
+}
+.tw-offline { display: grid; justify-items: center; gap: 10px; padding: 24px; text-align: center; }
+.tw-offline p { margin: 0; font-size: 1.125rem; }
+.tw-off-pfp { display: grid; place-items: center; width: 72px; aspect-ratio: 1; border-radius: 50%; background: var(--purple); font-weight: 800; font-size: 2rem; overflow: hidden; }
+.tw-offline button, .tw-follow { padding: 7px 14px; border: 0; border-radius: 4px; background: var(--purple); color: #fff !important; font-weight: 600; text-decoration: none !important; }
+.tw-offline button:hover, .tw-follow:hover { background: #772ce8; }
+.tw-follow[aria-pressed="true"] { background: var(--raised); }
+
+.tw-channel { display: flex; align-items: center; gap: 14px; padding: 16px 20px; }
+.tw-ring { flex: none; padding: 3px; border: 2px solid var(--purple); border-radius: 50%; }
+.tw-pfp { display: grid; place-items: center; width: 64px; aspect-ratio: 1; border-radius: 50%; background: var(--purple); font-weight: 800; font-size: 1.75rem; overflow: hidden; }
+.tw-ch-text { flex: 1; min-width: 0; }
+.tw-channel h1 { margin: 0; font-size: 1.25rem; font-weight: 700; }
+.tw-title { margin: 2px 0 6px; font-weight: 600; }
+.tw-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+.tw-tags span, .tw-chips span { padding: 1px 9px; border-radius: 999px; background: var(--raised); color: var(--muted); font-size: 0.75rem; font-weight: 600; }
+.tw-follow { flex: none; }
+
+.tw-sec { padding: 8px 20px 16px; }
+.tw-sec > h2 { margin: 8px 0 12px; font-size: 1.125rem; font-weight: 700; }
+.tw-gh { margin: 18px 0 10px; color: var(--muted); font-size: 0.875rem; font-weight: 600; }
+.tw-vods { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px 14px; }
+.tw-thumb {
+  position: relative; display: grid; place-items: center; aspect-ratio: 16 / 9; padding: 12px; overflow: hidden;
+  background: linear-gradient(135deg, hsl(var(--h) 70% 30%), hsl(calc(var(--h) + 60) 75% 18%));
+  color: #fff !important; text-decoration: none !important;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.tw-thumb:hover { transform: translate(4px, -4px); box-shadow: -4px 4px 0 var(--purple); }
+.tw-thumb-title { font-weight: 800; font-size: 1.25rem; text-align: center; overflow-wrap: anywhere; text-shadow: 0 2px 8px rgb(0 0 0 / 0.5); }
+.tw-badge { position: absolute; padding: 0 4px; border-radius: 2px; background: rgb(0 0 0 / 0.65); font-size: 0.8125rem; }
+.tw-dur { left: 8px; top: 8px; }
+.tw-views { left: 8px; bottom: 8px; }
+.tw-date { right: 8px; bottom: 8px; }
+.tw-vod-info { display: flex; align-items: flex-start; gap: 10px; margin-top: 8px; }
+.tw-vod-info > div { min-width: 0; }
+.tw-mini { display: grid; place-items: center; flex: none; width: 36px; aspect-ratio: 1; border-radius: 50%; background: var(--purple); font-weight: 800; overflow: hidden; }
+.tw-vod-info h3 { margin: 0; font-size: 0.875rem; font-weight: 600; }
+.tw-vod-info h3 a { color: var(--text); }
+.tw-vod-info p { margin: 2px 0 0; color: var(--muted); }
+.tw-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px !important; }
+.tw-chips a { font-size: 0.75rem; font-weight: 600; }
+
+.tw-about { padding: 16px 18px; background: var(--panel); border-radius: 6px; max-width: 70ch; }
+.tw-about p { margin: 0; }
+.tw-count { margin-bottom: 6px !important; color: var(--muted); }
+.tw-count strong { color: var(--text); }
+.tw-panels { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 14px; align-items: start; }
+.tw-panel { padding: 14px 16px; background: var(--panel); border-top: 3px solid var(--purple); }
+.tw-panel h3 { margin: 0 0 6px; font-size: 1rem; font-weight: 700; }
+.tw-panel p { margin: 0; color: var(--muted); }
+.tw-panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.tw-panel .tw-covers { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.tw-covers img { display: block; width: 100%; height: auto; aspect-ratio: 100 / 142; object-fit: cover; }
+
+/* Right: chat */
+.tw-chat { position: sticky; top: 50px; display: flex; flex-direction: column; height: calc(100vh - 50px); background: var(--panel); border-left: 1px solid var(--line); }
+.tw-chat h2 { margin: 0; padding: 12px; border-bottom: 1px solid var(--line); font-size: 0.8125rem; text-align: center; text-transform: uppercase; letter-spacing: 0.02em; }
+.tw-log { flex: 1; overflow-y: auto; padding: 10px 12px; }
+.tw-log p { margin: 0 0 6px; overflow-wrap: anywhere; }
+.tw-bot { color: var(--muted); }
+.tw-send { display: flex; gap: 8px; padding: 10px 12px 14px; }
+.tw-send input { flex: 1; min-width: 0; padding: 8px 10px; border: 2px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--text); font: inherit; }
+.tw-send input:focus { border-color: var(--purple); outline: 0; }
+.tw-send button { padding: 0 14px; border: 0; border-radius: 4px; background: var(--purple); color: #fff; font-weight: 600; }
+
+.vs-twitch .versions { padding: 20px 20px 48px; border-top: 1px solid var(--line); }
+.vs-twitch .versions p { margin: 0 0 10px; color: var(--muted); }
+.vs-twitch .versions div { display: flex; flex-wrap: wrap; gap: 6px; }
+.vs-twitch .versions a { padding: 4px 12px; border-radius: 999px; background: var(--raised); color: var(--text); font-weight: 600; }
+.vs-twitch .versions a:hover { text-decoration: none; background: var(--line); }
+.vs-twitch .versions a[aria-current] { background: var(--purple); color: #fff; }
+
+@media (max-width: 1100px) {
+  .tw-layout { grid-template-columns: minmax(0, 1fr) 320px; }
+  .tw-side { display: none; }
+}
+@media (max-width: 760px) {
+  .tw-top { position: static; padding-right: 16px; }
+  .tw-layout { grid-template-columns: 1fr; }
+  .tw-chat { position: static; height: 360px; border-left: 0; border-top: 1px solid var(--line); }
+  .tw-channel { flex-wrap: wrap; padding: 14px 16px; }
+  .tw-sec { padding: 8px 16px 16px; }
+  .tw-player { aspect-ratio: 16 / 10; }
+}

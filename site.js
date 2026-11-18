@@ -26,6 +26,7 @@ window.SITE = {
     { id: 'soundcloud', label: 'SoundCloud', hosts: ['soundcloud.com'] },
     { id: 'anilist',    label: 'AniList',    hosts: ['anilist.co'] },
     { id: 'faceit',     label: 'FACEIT',     hosts: ['faceit.com'] },
-    { id: 'discord',    label: 'Discord',    hosts: ['discord.com', 'discord.gg', 'discordapp.com'] }
+    { id: 'discord',    label: 'Discord',    hosts: ['discord.com', 'discord.gg', 'discordapp.com'] },
+    { id: 'twitch',     label: 'Twitch',     hosts: ['twitch.tv'] }
   ]
 };
