@@ -52,7 +52,7 @@
   //
   // All profiles and pictures go through the profile Worker (branch "profile-worker"
   // of this repo). Put its address here once it is deployed, for example
-  // 'https://eierman-profiles.<your-subdomain>.workers.dev'.
+  // 'https://eierman324.<your-subdomain>.workers.dev'.
   // Without it, or when it doesn't answer, GitHub and AniList are fetched directly
   // from the browser and the other platforms show the fallback names from
   // profiles.js with the GitHub picture. Pictures are never stored in the repo.
