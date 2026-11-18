@@ -14,7 +14,7 @@
     { "id": "scooters", "label": "Scooters" }
   ],
   "projects": [
-    { "repo": "eierman324/AniWorld-Downloader", "group": "anime" },
+    { "repo": "eierman324/AniWorld-Downloader", "group": "anime", "tech": "Python" },
     { "repo": "eierman324/anidl-renamer", "group": "anime", "tech": "Userscript" },
     { "repo": "eierman324/horimiya-manga-order", "group": "anime" },
 
