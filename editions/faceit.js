@@ -2,15 +2,15 @@
 window.EDITIONS.faceit = {
   render: function (S) {
     var techs = [];
-    S.projects.forEach(function (p) { if (techs.indexOf(p.tech) === -1) techs.push(p.tech); });
+    S.projects.forEach(function (p) { if (p.tech && techs.indexOf(p.tech) === -1) techs.push(p.tech); });
     var shipped = S.projects.filter(function (p) { return !p.external; }).length;
     var map = {};
-    S.groups.forEach(function (g) { map[g.id] = g.label.split(' ')[0]; });
+    S.groups.forEach(function (g) { map[g.id] = g.label; });
 
     return '<header class="fc-hero">' +
         '<div class="fc-wrap fc-player">' +
           avatar('faceit', 'fc-avatar') +
-          '<div><p class="fc-country">Germany</p><h1>' + pname('faceit') + '</h1><p class="fc-tag">' + esc(S.tagline) + '</p></div>' +
+          '<div><p class="fc-country">' + esc(S.location) + '</p><h1>' + pname('faceit') + '</h1><p class="fc-tag">' + esc(S.tagline) + '</p></div>' +
         '</div>' +
       '</header>' +
       '<main class="fc-wrap">' +
@@ -28,20 +28,23 @@ window.EDITIONS.faceit = {
                 var win = !p.external;
                 return '<div class="fc-m ' + (win ? 'is-win' : 'is-live') + '" role="row">' +
                   '<span role="cell" class="fc-res">' + (win ? 'Shipped' : 'Contrib') + '</span>' +
-                  '<span role="cell" class="fc-proj"><a href="' + p.url + '">' + esc(p.name) + '</a><small>' + esc(p.desc) + '</small></span>' +
+                  '<span role="cell" class="fc-proj"><a href="' + p.url + '">' + esc(p.name) + '</a><small>' + esc(p.desc) + '</small>' +
+                    (p.tags.length || p.homepage ? '<small class="fc-extra">' + (p.homepage ? '<a href="' + esc(p.homepage) + '">Website</a>' : '') + p.tags.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') + '</small>' : '') +
+                  '</span>' +
                   '<span role="cell">' + esc(map[p.group] || '') + '</span>' +
                   '<span role="cell">' + esc(p.tech) + '</span>' +
                   '<span role="cell">' + p.year + '</span></div>';
               }).join('') +
             '</div></section>' +
           '<aside>' +
-            '<section class="fc-box"><h2>Games</h2><ul class="fc-games">' +
-              '<li><strong>Fortnite</strong><span>Main game right now</span></li>' +
-              '<li><strong>Valorant</strong><span>Shooter of choice</span></li>' +
-              '<li><strong>Counter-Strike</strong><span>Used to play on ' + linkTo('faceit', 'FACEIT') + '</span></li>' +
-              '<li><strong>Minecraft</strong><span>SMPs with friends</span></li>' +
-            '</ul></section>' +
+            '<section class="fc-box"><h2>Bio</h2><p class="fc-bio">' + esc(S.intro) + '</p></section>' +
+            (S.facts.length ? '<section class="fc-box"><h2>Player info</h2><ul class="fc-games">' + S.facts.map(function (f) {
+              return '<li><strong>' + esc(f.label) + '</strong><span>' + esc(f.text) + '</span></li>';
+            }).join('') + '</ul></section>' : '') +
             '<section class="fc-box"><h2>Loadout</h2><ul class="fc-loadout">' + techs.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></section>' +
+            (S.anime.length ? '<section class="fc-box"><h2>Favourite anime</h2><ul class="fc-anime">' + S.anime.map(function (a) {
+              return '<li><a href="' + esc(a.url) + '"><img src="' + esc(a.cover) + '" alt="' + esc(a.title) + '" loading="lazy" width="100" height="142"></a></li>';
+            }).join('') + '</ul></section>' : '') +
             '<section class="fc-box"><h2>Socials</h2><ul class="fc-socials">' + S.links.map(function (l) { return '<li><a href="' + l.url + '">' + esc(l.label) + '</a></li>'; }).join('') + '</ul></section>' +
           '</aside>' +
         '</div>' +

@@ -20,6 +20,9 @@ window.EDITIONS.steam = {
       '</div>' +
       '<section class="st-profile" id="st-profile">' +
         '<div class="st-pcard">' + avatar('steam', 'st-pavatar') + '<div><h2>' + pname('steam') + '</h2><p class="st-online">Online</p><p>' + esc(S.intro) + '</p></div></div>' +
+        (S.facts.length ? '<div class="st-showcase"><h3>About me</h3><dl class="st-facts">' + S.facts.map(function (f) {
+          return '<div><dt>' + esc(f.label) + '</dt><dd>' + esc(f.text) + '</dd></div>';
+        }).join('') + '</dl></div>' : '') +
         '<div class="st-showcase"><h3>Favourite anime</h3><ul>' + S.anime.map(function (a) {
           return '<li><a href="' + a.url + '"><img src="' + a.cover + '" alt="' + esc(a.title) + '" loading="lazy" width="100" height="142"></a></li>';
         }).join('') + '</ul></div>' +

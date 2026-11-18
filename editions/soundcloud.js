@@ -28,16 +28,23 @@ window.EDITIONS.soundcloud = {
           (p.tags.length ? p.tags.slice(0, 2) : [p.tech]).filter(Boolean).map(function (t) { return '<span class="sc-tag">#' + esc(t) + '</span>'; }).join('') + '</div>' +
           wave(p.name) +
           '<div class="sc-foot"><p>' + esc(p.desc) + '</p><span class="sc-time">' + mm + ':' + ss + '</span></div>' +
+          '<p class="sc-meta">' + esc([p.tech, p.year].filter(Boolean).join(', ')) + (p.homepage ? ' <a href="' + esc(p.homepage) + '">Website</a>' : '') + '</p>' +
         '</div></li>';
     }
     return '<header class="sc-top"><span class="sc-logo">eier<em>man</em></span></header>' +
       '<div class="sc-banner"><div class="sc-who">' + avatar('soundcloud', 'sc-avatar') + '<div>' +
-        '<h1>' + pname('soundcloud') + '</h1><p>' + esc(S.realName) + ', Germany</p></div></div></div>' +
+        '<h1>' + pname('soundcloud') + '</h1><p>' + esc([S.realName, S.location].filter(Boolean).join(', ')) + '</p></div></div></div>' +
       '<main class="sc-main-wrap">' +
-        '<div class="sc-cols"><section><h2>Tracks</h2><ol class="sc-list">' + S.projects.map(track).join('') + '</ol></section>' +
+        '<div class="sc-cols"><section>' + S.groups.map(function (g) {
+          return '<h2>' + esc(g.label) + '</h2><ol class="sc-list">' + projectsIn(g.id).map(track).join('') + '</ol>';
+        }).join('') + '</section>' +
         '<aside class="sc-side"><h2>Bio</h2><p>' + esc(S.intro) + '</p>' +
           S.facts.map(function (f) { return '<p><strong>' + esc(f.label) + '.</strong> ' + esc(f.text) + '</p>'; }).join('') +
-          '<h2>Links</h2><ul>' + S.links.map(function (l) { return '<li><a href="' + l.url + '">' + esc(l.label) + '</a></li>'; }).join('') + '</ul></aside></div>' +
+          '<h2>Links</h2><ul>' + S.links.map(function (l) { return '<li><a href="' + l.url + '">' + esc(l.label) + '</a></li>'; }).join('') + '</ul>' +
+          (S.anime.length ? '<h2>Favourite anime</h2><ul class="sc-covers">' + S.anime.map(function (a) {
+            return '<li><a href="' + esc(a.url) + '"><img src="' + esc(a.cover) + '" alt="' + esc(a.title) + '" loading="lazy" width="100" height="142"></a></li>';
+          }).join('') + '</ul>' : '') +
+        '</aside></div>' +
       '</main>';
   },
   mount: function (root) {

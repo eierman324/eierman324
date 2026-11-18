@@ -11,7 +11,7 @@ window.EDITIONS.discord = {
     return '<div class="dc-app">' +
       '<nav class="dc-servers" aria-label="Servers">' + avatar('discord', 'dc-srv is-on') + '<span class="dc-srv" aria-hidden="true">⛏</span><span class="dc-srv" aria-hidden="true">🛴</span></nav>' +
       '<aside class="dc-side">' +
-        '<p class="dc-server-name">eierman\'s server</p>' +
+        '<p class="dc-server-name">' + esc(S.name) + '\'s server</p>' +
         '<p class="dc-cat">Text channels</p>' +
         '<ul class="dc-channels">' + channels.map(function (c, i) {
           return '<li><button type="button" data-ch="' + c.id + '" data-topic="' + esc(c.topic) + '"' + (i === 0 ? ' aria-current="true"' : '') + '><span aria-hidden="true">#</span>' + c.id + '</button></li>';
@@ -23,7 +23,7 @@ window.EDITIONS.discord = {
         '<div class="dc-msgs" id="dc-msgs" aria-live="polite"></div>' +
         '<div class="dc-compose">' + linkTo('discord', 'Message @' + pname('discord') + ' on Discord') + '</div>' +
       '</main>' +
-      '<aside class="dc-members" aria-label="Members"><p class="dc-cat">Online, 1</p><div class="dc-member">' + avatar('discord', 'dc-av sm').replace('</span>', '<i></i></span>') + '<div><strong>' + pname('discord') + '</strong><small>Probably tuning a scooter</small></div></div></aside>' +
+      '<aside class="dc-members" aria-label="Members"><p class="dc-cat">Online, 1</p><div class="dc-member">' + avatar('discord', 'dc-av sm').replace('</span>', '<i></i></span>') + '<div><strong>' + pname('discord') + '</strong><small>' + esc(S.status) + '</small></div></div></aside>' +
       '</div>';
   },
   mount: function (root, S) {
@@ -39,7 +39,8 @@ window.EDITIONS.discord = {
     function embed(p) {
       var h = Math.floor(seeded(p.name)() * 360);
       return '<div class="dc-embed" style="--h:' + h + '"><a class="dc-etitle" href="' + p.url + '">' + esc(p.name) + '</a><p>' + esc(p.desc) + '</p>' +
-        '<dl><div><dt>Built with</dt><dd>' + esc(p.tech) + '</dd></div><div><dt>Year</dt><dd>' + p.year + '</dd></div>' + (p.tags.length ? '<div><dt>Tags</dt><dd>' + p.tags.map(esc).join(', ') + '</dd></div>' : '') + '</dl></div>';
+        '<dl><div><dt>Built with</dt><dd>' + esc(p.tech) + '</dd></div><div><dt>Year</dt><dd>' + p.year + '</dd></div>' + (p.tags.length ? '<div><dt>Tags</dt><dd>' + p.tags.map(esc).join(', ') + '</dd></div>' : '') +
+        (p.homepage ? '<div><dt>Website</dt><dd><a href="' + esc(p.homepage) + '">' + esc(p.homepage.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')) + '</a></dd></div>' : '') + '</dl></div>';
     }
 
     var content = {

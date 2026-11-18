@@ -19,7 +19,8 @@
     .pfp-slot.has-pfp { color: transparent; }
   </style>
   <script>
-    // Hide the home page right away when an edition will replace it.
+    // Hide the page until content.json is loaded and rendered (app.js shows it again).
+    document.documentElement.classList.add('edition-loading');
     if (/^#(tiktok|youtube|github|steam|soundcloud|anilist|faceit|discord)$/i.test(location.hash) ||
         (!location.hash && /(tiktok|youtube|youtu\.be|github|steamcommunity|steampowered|soundcloud|anilist|faceit|discord)/i.test(document.referrer))) {
       document.documentElement.classList.add('edition-loading');
@@ -70,16 +71,11 @@
         <span class="sr-only" aria-live="polite" id="theme-status"></span>
       </div>
       <div class="nameplate">
-        <h1>eierman</h1>
+        <h1 id="home-name">eierman</h1>
         <img class="cat" src="assets/oneko_sleep.gif" width="64" height="64" alt="" data-run="assets/oneko_run.gif" data-sleep="assets/oneko_sleep.gif">
       </div>
-      <p class="intro">Hi, I'm Felix. I work in IT, tune e-scooters past their limits and like finding the spot where a game stops working as intended. Whatever bugs me along the way turns into a small tool.</p>
-      <nav class="links" aria-label="Elsewhere">
-        <a href="https://fakecrime.bio/eierman">fakecrime</a>
-        <a href="https://discord.com/users/1253218430396403714">Discord</a>
-        <a href="https://www.tiktok.com/@eierman.cc">TikTok</a>
-        <a href="https://anilist.co/user/eierman324/animelist">AniList</a>
-      </nav>
+      <p class="intro" id="home-intro"></p>
+      <nav class="links" aria-label="Elsewhere" id="home-links"></nav>
     </div>
   </header>
 
@@ -91,38 +87,22 @@
 
     <section id="about" class="wrap">
       <h2>Besides code</h2>
-      <dl class="facts">
-        <dt>Scooters</dt>
-        <dd>Modding them and making them faster than intended. Only SHU so far, VESC is next.</dd>
-        <dt>Games</dt>
-        <dd>Fortnite right now, Valorant for shooters, Minecraft SMPs with friends, and Roblox on my second channel.</dd>
-        <dt>Homelab</dt>
-        <dd>A NAS with Docker running Jellyfin, Immich, Nextcloud and friends, reachable through Pangolin and Cloudflare.</dd>
-        <dt>Anime</dt>
-        <dd>Romance, drama and slice of life. If it makes me cry, it's good.</dd>
-      </dl>
+      <dl class="facts" id="home-facts"></dl>
 
-      <ul class="covers" aria-label="Some favourite anime">
-        <li><a href="https://anilist.co/anime/20665"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20665-TLgkL8T8IRFd.png" alt="Your lie in April" loading="lazy" width="100" height="142"></a></li>
-        <li><a href="https://anilist.co/anime/101291"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx101291-wfEdgPqtfU0l.jpg" alt="Rascal Does Not Dream of Bunny Girl Senpai" loading="lazy" width="100" height="142"></a></li>
-        <li><a href="https://anilist.co/anime/141391"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx141391-M3ZgUKTPENUk.jpg" alt="Call of the Night" loading="lazy" width="100" height="142"></a></li>
-        <li><a href="https://anilist.co/anime/20997"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20997-axVYrsIfjtYJ.jpg" alt="Charlotte" loading="lazy" width="100" height="142"></a></li>
-        <li><a href="https://anilist.co/anime/99423"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx99423-8MBxtwCeHf8B.png" alt="DARLING in the FRANXX" loading="lazy" width="100" height="142"></a></li>
-        <li><a href="https://anilist.co/anime/120377"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx120377-ayZPoxiWt4Li.jpg" alt="Cyberpunk: Edgerunners" loading="lazy" width="100" height="142"></a></li>
-      </ul>
-      <p class="more"><a href="https://anilist.co/user/eierman324/animelist">Full list on AniList</a></p>
+      <ul class="covers" aria-label="Some favourite anime" id="home-covers"></ul>
+      <p class="more" id="home-more"></p>
     </section>
   </main>
 
   <footer class="wrap">
-    <p>Write me on <a href="https://discord.com/users/1253218430396403714">Discord</a>, I don't bite.</p>
+    <p id="home-contact"></p>
     <p class="small">Cat from <a href="https://github.com/adryd325/oneko.js">oneko.js</a> (MIT).</p>
     <div id="editions-slot"></div>
   </footer>
 
-  <script src="content.js?v=16"></script>
+  <script src="site.js?v=21"></script>
   <script src="profiles.js?v=12"></script>
-  <script src="app.js?v=19"></script>
+  <script src="app.js?v=22"></script>
 
   <script>
     (function () {

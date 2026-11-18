@@ -10,6 +10,13 @@ window.EDITIONS.tiktok = {
       return '<a class="tt-icon-link" href="' + esc(p.url) + '" aria-label="' + esc(label) + '" title="' + esc(label) + '">' +
         '<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false">' + icon + '</svg></a>';
     }
+    function siteIcon(p) {
+      var icon = (S.ICONS || {}).globe;
+      if (!p.homepage || p.homepage === p.url) return '';
+      if (!icon) return '<a href="' + esc(p.homepage) + '">Website</a>';
+      return '<a class="tt-icon-link" href="' + esc(p.homepage) + '" aria-label="' + esc(p.name) + ' website" title="Website">' +
+        '<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false">' + icon + '</svg></a>';
+    }
 
     function slide(inner, hue, extraClass) {
       return '<section class="tt-slide ' + (extraClass || '') + '" style="--h:' + hue + '">' + inner + '</section>';
@@ -19,7 +26,7 @@ window.EDITIONS.tiktok = {
         '<p class="tt-user">' + phandle('tiktok') + '</p>' +
         '<h1 class="tt-glitch">' + pname('tiktok') + '</h1>' +
         '<p class="tt-desc">' + esc(S.intro) + '</p>' +
-        '<p class="tt-tags">#it #escooter #gaming #anime</p>' +
+        (S.hashtags.length ? '<p class="tt-tags">' + S.hashtags.map(function (t) { return '#' + esc(t); }).join(' ') + '</p>' : '') +
         '<p class="tt-hint">Swipe up for projects</p>' +
       '</div>' +
       '<div class="tt-rail">' + avatar('tiktok', 'tt-avatar') +
@@ -37,17 +44,27 @@ window.EDITIONS.tiktok = {
       var group = S.groups.filter(function (g) { return g.id === p.group; })[0];
       return slide(
         '<div class="tt-body">' +
-          '<p class="tt-user">' + phandle('tiktok') + ' <span>' + (i + 1) + ' / ' + S.projects.length + '</span></p>' +
+          '<p class="tt-user">' + phandle('tiktok') + ' <span>' + esc(group ? group.label : '') + ', ' + (i + 1) + ' / ' + S.projects.length + '</span></p>' +
           '<h2 class="tt-glitch" data-text="' + esc(p.name) + '">' + esc(p.name) + '</h2>' +
           '<p class="tt-desc">' + esc(p.desc) + '</p>' +
           '<p class="tt-tags">' + (p.tags.length ? p.tags.slice(0, 5) : [p.tech, group.label.split(' ')[0]]).filter(Boolean).map(function (t) { return '#' + esc(t.replace(/[^a-z0-9#]/gi, '').toLowerCase()); }).join(' ') + '</p>' +
         '</div>' +
         '<div class="tt-rail">' + avatar('tiktok', 'tt-avatar') +
-          openIcon(p) +
+          openIcon(p) + siteIcon(p) +
           '<span class="tt-meta">' + esc(p.tech) + '</span>' +
           '<span class="tt-meta">' + p.year + '</span>' +
         '</div>', hue);
     }).join('');
+
+    var anime = S.anime.length ? slide(
+      '<div class="tt-body">' +
+        '<p class="tt-user">' + phandle('tiktok') + '</p>' +
+        '<h2 class="tt-glitch">Favourite anime</h2>' +
+        '<ul class="tt-covers">' + S.anime.map(function (a) {
+          return '<li><a href="' + esc(a.url) + '"><img src="' + esc(a.cover) + '" alt="' + esc(a.title) + '" loading="lazy" width="100" height="142"></a></li>';
+        }).join('') + '</ul>' +
+        '<p class="tt-desc">Full list on ' + linkTo('anilist', 'AniList') + '.</p>' +
+      '</div>', 285) : '';
 
     var outro = slide(
       '<div class="tt-body">' +
@@ -56,7 +73,7 @@ window.EDITIONS.tiktok = {
         '<p class="tt-desc">Follow along on ' + linkTo('tiktok', 'TikTok') + ' or write me on ' + linkTo('discord', 'Discord') + '.</p>' +
       '</div>', 190, 'tt-last');
 
-    return '<main class="tt-feed">' + intro + projects + outro + '</main>';
+    return '<main class="tt-feed">' + intro + projects + anime + outro + '</main>';
   },
   mount: function (root) {
     // Make every title as big as possible while its longest word still fits on one line.

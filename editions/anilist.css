@@ -28,6 +28,12 @@
 .al-main { display: grid; grid-template-columns: 300px 1fr; gap: 28px; width: min(1100px, 100% - 32px); margin: 28px auto 40px; }
 .al-box { padding: 16px 18px; margin-bottom: 18px; background: var(--card); border-radius: 4px; }
 .al-box p { margin: 0; }
+.al-facts { margin: 14px 0 0; }
+.al-facts dt { margin-top: 10px; color: var(--strong); font-weight: 800; font-size: 0.875rem; }
+.al-facts dd { margin: 2px 0 0; font-size: 0.875rem; }
+.al-extra { display: flex !important; flex-wrap: wrap; gap: 4px 8px; margin-top: 4px; }
+.al-extra a { color: var(--blue) !important; font-weight: 600; }
+.al-tag { padding: 0 8px; border-radius: 10px; background: color-mix(in srgb, var(--blue) 18%, transparent); color: var(--blue); }
 .al-box h2, .al-title { margin: 0 0 12px; color: var(--strong); font-size: 1rem; font-weight: 800; }
 .al-stats { display: flex; justify-content: space-between; margin: 0 0 14px; text-align: center; }
 .al-stats dd { margin: 0; color: var(--blue); font-size: 1.375rem; font-weight: 800; }

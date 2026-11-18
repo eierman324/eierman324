@@ -53,6 +53,9 @@ html[data-edition="tiktok"] { scroll-snap-type: y mandatory; background: #000; }
 
 @keyframes tt-bob { 50% { transform: translateY(-6px); } }
 
+.tt-covers { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 0 14px; padding: 0; max-width: 420px; }
+.tt-covers img { display: block; width: 100%; height: auto; aspect-ratio: 100 / 142; object-fit: cover; border-radius: 8px; }
+
 .tt-rail {
   display: flex;
   flex-direction: column;

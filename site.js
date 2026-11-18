@@ -1,20 +1,6 @@
-// Shared content for every edition of the site: intro, links, facts, anime. Projects are in projects.json.
+// Technical setup shared by every edition: which editions exist and the icons.
+// Your content (intro, links, facts, anime) is in content.json, projects in projects.json.
 window.SITE = {
-  name: 'eierman',
-  realName: 'Felix',
-  handle: 'eierman324',
-  tagline: 'IT, e-scooter tuning and breaking game mechanics for fun.',
-  intro: "Hi, I'm Felix. I work in IT, tune e-scooters past their limits and like finding the spot where a game stops working as intended. Whatever bugs me along the way turns into a small tool.",
-
-  // The links shown on every edition, in this order.
-  // "icon" names an icon from ICONS below (used where an edition shows icons).
-  links: [
-    { id: 'fakecrime', label: 'fakecrime', url: 'https://fakecrime.bio/eierman', icon: 'link' },
-    { id: 'discord',   label: 'Discord',   url: 'https://discord.com/users/1253218430396403714', icon: 'discord' },
-    { id: 'tiktok',    label: 'TikTok',    url: 'https://www.tiktok.com/@eierman.cc', icon: 'tiktok' },
-    { id: 'anilist',   label: 'AniList',   url: 'https://anilist.co/user/eierman324/animelist', icon: 'anilist' }
-  ],
-
   // Single-colour icons (24x24, drawn in currentColor). Brand shapes from Simple Icons (CC0),
   // "link" and "globe" from Lucide (ISC).
   ICONS: {
@@ -25,24 +11,6 @@ window.SITE = {
     anilist: '<path fill="currentColor" d="M24 17.53v2.421c0 .71-.391 1.101-1.1 1.101h-5l-.057-.165L11.84 3.736c.106-.502.46-.788 1.053-.788h2.422c.71 0 1.1.391 1.1 1.1v12.38H22.9c.71 0 1.1.392 1.1 1.101zM11.034 2.947l6.337 18.104h-4.918l-1.052-3.131H6.019l-1.077 3.131H0L6.361 2.948h4.673zm-.66 10.96-1.69-5.014-1.666 5.015h3.357z"/>',
     link: '<g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g>'
   },
-
-  // Groups and projects live in projects.json.
-
-  facts: [
-    { label: 'Scooters', text: 'Modding them and making them faster than intended. Only SHU so far, VESC is next.' },
-    { label: 'Games', text: 'Fortnite right now, Valorant for shooters, Minecraft SMPs with friends, and Roblox on my second channel.' },
-    { label: 'Homelab', text: 'A NAS with Docker running Jellyfin, Immich, Nextcloud and friends, reachable through Pangolin and Cloudflare.' },
-    { label: 'Anime', text: "Romance, drama and slice of life. If it makes me cry, it's good." }
-  ],
-
-  anime: [
-    { title: 'Your lie in April', url: 'https://anilist.co/anime/20665', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20665-TLgkL8T8IRFd.png' },
-    { title: 'Rascal Does Not Dream of Bunny Girl Senpai', url: 'https://anilist.co/anime/101291', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx101291-wfEdgPqtfU0l.jpg' },
-    { title: 'Call of the Night', url: 'https://anilist.co/anime/141391', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx141391-M3ZgUKTPENUk.jpg' },
-    { title: 'Charlotte', url: 'https://anilist.co/anime/20997', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20997-axVYrsIfjtYJ.jpg' },
-    { title: 'DARLING in the FRANXX', url: 'https://anilist.co/anime/99423', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx99423-8MBxtwCeHf8B.png' },
-    { title: 'Cyberpunk: Edgerunners', url: 'https://anilist.co/anime/120377', cover: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx120377-ayZPoxiWt4Li.jpg' }
-  ],
 
   // Edition id -> label and the hosts that count as coming from there.
   editions: [

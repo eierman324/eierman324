@@ -37,10 +37,15 @@ window.EDITIONS.youtube = {
         S.groups.map(function (g) {
           return '<h2 class="yt-shelf">' + esc(g.label) + '</h2><ul class="yt-grid">' + projectsIn(g.id).map(card).join('') + '</ul>';
         }).join('') +
+        (S.anime.length ? '<h2 class="yt-shelf">Favourite anime</h2><ul class="yt-anime">' + S.anime.map(function (a) {
+          return '<li><a href="' + esc(a.url) + '"><img src="' + esc(a.cover) + '" alt="" loading="lazy" width="100" height="142"><span>' + esc(a.title) + '</span></a></li>';
+        }).join('') + '</ul><p class="yt-sub">Full list on ' + linkTo('anilist', 'AniList') + '</p>' : '') +
       '</section>' +
       '<section class="yt-panel" data-panel="projects" hidden>' +
         '<ul class="yt-list">' + S.projects.map(function (p) {
-          return '<li><a href="' + p.url + '">' + thumb(p) + '</a><div><h3><a href="' + p.url + '">' + esc(p.name) + '</a></h3><p class="yt-sub">' + p.year + ', ' + esc(p.tech) + '</p><p>' + esc(p.desc) + '</p></div></li>';
+          return '<li><a href="' + p.url + '">' + thumb(p) + '</a><div><h3><a href="' + p.url + '">' + esc(p.name) + '</a></h3><p class="yt-sub">' + p.year + ', ' + esc(p.tech) + '</p><p>' + esc(p.desc) + '</p>' +
+            (p.tags.length || p.homepage ? '<p class="yt-tags">' + (p.homepage ? '<a href="' + esc(p.homepage) + '">Website</a>' : '') + p.tags.map(function (t) { return '<span>#' + esc(t) + '</span>'; }).join('') + '</p>' : '') +
+            '</div></li>';
         }).join('') + '</ul>' +
       '</section>' +
       '<section class="yt-panel" data-panel="about" hidden>' +

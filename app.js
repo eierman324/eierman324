@@ -2,7 +2,7 @@
 // Without an edition the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '19';
+  var VERSION = '22';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};
@@ -283,6 +283,40 @@
     });
   }
 
+  // ---- Content: content.json (intro, links, facts, anime) ----------------------
+  function loadContent() {
+    return fetchJSON('content.json?v=' + VERSION).then(function (c) {
+      Object.keys(c).forEach(function (k) { if (k.charAt(0) !== '_') S[k] = c[k]; });
+    }).catch(function () { /* fall back to the defaults below */ }).then(function () {
+      S.name = S.name || 'eierman';
+      S.realName = S.realName || '';
+      S.handle = S.handle || '';
+      S.tagline = S.tagline || '';
+      S.intro = S.intro || '';
+      S.location = S.location || '';
+      S.status = S.status || '';
+      S.hashtags = S.hashtags || [];
+      S.links = S.links || [];
+      S.facts = S.facts || [];
+      S.anime = S.anime || [];
+    });
+  }
+
+  // The default page: everything except the projects comes from content.json.
+  function renderHome() {
+    function fill(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; }
+    fill('home-name', esc(S.name));
+    fill('home-intro', esc(S.intro));
+    fill('home-links', S.links.map(function (l) { return '<a href="' + esc(l.url) + '">' + esc(l.label) + '</a>'; }).join(''));
+    fill('home-facts', S.facts.map(function (f) { return '<dt>' + esc(f.label) + '</dt><dd>' + esc(f.text) + '</dd>'; }).join(''));
+    fill('home-covers', S.anime.map(function (a) {
+      return '<li><a href="' + esc(a.url) + '"><img src="' + esc(a.cover) + '" alt="' + esc(a.title) + '" loading="lazy" width="100" height="142"></a></li>';
+    }).join(''));
+    fill('home-more', linkUrl('anilist') ? linkTo('anilist', 'Full list on AniList') : '');
+    fill('home-contact', linkUrl('discord') ? 'Write me on ' + linkTo('discord', 'Discord') + ", I don't bite." : '');
+    document.title = S.name;
+  }
+
   // The default page's project list.
   function renderHomeProjects() {
     var box = document.getElementById('project-groups');
@@ -297,7 +331,7 @@
           (p.tags.length || p.homepage ? '<p class="meta">' +
             (p.homepage ? '<a href="' + esc(p.homepage) + '">Website</a>' : '') +
             p.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</p>' : '') +
-          '<span class="tech">' + esc(p.tech) + '</span></li>';
+          '<span class="tech">' + esc([p.tech, p.year].filter(Boolean).join(', ')) + '</span></li>';
       }).join('') + '</ul></div>';
     }).join('');
   }
@@ -365,16 +399,20 @@
     show(current());
   });
 
-  var projectsReady = loadProjects();
+  var contentReady = loadContent();
+  var projectsReady = contentReady.then(loadProjects);
 
   var first = current();
   if (first) {
     show(first);
   } else {
-    document.documentElement.classList.remove('edition-loading');
-    var slot = document.getElementById('editions-slot');
-    if (slot) slot.innerHTML = editionsBar('');
-    window.hydrateProfiles(document.body);
+    contentReady.then(function () {
+      renderHome();
+      var slot = document.getElementById('editions-slot');
+      if (slot) slot.innerHTML = editionsBar('');
+      window.hydrateProfiles(document.body);
+      document.documentElement.classList.remove('edition-loading');
+    });
     projectsReady.then(renderHomeProjects);
   }
 })();

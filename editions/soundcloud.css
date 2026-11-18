@@ -57,6 +57,13 @@
 .sc-foot p { margin: 0; color: var(--muted); font-size: 0.875rem; max-width: 60ch; }
 .sc-time { font-size: 0.8125rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 
+.sc-meta { margin: 4px 0 0; color: var(--muted); font-size: 0.8125rem; }
+.sc-meta a { color: var(--orange) !important; font-weight: 600; margin-left: 8px; }
+.sc-list + h2 { margin-top: 28px; }
+.sc-side .sc-covers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.sc-covers img { display: block; width: 100%; height: auto; aspect-ratio: 100 / 142; object-fit: cover; }
+.sc-side ul + h2 { margin-top: 24px; }
+
 .sc-side p { color: var(--muted); }
 .sc-side strong { color: var(--text); }
 .sc-side ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }

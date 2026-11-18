@@ -54,6 +54,12 @@
 .fc-games li:last-child { border-bottom: 0; }
 .fc-games span { color: var(--muted); font-size: 0.875rem; }
 .fc-games a { color: var(--orange); }
+.fc-bio { margin: 0; color: var(--muted); }
+.fc-extra { display: flex !important; flex-wrap: wrap; gap: 4px 8px; margin-top: 4px; }
+.fc-extra a { color: var(--orange); font-weight: 700; }
+.fc-extra span { padding: 0 6px; border: 1px solid var(--line); }
+.fc-anime { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.fc-anime img { display: block; width: 100%; height: auto; aspect-ratio: 100 / 142; object-fit: cover; }
 .fc-loadout { display: flex; flex-wrap: wrap; gap: 6px; }
 .fc-loadout li { padding: 3px 10px; background: var(--row); border: 1px solid var(--line); font-size: 0.875rem; }
 .fc-socials { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
