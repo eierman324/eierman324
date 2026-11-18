@@ -2,7 +2,7 @@
 // Without a version the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in versions/, so browsers fetch the new versions.
-  var VERSION = '42';
+  var VERSION = '43';
   var S = window.SITE;
   var ids = S.versions.map(function (e) { return e.id; });
   window.VERSIONS = window.VERSIONS || {};
@@ -522,6 +522,31 @@
     });
   }
 
+  // For search engines: who this page is about, with the profiles from content.json
+  // (schema.org Person). Google reads it from the rendered page.
+  function addPersonData() {
+    if (document.getElementById('person-data')) return;
+    var sameAs = S.links.map(function (l) { return l.url; });
+    if (S.youtube && sameAs.indexOf(S.youtube) === -1) sameAs.push(S.youtube);
+    var data = {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: S.realName || S.name,
+      alternateName: [S.name, S.handle].concat(S.aliases || []).filter(function (n, i, all) {
+        return n && n !== (S.realName || S.name) && all.indexOf(n) === i;
+      }),
+      url: 'https://eierman.cc/',
+      image: 'https://avatars.githubusercontent.com/' + GITHUB_USER + '?s=460',
+      description: S.intro,
+      sameAs: sameAs
+    };
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.id = 'person-data';
+    s.textContent = JSON.stringify(data);
+    document.head.appendChild(s);
+  }
+
   // The default page: everything except the projects comes from content.json.
   function renderHome() {
     function fill(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; }
@@ -535,7 +560,7 @@
     }).join(''));
     fill('home-more', linkUrl('anilist') ? linkTo('anilist', 'Full list on AniList') : '');
     fill('home-contact', linkUrl('discord') ? 'Write me on ' + linkTo('discord', 'Discord') + ", I don't bite." : '');
-    document.title = S.name;
+    addPersonData();
   }
 
   // The default page's project list.

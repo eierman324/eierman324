@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Only the main page: the versions (#tiktok, #github, ...) are the same URL to search
+     engines, and the short links (/discord, /tiktok, ...) only redirect there. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://eierman.cc/</loc>
+  </url>
+</urlset>
