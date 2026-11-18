@@ -2,7 +2,7 @@
 // Without an edition the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '9';
+  var VERSION = '10';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};

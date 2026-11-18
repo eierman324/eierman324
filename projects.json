@@ -16,14 +16,14 @@
   "projects": [
     { "repo": "eierman324/AniWorld-Downloader", "group": "anime" },
     { "repo": "eierman324/anidl-renamer", "group": "anime", "tech": "Userscript" },
-    { "repo": "eierman324/horimiya-manga-order", "group": "anime", "tech": "xyz" },
+    { "repo": "eierman324/horimiya-manga-order", "group": "anime" },
 
     { "repo": "eierman324/fakecrime-music-import", "group": "music", "tech": "Userscript" },
-    { "repo": "eierman324/RecordPlayer", "group": "music", "tech": "xyz" },
+    { "repo": "eierman324/RecordPlayer", "group": "music" },
 
-    { "repo": "eierman324/DomainGate", "group": "games", "tech": "xyz" },
-    { "repo": "mspaint-cc/translations", "group": "games", "tech": "xyz" },
+    { "repo": "eierman324/DomainGate", "group": "games" },
+    { "repo": "mspaint-cc/translations", "group": "games" },
 
-    { "repo": "eierman324/G2MApp", "group": "scooters", "tech": "xyz" }
+    { "repo": "eierman324/G2MApp", "group": "scooters" }
   ]
 }
