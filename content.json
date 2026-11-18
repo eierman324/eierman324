@@ -26,7 +26,7 @@
   "facts": [
     { "label": "Scooters", "text": "Modding them and making them faster than intended. Only SHU so far, VESC is next." },
     { "label": "Games", "text": "Fortnite right now, Valorant for shooters, Minecraft SMPs with friends, and Roblox on my second channel." },
-    { "label": "Homelab", "text": "A NAS with Docker running Jellyfin, Immich, Nextcloud and friends, reachable through Pangolin and Cloudflare." },
+    { "label": "Homelab", "text": "A NAS at home running Jellyfin, Immich and a few smaller things in Docker." },
     { "label": "Anime", "text": "Romance, drama and slice of life. If it makes me cry, it's good." }
   ],
 
