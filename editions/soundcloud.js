@@ -30,7 +30,7 @@ window.EDITIONS.soundcloud = {
           '<div class="sc-foot"><p>' + esc(p.desc) + '</p><span class="sc-time">' + mm + ':' + ss + '</span></div>' +
         '</div></li>';
     }
-    return '<header class="sc-top"><span class="sc-logo">eierman<em>sound</em></span></header>' +
+    return '<header class="sc-top"><span class="sc-logo">eier<em>man</em></span></header>' +
       '<div class="sc-banner"><div class="sc-who">' + avatar('soundcloud', 'sc-avatar') + '<div>' +
         '<h1>' + pname('soundcloud') + '</h1><p>' + esc(S.realName) + ', Germany</p></div></div></div>' +
       '<main class="sc-main-wrap">' +

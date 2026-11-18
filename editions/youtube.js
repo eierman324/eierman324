@@ -16,7 +16,7 @@ window.EDITIONS.youtube = {
     }
     var featured = S.projects[0];
 
-    return '<header class="yt-top"><span class="yt-logo">eierman<span>TV</span></span></header>' +
+    return '<header class="yt-top"><span class="yt-logo">eier<span>man</span></span></header>' +
       '<main class="yt-main">' +
       '<div class="yt-banner"><span>' + esc(S.tagline) + '</span></div>' +
       '<section class="yt-channel">' +
