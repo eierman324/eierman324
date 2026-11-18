@@ -55,10 +55,6 @@ I'm mostly into **romance, drama and slice of life**: give me a show that makes 
 My planning list keeps growing faster than I can watch.
 
 <p align="center">
-  <a href="https://anilist.co/user/eierman324/animelist"><img src="./assets/anilist.svg" alt="AniList stats and currently watching" width="100%"></a>
-</p>
-
-<p align="center">
   <a href="https://anilist.co/anime/99423"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx99423-8MBxtwCeHf8B.png" width="100" alt="DARLING in the FRANXX"></a>
   <a href="https://anilist.co/anime/141391"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx141391-M3ZgUKTPENUk.jpg" width="100" alt="Call of the Night"></a>
   <a href="https://anilist.co/anime/120377"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx120377-ayZPoxiWt4Li.jpg" width="100" alt="Cyberpunk: Edgerunners"></a>
