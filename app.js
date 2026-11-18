@@ -2,7 +2,7 @@
 // Without an edition the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '6';
+  var VERSION = '7';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};
@@ -173,6 +173,7 @@
   function slim(r) {
     return {
       full: r.full_name.toLowerCase(),
+      owner: r.owner && r.owner.login,
       name: r.name,
       description: r.description || '',
       tags: r.topics || [],
@@ -220,8 +221,13 @@
           var base = gh || (e.repo ? { name: e.repo.split('/')[1], url: 'https://github.com/' + e.repo } : {});
           var p = {};
           GH_FIELDS.forEach(function (k) { p[k] = k in e ? e[k] : base[k]; });
+          // Repos that belong to someone else are shown as "owner/name".
+          var owner = e.repo ? (gh && gh.owner) || e.repo.split('/')[0] : '';
+          var external = !!owner && owner.toLowerCase() !== GITHUB_USER.toLowerCase();
           return {
-            name: p.name || '',
+            name: (external ? owner + '/' : '') + (p.name || ''),
+            owner: owner,
+            external: external,
             desc: p.description || '',
             tags: Array.isArray(p.tags) ? p.tags : [],
             tech: p.tech || '',
