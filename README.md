@@ -7,6 +7,8 @@ Cloudflare Worker that serves the profile pictures and names for [eierman.cc](ht
 | `/profile?p=tiktok` | `{"platform","name","handle","avatar","own"}` |
 | `/profiles` | the same for every platform |
 | `/avatar?p=tiktok` | the picture itself |
+| `POST /view` | counts the visitor (once per IP address, only from the allowed pages), answers `{"views"}` |
+| `/views` | `{"views"}` without counting |
 
 Platforms: `github`, `tiktok`, `youtube`, `steam`, `anilist`, `faceit`, `discord`, `soundcloud`, `twitch`.
 
@@ -15,6 +17,8 @@ Twitch pictures come from [decapi.me](https://decapi.me), because Twitch's own A
 Discord goes through [Lanyard](https://github.com/Phineas/lanyard), which also gives the live status (`presence.state` online/idle/dnd/offline and `presence.text`). Lanyard only knows you after you join its Discord server once (discord.gg/lanyard); until then the Worker uses `DISCORD_NAME` and the GitHub picture.
 
 Profiles are cached for 10 minutes (Discord for 1 minute, because of the status) and pictures for an hour, so the platforms aren't asked on every page view.
+
+The view counter keeps one row per visitor in a Durable Object (SQLite). It stores a salted SHA-256 hash of the IP address, not the address; the random salt is created once inside the Durable Object and never leaves it.
 
 ## Deploy
 

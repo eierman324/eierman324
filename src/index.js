@@ -6,8 +6,12 @@
 //   GET /profile?p=tiktok  -> {"platform","name","handle","avatar","own","presence"}
 //   GET /profiles          -> the same for every platform at once
 //   GET /avatar?p=tiktok   -> the picture itself (falls back to the GitHub one)
+//   POST /view             -> counts this visitor once per IP, answers {"views"}
+//   GET /views             -> {"views"} without counting
 //
 // Usernames and allowed origins are set under "vars" in wrangler.jsonc.
+
+import { DurableObject } from 'cloudflare:workers';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
 const PROFILE_TTL = 600;   // seconds a profile stays cached
@@ -172,7 +176,7 @@ function corsHeaders(request, env) {
   const origin = request.headers.get('Origin') || '';
   return {
     'Access-Control-Allow-Origin': allowed.includes(origin) ? origin : allowed[0] || '*',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     Vary: 'Origin',
   };
 }
@@ -182,6 +186,22 @@ export default {
     const url = new URL(request.url);
     const cors = corsHeaders(request, env);
     if (request.method === 'OPTIONS') return new Response(null, { headers: cors });
+    // View counter: one view per IP address, ever. Only pages from ALLOWED_ORIGINS count.
+    if (url.pathname === '/view' || url.pathname === '/views') {
+      const counter = env.VIEWS.get(env.VIEWS.idFromName('eierman.cc'));
+      const nocache = { ...cors, 'Cache-Control': 'no-store' };
+      if (url.pathname === '/view' && request.method === 'POST') {
+        const allowed = (env.ALLOWED_ORIGINS || '').split(',').map((s) => s.trim());
+        const ip = request.headers.get('CF-Connecting-IP');
+        const views = allowed.includes(request.headers.get('Origin') || '') && ip
+          ? await counter.hit(ip) : await counter.count();
+        return Response.json({ views }, { headers: nocache });
+      }
+      if (url.pathname === '/views' && request.method === 'GET') {
+        return Response.json({ views: await counter.count() }, { headers: { ...cors, 'Cache-Control': 'public, max-age=60' } });
+      }
+      return new Response('method not allowed', { status: 405, headers: cors });
+    }
     if (request.method !== 'GET') return new Response('method not allowed', { status: 405, headers: cors });
 
     const platform = (url.searchParams.get('p') || '').toLowerCase();
@@ -208,3 +228,32 @@ export default {
     return new Response('not found', { status: 404, headers: cors });
   },
 };
+
+// Counts visitors. Stores only a salted SHA-256 hash of each IP address, never the
+// address itself; the salt is made randomly once and never leaves this object.
+export class ViewCounter extends DurableObject {
+  constructor(ctx, env) {
+    super(ctx, env);
+    const sql = ctx.storage.sql;
+    sql.exec('CREATE TABLE IF NOT EXISTS seen (id TEXT PRIMARY KEY)');
+    sql.exec('CREATE TABLE IF NOT EXISTS meta (k TEXT PRIMARY KEY, v TEXT)');
+    let row = sql.exec("SELECT v FROM meta WHERE k = 'salt'").toArray()[0];
+    if (!row) {
+      const salt = [...crypto.getRandomValues(new Uint8Array(32))].map((b) => b.toString(16).padStart(2, '0')).join('');
+      sql.exec("INSERT INTO meta (k, v) VALUES ('salt', ?)", salt);
+      row = { v: salt };
+    }
+    this.salt = row.v;
+  }
+
+  async hit(ip) {
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(this.salt + ip));
+    const id = [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
+    this.ctx.storage.sql.exec('INSERT OR IGNORE INTO seen (id) VALUES (?)', id);
+    return this.count();
+  }
+
+  count() {
+    return this.ctx.storage.sql.exec('SELECT COUNT(*) AS n FROM seen').one().n;
+  }
+}

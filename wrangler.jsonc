@@ -4,6 +4,10 @@
   "main": "src/index.js",
   "compatibility_date": "2026-11-01",
   "observability": { "enabled": true },
+  // View counter (POST /view): one Durable Object with its own SQLite storage.
+  // Cloudflare creates it on the first deploy, nothing to set up by hand.
+  "durable_objects": { "bindings": [{ "name": "VIEWS", "class_name": "ViewCounter" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["ViewCounter"] }],
   "vars": {
     // Pages that may call the Worker (comma separated).
     "ALLOWED_ORIGINS": "https://eierman.cc,https://www.eierman.cc,https://eierman324.github.io,http://localhost:8731",
