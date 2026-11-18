@@ -2,7 +2,7 @@
 // Without an edition the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '18';
+  var VERSION = '19';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};
@@ -56,7 +56,7 @@
   // Without it, or when it doesn't answer, GitHub and AniList are fetched directly
   // from the browser and the other platforms show the fallback names from
   // profiles.js with the GitHub picture. Pictures are never stored in the repo.
-  var PROFILE_API = '';
+  var PROFILE_API = 'https://eierman324.pelmeni.workers.dev';
 
   var GITHUB_USER = 'eierman324';
   var ANILIST_USER = 'eierman324';
