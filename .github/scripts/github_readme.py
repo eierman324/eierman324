@@ -304,8 +304,8 @@ def readme(S):
                  + text_el(2.5 + (w + 1) / 2, 20, c, "", "middle"))
         note.append(link(f"{SITE_URL}/#github/{c}", piece("cmd-" + c, w + 6, H, inner, c)))
 
-    # # This page has a version for every place you might come from.
-    intro = "# This page has a version for every place you might come from."
+    # # This page has a version for every place you might come from
+    intro = "# This page has a version for every place you might come from"
     vers_title = link(f"{SITE_URL}/#github", piece("versions", len(intro) * CW, 24, text_el(0, 17, intro, "dim"), intro))
 
     # Default  TikTok  YouTube  * GitHub ...   (14px gap, links underlined, current one green)
