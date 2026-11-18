@@ -6,13 +6,13 @@ window.EDITIONS.tiktok = {
     }
     var intro = slide(
       '<div class="tt-body">' +
-        '<p class="tt-user">@eierman.cc</p>' +
-        '<h1 class="tt-glitch" data-text="' + esc(S.name) + '">' + esc(S.name) + '</h1>' +
+        '<p class="tt-user">' + phandle('tiktok') + '</p>' +
+        '<h1 class="tt-glitch">' + pname('tiktok') + '</h1>' +
         '<p class="tt-desc">' + esc(S.intro) + '</p>' +
         '<p class="tt-tags">#it #escooter #gaming #anime</p>' +
         '<p class="tt-hint">Swipe up for projects</p>' +
       '</div>' +
-      '<div class="tt-rail"><span class="tt-avatar" aria-hidden="true">e</span>' +
+      '<div class="tt-rail">' + avatar('tiktok', 'tt-avatar') +
         S.links.slice(0, 4).map(function (l) { return '<a href="' + l.url + '">' + esc(l.label) + '</a>'; }).join('') +
       '</div>', 330, 'tt-first');
 
@@ -22,12 +22,12 @@ window.EDITIONS.tiktok = {
       var group = S.groups.filter(function (g) { return g.id === p.group; })[0];
       return slide(
         '<div class="tt-body">' +
-          '<p class="tt-user">@eierman.cc <span>' + (i + 1) + ' / ' + S.projects.length + '</span></p>' +
+          '<p class="tt-user">' + phandle('tiktok') + ' <span>' + (i + 1) + ' / ' + S.projects.length + '</span></p>' +
           '<h2 class="tt-glitch" data-text="' + esc(p.name) + '">' + esc(p.name) + '</h2>' +
           '<p class="tt-desc">' + esc(p.desc) + '</p>' +
           '<p class="tt-tags">#' + esc(p.tech.replace(/[^a-z0-9#]/gi, '').toLowerCase()) + ' #' + esc(group.label.split(' ')[0].toLowerCase()) + '</p>' +
         '</div>' +
-        '<div class="tt-rail"><span class="tt-avatar" aria-hidden="true">e</span>' +
+        '<div class="tt-rail">' + avatar('tiktok', 'tt-avatar') +
           '<a href="' + p.url + '">Open</a>' +
           '<span class="tt-meta">' + esc(p.tech) + '</span>' +
           '<span class="tt-meta">' + p.year + '</span>' +

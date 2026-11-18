@@ -64,6 +64,20 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .controls button:hover { border-color: var(--accent); }
 .controls button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
+.home-pfp {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-right: auto;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--accent);
+  font: 800 1.125rem/1 var(--display);
+  text-decoration: none;
+}
+
 .swatch { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px var(--muted); }
 
 body, .controls button, .projects li, .hero { transition: background-color 0.3s, color 0.3s, border-color 0.3s; }

@@ -9,21 +9,21 @@ window.EDITIONS.discord = {
       { id: 'links', topic: 'Find me elsewhere' }
     ];
     return '<div class="dc-app">' +
-      '<nav class="dc-servers" aria-label="Servers"><span class="dc-srv is-on" aria-hidden="true">e</span><span class="dc-srv" aria-hidden="true">⛏</span><span class="dc-srv" aria-hidden="true">🛴</span></nav>' +
+      '<nav class="dc-servers" aria-label="Servers">' + avatar('discord', 'dc-srv is-on') + '<span class="dc-srv" aria-hidden="true">⛏</span><span class="dc-srv" aria-hidden="true">🛴</span></nav>' +
       '<aside class="dc-side">' +
         '<p class="dc-server-name">eierman\'s server</p>' +
         '<p class="dc-cat">Text channels</p>' +
         '<ul class="dc-channels">' + channels.map(function (c, i) {
           return '<li><button type="button" data-ch="' + c.id + '" data-topic="' + esc(c.topic) + '"' + (i === 0 ? ' aria-current="true"' : '') + '><span aria-hidden="true">#</span>' + c.id + '</button></li>';
         }).join('') + '</ul>' +
-        '<div class="dc-me"><span class="dc-av sm" aria-hidden="true">e<i></i></span><div><strong>' + esc(S.name) + '</strong><small>Online</small></div></div>' +
+        '<div class="dc-me">' + avatar('discord', 'dc-av sm').replace('</span>', '<i></i></span>') + '<div><strong>' + pname('discord') + '</strong><small>Online</small></div></div>' +
       '</aside>' +
       '<main class="dc-chat">' +
         '<header class="dc-head"><span aria-hidden="true">#</span><h1 id="dc-title">welcome</h1><p id="dc-topic">Start here</p></header>' +
         '<div class="dc-msgs" id="dc-msgs" aria-live="polite"></div>' +
-        '<div class="dc-compose"><a href="' + S.links[1].url + '">Message @' + esc(S.name) + ' on Discord</a></div>' +
+        '<div class="dc-compose"><a href="' + S.links[1].url + '">Message @' + pname('discord') + ' on Discord</a></div>' +
       '</main>' +
-      '<aside class="dc-members" aria-label="Members"><p class="dc-cat">Online, 1</p><div class="dc-member"><span class="dc-av sm" aria-hidden="true">e<i></i></span><div><strong>' + esc(S.name) + '</strong><small>Probably tuning a scooter</small></div></div></aside>' +
+      '<aside class="dc-members" aria-label="Members"><p class="dc-cat">Online, 1</p><div class="dc-member">' + avatar('discord', 'dc-av sm').replace('</span>', '<i></i></span>') + '<div><strong>' + pname('discord') + '</strong><small>Probably tuning a scooter</small></div></div></aside>' +
       '</div>';
   },
   mount: function (root, S) {
@@ -33,7 +33,7 @@ window.EDITIONS.discord = {
     var buttons = root.querySelectorAll('.dc-channels button');
 
     function msg(body, time) {
-      return '<article class="dc-msg"><span class="dc-av" aria-hidden="true">e</span><div><p class="dc-meta"><strong>' + esc(S.name) + '</strong><span>Today at ' + time + '</span></p>' + body + '</div></article>';
+      return '<article class="dc-msg">' + avatar('discord', 'dc-av') + '<div><p class="dc-meta"><strong>' + pname('discord') + '</strong><span>Today at ' + time + '</span></p>' + body + '</div></article>';
     }
     function cont(body) { return '<article class="dc-msg dc-cont"><div>' + body + '</div></article>'; }
     function embed(p) {
@@ -73,6 +73,7 @@ window.EDITIONS.discord = {
       topic.textContent = b.dataset.topic;
       msgs.innerHTML = content[id]();
       msgs.scrollTop = 0;
+      window.hydrateProfiles(msgs);
       msgs.querySelectorAll('[data-go]').forEach(function (m) { m.addEventListener('click', function () { open(m.dataset.go); }); });
     }
     buttons.forEach(function (b) { b.addEventListener('click', function () { open(b.dataset.ch); }); });

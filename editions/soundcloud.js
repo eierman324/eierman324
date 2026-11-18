@@ -24,15 +24,15 @@ window.EDITIONS.soundcloud = {
         '<a class="sc-art" href="' + p.url + '" style="--h:' + h + '" aria-label="Open ' + esc(p.name) + '"><span>' + esc(p.name.charAt(0)) + '</span></a>' +
         '<div class="sc-main">' +
           '<div class="sc-head"><button class="sc-play" type="button" aria-label="Play ' + esc(p.name) + '"><span aria-hidden="true"></span></button>' +
-          '<div><p class="sc-artist">' + esc(S.name) + '</p><h3><a href="' + p.url + '">' + esc(p.name) + '</a></h3></div>' +
+          '<div><p class="sc-artist">' + pname('soundcloud') + '</p><h3><a href="' + p.url + '">' + esc(p.name) + '</a></h3></div>' +
           '<span class="sc-tag">#' + esc(p.tech) + '</span></div>' +
           wave(p.name) +
           '<div class="sc-foot"><p>' + esc(p.desc) + '</p><span class="sc-time">' + mm + ':' + ss + '</span></div>' +
         '</div></li>';
     }
     return '<header class="sc-top"><span class="sc-logo">eierman<em>sound</em></span></header>' +
-      '<div class="sc-banner"><div class="sc-who"><span class="sc-avatar" aria-hidden="true">e</span><div>' +
-        '<h1>' + esc(S.name) + '</h1><p>' + esc(S.realName) + ', Germany</p></div></div></div>' +
+      '<div class="sc-banner"><div class="sc-who">' + avatar('soundcloud', 'sc-avatar') + '<div>' +
+        '<h1>' + pname('soundcloud') + '</h1><p>' + esc(S.realName) + ', Germany</p></div></div></div>' +
       '<main class="sc-main-wrap">' +
         '<div class="sc-cols"><section><h2>Tracks</h2><ol class="sc-list">' + S.projects.map(track).join('') + '</ol></section>' +
         '<aside class="sc-side"><h2>Bio</h2><p>' + esc(S.intro) + '</p>' +

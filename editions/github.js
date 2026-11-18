@@ -26,7 +26,10 @@ window.EDITIONS.github = {
       help: function () {
         print('<p class="gh-dim">ls              list projects<br>open &lt;name&gt;     open a project<br>about           who I am<br>links           where to find me<br>anime           favourite shows<br>clear           clear the screen</p>');
       },
-      whoami: function () { print('<p>' + esc(S.realName) + ' aka ' + esc(S.name) + '</p>'); },
+      whoami: function () {
+        print('<div class="gh-who">' + avatar('github', 'gh-pfp') + '<p>' + pname('github') + ' <span class="gh-dim">(' + phandle('github') + ')</span><br>' + esc(S.realName) + '</p></div>');
+        window.hydrateProfiles(out);
+      },
       about: function () {
         print('<p>' + esc(S.intro) + '</p>' + S.facts.map(function (f) {
           return '<p><span class="gh-key">' + esc(f.label.toLowerCase()) + '</span>: ' + esc(f.text) + '</p>';

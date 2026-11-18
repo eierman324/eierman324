@@ -30,6 +30,9 @@
 .gh-out p { margin: 0 0 2px; white-space: pre-wrap; overflow-wrap: anywhere; }
 .gh-out p + p.gh-dir { margin-top: 10px; }
 
+.gh-who { display: flex; align-items: center; gap: 12px; margin: 4px 0 8px; }
+.gh-pfp { display: grid; place-items: center; flex: none; width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); color: var(--dim); font-weight: 700; font-size: 1.5rem; }
+
 .gh-user { color: var(--green); font-weight: 700; }
 .gh-path { color: var(--blue); font-weight: 700; }
 .gh-dim { color: var(--dim); }

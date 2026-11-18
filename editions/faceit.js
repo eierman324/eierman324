@@ -8,8 +8,8 @@ window.EDITIONS.faceit = {
 
     return '<header class="fc-hero">' +
         '<div class="fc-wrap fc-player">' +
-          '<span class="fc-avatar" aria-hidden="true">e</span>' +
-          '<div><p class="fc-country">Germany</p><h1>' + esc(S.name) + '</h1><p class="fc-tag">' + esc(S.tagline) + '</p></div>' +
+          avatar('faceit', 'fc-avatar') +
+          '<div><p class="fc-country">Germany</p><h1>' + pname('faceit') + '</h1><p class="fc-tag">' + esc(S.tagline) + '</p></div>' +
         '</div>' +
       '</header>' +
       '<main class="fc-wrap">' +

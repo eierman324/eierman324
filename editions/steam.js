@@ -12,14 +12,14 @@ window.EDITIONS.steam = {
     }).join('');
 
     return '<header class="st-top">' +
-        '<nav class="st-nav"><span class="st-brand">eierman</span><span aria-current="page">Library</span><a href="#st-profile">Profile</a></nav>' +
+        '<nav class="st-nav"><span class="st-brand">' + pname('steam') + '</span><span aria-current="page">Library</span><a href="#st-profile">Profile</a></nav>' +
       '</header>' +
       '<div class="st-shell">' +
         '<aside class="st-side" aria-label="Projects"><p class="st-side-head">Projects</p><ul>' + list + '</ul></aside>' +
         '<main class="st-detail" id="st-detail" aria-live="polite"></main>' +
       '</div>' +
       '<section class="st-profile" id="st-profile">' +
-        '<div class="st-pcard"><span class="st-pavatar" aria-hidden="true">e</span><div><h2>' + esc(S.name) + '</h2><p class="st-online">Online</p><p>' + esc(S.intro) + '</p></div></div>' +
+        '<div class="st-pcard">' + avatar('steam', 'st-pavatar') + '<div><h2>' + pname('steam') + '</h2><p class="st-online">Online</p><p>' + esc(S.intro) + '</p></div></div>' +
         '<div class="st-showcase"><h3>Favourite anime</h3><ul>' + S.anime.map(function (a) {
           return '<li><a href="' + a.url + '"><img src="' + a.cover + '" alt="' + esc(a.title) + '" loading="lazy" width="100" height="142"></a></li>';
         }).join('') + '</ul></div>' +

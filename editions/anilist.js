@@ -12,7 +12,7 @@ window.EDITIONS.anilist = {
 
     return '<header class="al-banner" style="--covers:' + S.anime.length + '">' +
         '<div class="al-covers" aria-hidden="true">' + S.anime.map(function (a) { return '<img src="' + a.cover + '" alt="">'; }).join('') + '</div>' +
-        '<div class="al-head"><span class="al-avatar" aria-hidden="true">e</span><h1>' + esc(S.name) + '</h1></div>' +
+        '<div class="al-head">' + avatar('anilist', 'al-avatar') + '<h1>' + pname('anilist') + '</h1></div>' +
       '</header>' +
       '<nav class="al-tabs" aria-label="Sections"><a href="#al-list">Project list</a><a href="#al-favs">Favourites</a><a href="#al-about">About</a></nav>' +
       '<main class="al-main">' +

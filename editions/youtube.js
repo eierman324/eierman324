@@ -10,8 +10,8 @@ window.EDITIONS.youtube = {
     }
     function card(p) {
       return '<li class="yt-card"><a href="' + p.url + '">' + thumb(p) +
-        '<div class="yt-info"><span class="yt-avatar sm" aria-hidden="true">e</span><div>' +
-        '<h3>' + esc(p.name) + '</h3><p>' + esc(S.name) + '</p><p>' + p.year + ', ' + esc(p.tech) + '</p>' +
+        '<div class="yt-info">' + avatar('youtube', 'yt-avatar sm') + '<div>' +
+        '<h3>' + esc(p.name) + '</h3><p>' + pname('youtube') + '</p><p>' + p.year + ', ' + esc(p.tech) + '</p>' +
         '</div></div></a></li>';
     }
     var featured = S.projects[0];
@@ -20,9 +20,9 @@ window.EDITIONS.youtube = {
       '<main class="yt-main">' +
       '<div class="yt-banner"><span>' + esc(S.tagline) + '</span></div>' +
       '<section class="yt-channel">' +
-        '<span class="yt-avatar" aria-hidden="true">e</span>' +
-        '<div><h1>' + esc(S.name) + '</h1>' +
-        '<p class="yt-sub">@' + esc(S.handle) + ', ' + S.projects.length + ' projects</p>' +
+        avatar('youtube', 'yt-avatar') +
+        '<div><h1>' + pname('youtube') + '</h1>' +
+        '<p class="yt-sub">' + phandle('youtube') + ', ' + S.projects.length + ' projects</p>' +
         '<p class="yt-about-line">' + esc(S.intro) + '</p>' +
         '<a class="yt-subscribe" href="' + S.links[3].url + '">Subscribe on YouTube</a></div>' +
       '</section>' +
