@@ -2,7 +2,7 @@
 // Without a version the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in versions/, so browsers fetch the new versions.
-  var VERSION = '31';
+  var VERSION = '32';
   var S = window.SITE;
   var ids = S.versions.map(function (e) { return e.id; });
   window.VERSIONS = window.VERSIONS || {};
@@ -385,7 +385,10 @@
       root.dataset.version = id;
       document.title = S.name + ' (' + S.versions[ids.indexOf(id)].label + ' version)';
       document.body.className = 'vs-' + id;
-      document.body.innerHTML = window.VERSIONS[id].render(S) + versionsBar(id);
+      // Always-visible way back to the default page (styled in index.html, so it
+      // looks the same in every version).
+      document.body.innerHTML = '<a class="to-default" href="#default"><span aria-hidden="true">←</span> Default version</a>' +
+        window.VERSIONS[id].render(S) + versionsBar(id);
       if (window.VERSIONS[id].mount) window.VERSIONS[id].mount(document.body, S);
       window.hydrateProfiles(document.body);
       window.scrollTo(0, 0);
