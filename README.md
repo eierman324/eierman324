@@ -1,4 +1,4 @@
-# eierman-profiles
+# eierman324 profile Worker
 
 Cloudflare Worker that serves the profile pictures and names for [eierman.cc](https://eierman.cc). It fetches them live from GitHub, TikTok, YouTube, Steam, AniList and FACEIT; platforms without a picture get the GitHub one.
 
@@ -18,4 +18,4 @@ In Cloudflare: **Workers & Pages → Create → Import a repository**, pick `eie
 
 Usernames and the pages allowed to call the Worker are under `vars` in [`wrangler.jsonc`](wrangler.jsonc).
 
-Afterwards put the Worker's address (for example `https://eierman-profiles.<your-subdomain>.workers.dev`) into `PROFILE_API` at the top of `app.js` on the `website` branch.
+Afterwards put the Worker's address (for example `https://eierman324.<your-subdomain>.workers.dev`) into `PROFILE_API` at the top of `app.js` on the `website` branch.
