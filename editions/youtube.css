@@ -39,11 +39,11 @@
   background: #ffcf33; color: #131313;
   font: 800 clamp(2rem, 6vw, 4rem)/1 "Rubik", sans-serif;
 }
-.yt-avatar.sm { width: 36px; font-size: 1rem; }
+.yt-avatar.sm { width: 36px; height: 36px; align-self: flex-start; font-size: 1rem; }
 .yt-channel h1 { margin: 0; font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800; }
 .yt-sub { margin: 2px 0; color: var(--muted); }
 .yt-about-line { margin: 6px 0 12px; max-width: 60ch; color: var(--muted); }
-.yt-subscribe { display: inline-block; padding: 9px 16px; border-radius: 999px; background: var(--text); color: var(--bg) !important; font-weight: 500; }
+.yt-subscribe { text-decoration: none; display: inline-block; padding: 9px 16px; border-radius: 999px; background: var(--text); color: var(--bg) !important; font-weight: 500; }
 
 .yt-tabs { display: flex; gap: 24px; margin-top: 16px; border-bottom: 1px solid var(--chip); overflow-x: auto; }
 .yt-tabs button {

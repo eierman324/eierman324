@@ -19,9 +19,11 @@
 .st-nav span[aria-current] { color: var(--blue); border-bottom: 2px solid var(--blue); }
 .st-nav a { color: var(--text); }
 
-.st-shell { display: grid; grid-template-columns: 280px 1fr; min-height: 70svh; }
+.st-shell { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100svh - 56px); }
+.st-right { min-width: 0; }
 
-.st-side { background: var(--side); padding: 12px 0 24px; }
+.st-side { background: var(--side); }
+.st-side-inner { position: sticky; top: 0; max-height: 100svh; overflow-y: auto; padding: 12px 0 24px; }
 .st-side-head { margin: 0 14px 8px; color: #8f98a0; font-size: 0.8125rem; }
 .st-side ul { list-style: none; margin: 0; padding: 0; }
 .st-cat > p { margin: 12px 14px 4px; color: #8f98a0; font-weight: 700; font-size: 0.8125rem; }
@@ -64,7 +66,7 @@
 .st-about { margin: 24px clamp(16px, 4vw, 40px) 40px; max-width: 70ch; }
 .st-about h2 { margin: 0 0 8px; color: var(--bright); font: 600 1.125rem "Barlow Condensed", sans-serif; letter-spacing: 0.04em; }
 
-.st-profile { width: min(1200px, 100% - 32px); margin: 0 auto; padding: 32px 0; display: grid; gap: 24px; }
+.st-profile { padding: 32px clamp(16px, 4vw, 40px) 40px; display: grid; gap: 24px; }
 .st-pcard { display: flex; gap: 20px; padding: 20px; background: linear-gradient(120deg, #2a2342, #1b2838); border-radius: 3px; }
 .st-pavatar { display: grid; place-items: center; flex: none; width: 96px; height: 96px; border: 2px solid #57cbde; background: #0e1a26; color: var(--bright); font: 800 2.5rem "Barlow Condensed", sans-serif; }
 .st-pcard h2 { margin: 0; color: var(--bright); font: 600 1.75rem "Barlow Condensed", sans-serif; }
@@ -88,6 +90,7 @@
 
 @media (max-width: 720px) {
   .st-shell { grid-template-columns: 1fr; }
+  .st-side-inner { position: static; max-height: none; }
   .st-showcase ul { grid-template-columns: repeat(3, 1fr); }
   .st-facts { grid-template-columns: 1fr; }
   .st-pcard { flex-direction: column; }

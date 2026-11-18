@@ -15,9 +15,9 @@ window.EDITIONS.steam = {
         '<nav class="st-nav"><span class="st-brand">' + pname('steam') + '</span><span aria-current="page">Library</span><a href="#st-profile">Profile</a></nav>' +
       '</header>' +
       '<div class="st-shell">' +
-        '<aside class="st-side" aria-label="Projects"><p class="st-side-head">Projects</p><ul>' + list + '</ul></aside>' +
+        '<aside class="st-side" aria-label="Projects"><div class="st-side-inner"><p class="st-side-head">Projects</p><ul>' + list + '</ul></div></aside>' +
+        '<div class="st-right">' +
         '<main class="st-detail" id="st-detail" aria-live="polite"></main>' +
-      '</div>' +
       '<section class="st-profile" id="st-profile">' +
         '<div class="st-pcard">' + avatar('steam', 'st-pavatar') + '<div><h2>' + pname('steam') + '</h2><p class="st-online">Online</p><p>' + esc(S.intro) + '</p></div></div>' +
         (S.facts.length ? '<div class="st-showcase"><h3>About me</h3><dl class="st-facts">' + S.facts.map(function (f) {
@@ -27,7 +27,9 @@ window.EDITIONS.steam = {
           return '<li><a href="' + a.url + '"><img src="' + a.cover + '" alt="' + esc(a.title) + '" loading="lazy" width="100" height="142"></a></li>';
         }).join('') + '</ul></div>' +
         '<div class="st-links">' + S.links.map(function (l) { return '<a href="' + l.url + '">' + esc(l.label) + '</a>'; }).join('') + '</div>' +
-      '</section>';
+      '</section>' +
+        '</div>' +
+      '</div>';
   },
   mount: function (root, S) {
     var detail = root.querySelector('#st-detail');
