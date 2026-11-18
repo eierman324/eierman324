@@ -23,6 +23,7 @@
     { "id": "github", "label": "GitHub", "url": "https://github.com/eierman324", "icon": "github" },
     { "id": "discord", "label": "Discord", "url": "https://discord.com/users/1253218430396403714", "icon": "discord" },
     { "id": "tiktok", "label": "TikTok", "url": "https://www.tiktok.com/@eierman.cc", "icon": "tiktok" },
+    { "id": "twitch", "label": "Twitch", "url": "https://www.twitch.tv/eierman324", "icon": "link" },
     { "id": "anilist", "label": "AniList", "url": "https://anilist.co/user/eierman324/animelist", "icon": "anilist" }
   ],
 
