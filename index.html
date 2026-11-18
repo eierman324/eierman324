@@ -34,7 +34,10 @@
     }
     .to-default:hover { background: rgba(14, 14, 20, .97); }
     .to-default:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-    .view-pill[hidden] { display: none !important; }
+    /* Placeholder while the number loads: a small pulsing bar. */
+    .views-n:empty { display: inline-block; width: 1.6em; height: .8em; border-radius: 4px; background: currentColor; opacity: .3; vertical-align: -1px; animation: views-pulse 1s ease-in-out infinite alternate; }
+    @keyframes views-pulse { to { opacity: .12; } }
+    @media (prefers-reduced-motion: reduce) { .views-n:empty { animation: none; } }
     .view-pill svg { flex: none; width: 15px; height: 15px; }
     .view-pill b { font-weight: 700; font-variant-numeric: tabular-nums; }
     /* Default page: sits with the colour buttons in the hero. */
@@ -129,7 +132,7 @@
     <div class="wrap">
       <div class="controls">
         <span class="home-pfp pfp-slot" data-pfp="github" aria-hidden="true">e</span>
-        <span class="view-pill" data-views hidden></span>
+        <span class="view-pill" data-views><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></g></svg><span><b class="views-n"></b> <span class="views-word">views</span></span></span>
         <button type="button" id="palette-btn"><span class="swatch" aria-hidden="true"></span><span id="palette-name">Colours</span></button>
         <button type="button" id="mode-btn">Switch to light</button>
         <span class="sr-only" aria-live="polite" id="theme-status"></span>
@@ -166,7 +169,7 @@
 
   <script src="site.js?v=28"></script>
   <script src="profiles.js?v=12"></script>
-  <script src="app.js?v=37"></script>
+  <script src="app.js?v=38"></script>
 
   <script>
     (function () {

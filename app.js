@@ -2,7 +2,7 @@
 // Without a version the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in versions/, so browsers fetch the new versions.
-  var VERSION = '37';
+  var VERSION = '38';
   var S = window.SITE;
   var ids = S.versions.map(function (e) { return e.id; });
   window.VERSIONS = window.VERSIONS || {};
@@ -59,8 +59,8 @@
   var PROFILE_API = 'https://eierman324.pelmeni.workers.dev';
 
   // ---- Views: the Worker counts each IP address once (POST /view) -------------
-  // Every element with data-views shows an eye and "1,234 views"; it stays hidden
-  // when the Worker can't be reached.
+  // The pill (eye + "views") is on the page right away; only the number waits
+  // for the Worker. Until then it shows a small placeholder, "–" if it fails.
   var viewsReady = PROFILE_API && window.fetch
     ? fetch(PROFILE_API.replace(/\/+$/, '') + '/view', { method: 'POST' })
         .then(function (r) { return r.ok ? r.json() : null; })
@@ -68,13 +68,17 @@
         .catch(function () { return null; })
     : Promise.resolve(null);
 
+  window.viewPill = function () {
+    return '<span class="view-pill" data-views><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></g></svg><span><b class="views-n"></b> <span class="views-word">views</span></span></span>';
+  };
+
   window.fillViews = function (root) {
     viewsReady.then(function (n) {
-      if (n === null) return;
       root.querySelectorAll('[data-views]').forEach(function (el) {
-        el.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></g></svg>' +
-          '<span><b>' + n.toLocaleString('en-US') + '</b>' + (n === 1 ? ' view' : ' views') + '</span>';
-        el.hidden = false;
+        var num = el.querySelector('.views-n'), word = el.querySelector('.views-word');
+        if (!num) return;
+        num.textContent = n === null ? '–' : n.toLocaleString('en-US');
+        if (word) word.textContent = n === 1 ? 'view' : 'views';
       });
     });
   };
@@ -409,7 +413,7 @@
       document.body.className = 'vs-' + id;
       // Always-visible way back to the default page (styled in index.html, so it
       // looks the same in every version).
-      document.body.innerHTML = '<div class="top-pills"><span class="view-pill" data-views hidden></span>' +
+      document.body.innerHTML = '<div class="top-pills">' + window.viewPill() +
         '<a class="to-default" href="#default"><span aria-hidden="true">←</span> Default version</a></div>' +
         window.VERSIONS[id].render(S) + versionsBar(id);
       if (window.VERSIONS[id].mount) window.VERSIONS[id].mount(document.body, S);
