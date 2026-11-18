@@ -93,21 +93,25 @@ html[data-edition="tiktok"] { scroll-snap-type: y mandatory; background: #000; }
 .tt-rail a:hover { background: var(--red); }
 .tt-meta { color: #ddd; font-weight: 600; }
 
-/* Link buttons with the site's favicon */
+/* Link icons: plain white, no background */
 .tt-rail a.tt-icon-link {
   width: 48px;
   min-height: 48px;
   height: 48px;
   padding: 0;
   border-radius: 50%;
-  background: #fff;
+  background: transparent;
+  color: #fff;
+  filter: drop-shadow(0 1px 3px rgb(0 0 0 / 0.6));
+  transition: color 0.15s, transform 0.15s;
 }
-.tt-rail a.tt-icon-link:hover { background: #fff; box-shadow: 0 0 0 3px var(--red); }
-.tt-icon-link img { display: block; width: 26px; height: 26px; object-fit: contain; }
-.tt-icon-link span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.tt-icon-link.no-icon { width: 64px; height: auto; min-height: 44px; border-radius: 12px; background: rgb(255 255 255 / 0.14); }
-.tt-icon-link.no-icon img { display: none; }
-.tt-icon-link.no-icon span { position: static; width: auto; height: auto; clip: auto; white-space: normal; }
+.tt-rail a.tt-icon-link:hover { background: transparent; color: var(--cyan); transform: scale(1.1); }
+.tt-icon-link svg { display: block; width: 30px; height: 30px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-rail a.tt-icon-link { transition: none; }
+  .tt-rail a.tt-icon-link:hover { transform: none; }
+}
 
 .ed-tiktok .editions {
   scroll-snap-align: end;
