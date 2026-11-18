@@ -2,10 +2,21 @@
 // Without an edition the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '12';
+  var VERSION = '13';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};
+
+  // URL of a link from content.js by its id, or '' if it isn't in the list.
+  window.linkUrl = function (id) {
+    var l = S.links.filter(function (x) { return x.id === id; })[0];
+    return l ? l.url : '';
+  };
+  // A link to that entry, or just the text when the link isn't in the list.
+  window.linkTo = function (id, text) {
+    var url = window.linkUrl(id);
+    return url ? '<a href="' + esc(url) + '">' + text + '</a>' : text;
+  };
 
   // Links to other sites open in a new tab. Checked on click, so it also covers
   // content rendered later (Discord channels, the GitHub terminal, ...).

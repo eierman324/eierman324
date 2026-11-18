@@ -38,7 +38,7 @@ window.EDITIONS.faceit = {
             '<section class="fc-box"><h2>Games</h2><ul class="fc-games">' +
               '<li><strong>Fortnite</strong><span>Main game right now</span></li>' +
               '<li><strong>Valorant</strong><span>Shooter of choice</span></li>' +
-              '<li><strong>Counter-Strike</strong><span>Used to play here on <a href="' + S.links[6].url + '">FACEIT</a></span></li>' +
+              '<li><strong>Counter-Strike</strong><span>Used to play on ' + linkTo('faceit', 'FACEIT') + '</span></li>' +
               '<li><strong>Minecraft</strong><span>SMPs with friends</span></li>' +
             '</ul></section>' +
             '<section class="fc-box"><h2>Loadout</h2><ul class="fc-loadout">' + techs.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></section>' +

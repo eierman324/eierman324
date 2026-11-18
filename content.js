@@ -6,14 +6,12 @@ window.SITE = {
   tagline: 'IT, e-scooter tuning and breaking game mechanics for fun.',
   intro: "Hi, I'm Felix. I work in IT, tune e-scooters past their limits and like finding the spot where a game stops working as intended. Whatever bugs me along the way turns into a small tool.",
 
+  // The links shown on every edition, in this order.
   links: [
-    { id: 'github',     label: 'GitHub',     url: 'https://github.com/eierman324' },
-    { id: 'discord',    label: 'Discord',    url: 'https://discord.com/users/1253218430396403714' },
-    { id: 'tiktok',     label: 'TikTok',     url: 'https://www.tiktok.com/@eierman.cc' },
-    { id: 'youtube',    label: 'YouTube',    url: 'https://www.youtube.com/@eierman324' },
-    { id: 'steam',      label: 'Steam',      url: 'https://steamcommunity.com/id/eierman324/' },
-    { id: 'anilist',    label: 'AniList',    url: 'https://anilist.co/user/eierman324/animelist' },
-    { id: 'faceit',     label: 'FACEIT',     url: 'https://www.faceit.com/de/players/eierman324' }
+    { id: 'fakecrime', label: 'fakecrime', url: 'https://fakecrime.bio/eierman' },
+    { id: 'discord',   label: 'Discord',   url: 'https://discord.com/users/1253218430396403714' },
+    { id: 'tiktok',    label: 'TikTok',    url: 'https://www.tiktok.com/@eierman.cc' },
+    { id: 'anilist',   label: 'AniList',   url: 'https://anilist.co/user/eierman324/animelist' }
   ],
 
   // Groups and projects live in projects.json.

@@ -24,7 +24,7 @@ window.EDITIONS.youtube = {
         '<div><h1>' + pname('youtube') + '</h1>' +
         '<p class="yt-sub">' + phandle('youtube') + ', ' + S.projects.length + ' projects</p>' +
         '<p class="yt-about-line">' + esc(S.intro) + '</p>' +
-        '<a class="yt-subscribe" href="' + S.links[3].url + '">Subscribe on YouTube</a></div>' +
+        (linkUrl('fakecrime') ? '<a class="yt-subscribe" href="' + esc(linkUrl('fakecrime')) + '">All my links</a>' : '') + '</div>' +
       '</section>' +
       '<div class="yt-tabs" role="tablist">' +
         '<button role="tab" aria-selected="true" data-tab="home">Home</button>' +

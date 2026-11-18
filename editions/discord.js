@@ -21,7 +21,7 @@ window.EDITIONS.discord = {
       '<main class="dc-chat">' +
         '<header class="dc-head"><span aria-hidden="true">#</span><h1 id="dc-title">welcome</h1><p id="dc-topic">Start here</p></header>' +
         '<div class="dc-msgs" id="dc-msgs" aria-live="polite"></div>' +
-        '<div class="dc-compose"><a href="' + S.links[1].url + '">Message @' + pname('discord') + ' on Discord</a></div>' +
+        '<div class="dc-compose">' + linkTo('discord', 'Message @' + pname('discord') + ' on Discord') + '</div>' +
       '</main>' +
       '<aside class="dc-members" aria-label="Members"><p class="dc-cat">Online, 1</p><div class="dc-member">' + avatar('discord', 'dc-av sm').replace('</span>', '<i></i></span>') + '<div><strong>' + pname('discord') + '</strong><small>Probably tuning a scooter</small></div></div></aside>' +
       '</div>';
@@ -57,7 +57,7 @@ window.EDITIONS.discord = {
         return msg(S.facts.map(function (f) { return '<p><strong>' + esc(f.label) + ':</strong> ' + esc(f.text) + '</p>'; }).join(''), '18:20');
       },
       anime: function () {
-        return msg('<p>Some of my 10/10s. Full list on <a href="' + S.links[5].url + '">AniList</a>.</p><ul class="dc-covers">' + S.anime.map(function (a) {
+        return msg('<p>Some of my 10/10s. Full list on ' + linkTo('anilist', 'AniList') + '.</p><ul class="dc-covers">' + S.anime.map(function (a) {
           return '<li><a href="' + a.url + '"><img src="' + a.cover + '" alt="' + esc(a.title) + '" loading="lazy" width="100" height="142"></a></li>';
         }).join('') + '</ul>', '22:07');
       },

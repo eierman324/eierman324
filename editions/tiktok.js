@@ -13,7 +13,7 @@ window.EDITIONS.tiktok = {
         '<p class="tt-hint">Swipe up for projects</p>' +
       '</div>' +
       '<div class="tt-rail">' + avatar('tiktok', 'tt-avatar') +
-        S.links.slice(0, 4).map(function (l) { return '<a href="' + l.url + '">' + esc(l.label) + '</a>'; }).join('') +
+        S.links.map(function (l) { return '<a href="' + l.url + '">' + esc(l.label) + '</a>'; }).join('') +
       '</div>', 330, 'tt-first');
 
     var projects = S.projects.map(function (p, i) {
@@ -38,7 +38,7 @@ window.EDITIONS.tiktok = {
       '<div class="tt-body">' +
         '<h2 class="tt-glitch" data-text="That\'s it">That\'s it</h2>' +
         S.facts.map(function (f) { return '<p class="tt-desc"><strong>' + esc(f.label) + ':</strong> ' + esc(f.text) + '</p>'; }).join('') +
-        '<p class="tt-desc">Follow along on <a href="' + S.links[2].url + '">TikTok</a> or write me on <a href="' + S.links[1].url + '">Discord</a>.</p>' +
+        '<p class="tt-desc">Follow along on ' + linkTo('tiktok', 'TikTok') + ' or write me on ' + linkTo('discord', 'Discord') + '.</p>' +
       '</div>', 190, 'tt-last');
 
     return '<main class="tt-feed">' + intro + projects + outro + '</main>';
