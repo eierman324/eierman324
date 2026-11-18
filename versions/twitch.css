@@ -28,7 +28,7 @@
 .tw-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr) 340px; align-items: start; }
 
 /* Left: categories and links, like the followed-channels list */
-.tw-side { position: sticky; top: 50px; max-height: calc(100vh - 50px); overflow-y: auto; padding: 10px 0; background: var(--panel); }
+.tw-side { position: sticky; top: 50px; height: calc(100vh - 50px); overflow-y: auto; padding: 10px 0; background: var(--panel); }
 .tw-side h2 { margin: 6px 10px; color: var(--text); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.02em; }
 .tw-side ul { list-style: none; margin: 0 0 12px; padding: 0; }
 .tw-side li > * { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 10px; border: 0; background: none; color: var(--text) !important; text-align: left; text-decoration: none !important; }
