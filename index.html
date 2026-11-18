@@ -47,12 +47,9 @@
       font: 500 0.875rem/1 var(--body);
     }
     .controls .view-pill svg { color: var(--accent); }
-    /* Discord: sit in the empty right end of the channel header, not on the member list. */
-    .vs-discord .top-pills { top: 8px; }
-    @media (min-width: 1101px) { .vs-discord .top-pills { right: 252px; } }
     /* Phones: no room to float, so it becomes a slim bar on top that pushes the page down. */
     @media (max-width: 700px) {
-      .top-pills, .vs-discord .top-pills {
+      .top-pills {
         position: sticky; top: 0; right: auto; gap: 0;
         border-bottom: 1px solid rgba(255, 255, 255, .22); background: rgba(14, 14, 20, .92);
       }
@@ -169,7 +166,7 @@
 
   <script src="site.js?v=29"></script>
   <script src="profiles.js?v=12"></script>
-  <script src="app.js?v=39"></script>
+  <script src="app.js?v=40"></script>
 
   <script>
     (function () {

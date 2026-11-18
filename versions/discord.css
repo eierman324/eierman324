@@ -13,7 +13,11 @@
 .vs-discord a:hover { text-decoration: underline; }
 .vs-discord a:focus-visible, .vs-discord button:focus-visible { outline: 2px solid var(--blurple); outline-offset: 2px; }
 
-.dc-app { display: grid; grid-template-columns: 72px 240px 1fr 240px; height: 100svh; }
+.dc-app { display: grid; grid-template-columns: 72px 240px 1fr 240px; grid-template-rows: auto minmax(0, 1fr); height: 100svh; }
+.dc-servers, .dc-side { grid-row: 1 / -1; }
+.dc-head { grid-column: 3 / -1; }
+.dc-chat { grid-column: 3; grid-row: 2; }
+.dc-members { grid-column: 4; grid-row: 2; }
 
 .dc-servers { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 0; background: var(--rail); }
 .dc-srv { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--chat); color: var(--bright); font-weight: 700; font-size: 1.25rem; }
@@ -39,10 +43,14 @@
 .dc-channels button:hover { background: var(--hover); color: var(--text); }
 .dc-channels button[aria-current] { background: #404249; color: var(--bright); }
 
-.dc-me, .dc-member { display: flex; align-items: center; gap: 8px; padding: 8px; }
+.dc-me, .dc-member { display: flex; align-items: center; gap: 10px; padding: 8px; }
 .dc-me { background: #232428; }
-.dc-me strong, .dc-member strong { display: block; color: var(--bright); font-size: 0.875rem; }
-.dc-me small, .dc-member small { color: var(--muted); font-size: 0.75rem; }
+.dc-member { margin: 0 8px; padding: 6px 8px; border-radius: 4px; }
+.dc-member:hover { background: var(--hover); }
+.dc-me > div, .dc-member > div { min-width: 0; flex: 1; }
+.dc-me strong, .dc-member strong { display: block; color: var(--bright); font-size: 0.9375rem; font-weight: 600; line-height: 1.25; }
+/* Status / activity: one line, cut off with "…" like in Discord (full text on hover). */
+.dc-me small, .dc-member small { display: block; color: var(--muted); font-size: 0.75rem; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .dc-av { position: relative; display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 50%; background: #f47fff; color: #1e1f22; font-weight: 700; font-size: 1.125rem; }
 .dc-av.sm { width: 32px; height: 32px; font-size: 0.9375rem; }
@@ -53,7 +61,7 @@
 .dc-av i.is-offline { background: #80848e; }
 
 .dc-chat { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
-.dc-head { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--rail); }
+.dc-head { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 12px 270px 12px 16px; background: var(--chat); border-bottom: 1px solid var(--rail); }
 .dc-head > span { color: var(--muted); font-size: 1.5rem; line-height: 1; }
 .dc-head h1 { margin: 0; color: var(--bright); font-size: 1rem; }
 .dc-head p { margin: 0 0 0 8px; padding-left: 12px; border-left: 1px solid #4e5058; color: var(--muted); font-size: 0.875rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -90,7 +98,7 @@
 .dc-compose { margin: 0 16px 20px; padding: 11px 16px; border-radius: 8px; background: #383a40; color: var(--muted); }
 .dc-compose a { color: var(--muted); }
 
-.dc-members { background: var(--side); padding-top: 8px; }
+.dc-members { min-width: 0; background: var(--side); padding-top: 8px; }
 
 .vs-discord .versions { padding: 20px 16px 40px; background: var(--rail); }
 .vs-discord .versions p { margin: 0 0 10px; color: var(--muted); }
@@ -107,6 +115,7 @@
   .dc-channels li { flex: none; }
   .dc-me, .dc-cat { display: none; }
   .dc-chat { flex: 1; }
+  .dc-head { padding-right: 16px; }
   .dc-msgs { overflow: visible; }
   .dc-msg.dc-cont { padding-left: 16px; }
   .dc-covers { grid-template-columns: repeat(3, 1fr); }

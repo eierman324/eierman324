@@ -27,8 +27,9 @@ window.VERSIONS.discord = {
         }).join('') + '</ul>' +
         '<div class="dc-me">' + avatar('discord', 'dc-av sm').replace('</span>', '<i></i></span>') + '<div><strong>' + pname('discord') + '</strong><small data-pstate>Online</small></div></div>' +
       '</aside>' +
+      // The channel header spans the chat and the member list, like in Discord.
+      '<header class="dc-head"><span aria-hidden="true">#</span><h1 id="dc-title">welcome</h1><p id="dc-topic">Start here</p></header>' +
       '<main class="dc-chat">' +
-        '<header class="dc-head"><span aria-hidden="true">#</span><h1 id="dc-title">welcome</h1><p id="dc-topic">Start here</p></header>' +
         '<div class="dc-msgs" id="dc-msgs" aria-live="polite"></div>' +
         '<div class="dc-compose">' + linkTo('discord', 'Message @' + pname('discord') + ' on Discord') + '</div>' +
       '</main>' +
@@ -117,7 +118,7 @@ window.VERSIONS.discord = {
       root.querySelectorAll('.dc-av i').forEach(function (dot) { dot.className = 'is-' + state; });
       root.querySelectorAll('[data-pstate]').forEach(function (el) { el.textContent = labels[state]; });
       root.querySelectorAll('[data-pheader]').forEach(function (el) { el.textContent = (state === 'offline' ? 'Offline' : 'Online') + ', 1'; });
-      root.querySelectorAll('[data-pstatus]').forEach(function (el) { el.textContent = (pr && pr.text) || S.status; });
+      root.querySelectorAll('[data-pstatus]').forEach(function (el) { el.textContent = el.title = (pr && pr.text) || S.status; });
     }
     window.loadProfile('discord').then(applyPresence);
     var timer = setInterval(function () {
