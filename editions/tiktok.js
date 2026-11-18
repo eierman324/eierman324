@@ -1,6 +1,16 @@
 // TikTok edition: a vertical full-screen feed, one project per screen.
 window.EDITIONS.tiktok = {
   render: function (S) {
+    // "Open" as an icon: GitHub logo for a GitHub repo, a globe for any other link.
+    function openIcon(p) {
+      var isRepo = /^https:\/\/github\.com\/[^/]+\/[^/]+/.test(p.url);
+      var label = isRepo ? 'Open ' + p.name + ' on GitHub' : 'Open ' + p.name;
+      var icon = (S.ICONS || {})[isRepo ? 'github' : 'globe'];
+      if (!icon) return '<a href="' + esc(p.url) + '">Open</a>';
+      return '<a class="tt-icon-link" href="' + esc(p.url) + '" aria-label="' + esc(label) + '" title="' + esc(label) + '">' +
+        '<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false">' + icon + '</svg></a>';
+    }
+
     function slide(inner, hue, extraClass) {
       return '<section class="tt-slide ' + (extraClass || '') + '" style="--h:' + hue + '">' + inner + '</section>';
     }
@@ -33,7 +43,7 @@ window.EDITIONS.tiktok = {
           '<p class="tt-tags">' + (p.tags.length ? p.tags.slice(0, 5) : [p.tech, group.label.split(' ')[0]]).filter(Boolean).map(function (t) { return '#' + esc(t.replace(/[^a-z0-9#]/gi, '').toLowerCase()); }).join(' ') + '</p>' +
         '</div>' +
         '<div class="tt-rail">' + avatar('tiktok', 'tt-avatar') +
-          '<a href="' + p.url + '">Open</a>' +
+          openIcon(p) +
           '<span class="tt-meta">' + esc(p.tech) + '</span>' +
           '<span class="tt-meta">' + p.year + '</span>' +
         '</div>', hue);
