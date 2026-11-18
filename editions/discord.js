@@ -13,8 +13,10 @@ window.EDITIONS.discord = {
         '<button type="button" class="dc-srv-btn is-on" data-srv="" title="' + esc(S.name + "'s server") + '" aria-label="' + esc(S.name + "'s server") + '">' + avatar('discord', 'dc-srv') + '</button>' +
         '<span class="dc-srv-sep" aria-hidden="true"></span>' +
         S.groups.map(function (g) {
+          var icon = g.icon && S.ICONS && S.ICONS[g.icon];
           var initials = g.label.split(/\s+/).map(function (w) { return w.charAt(0); }).join('').slice(0, 3);
-          return '<button type="button" class="dc-srv-btn" data-srv="' + esc(g.id) + '" title="' + esc(g.label) + '" aria-label="' + esc(g.label) + '"><span class="dc-srv">' + esc(initials) + '</span></button>';
+          var face = icon ? '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">' + icon + '</svg>' : esc(initials);
+          return '<button type="button" class="dc-srv-btn" data-srv="' + esc(g.id) + '" title="' + esc(g.label) + '" aria-label="' + esc(g.label) + '"><span class="dc-srv">' + face + '</span></button>';
         }).join('') +
       '</nav>' +
       '<aside class="dc-side">' +
