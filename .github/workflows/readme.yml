@@ -38,12 +38,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit if changed
         run: |
-          if git diff --quiet -- README.md assets/terminal.svg && [ -z "$(git ls-files --others --exclude-standard -- assets/terminal.svg)" ]; then
+          git add -A -- README.md assets/terminal.svg assets/readme
+          if git diff --cached --quiet; then
             echo "No changes"; exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898233+github-actions[bot]@users.noreply.github.com"
-          git add README.md assets/terminal.svg
           git commit -m "Update profile README from eierman.cc"
           git pull --rebase
           git push

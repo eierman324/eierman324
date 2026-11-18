@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="30" viewBox="0 0 64 30" role="img" aria-label="anime"><style>
+  text { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 14px; fill: #e6edf3; }
+  .dim { fill: #8b949e; } .link { fill: #58a6ff; } .cur { fill: #3fb950; }
+  .btn { fill: #161b22; stroke: #30363d; } .ul { stroke: #58a6ff; }
+  @media (prefers-color-scheme: light) {
+    text { fill: #1f2328; } .dim { fill: #59636e; } .link { fill: #0969da; } .cur { fill: #1a7f37; }
+    .btn { fill: #ffffff; stroke: #d0d7de; } .ul { stroke: #0969da; }
+  }
+</style><rect class="btn" x="2.5" y="2.5" width="59.0" height="25" rx="6"/><text x="32.0" y="20" text-anchor="middle" textLength="42.0" lengthAdjust="spacingAndGlyphs" xml:space="preserve">anime</text></svg>

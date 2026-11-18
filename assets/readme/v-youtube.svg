@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="73" height="24" viewBox="0 0 73 24" role="img" aria-label="YouTube"><style>
+  text { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 14px; fill: #e6edf3; }
+  .dim { fill: #8b949e; } .link { fill: #58a6ff; } .cur { fill: #3fb950; }
+  .btn { fill: #161b22; stroke: #30363d; } .ul { stroke: #58a6ff; }
+  @media (prefers-color-scheme: light) {
+    text { fill: #1f2328; } .dim { fill: #59636e; } .link { fill: #0969da; } .cur { fill: #1a7f37; }
+    .btn { fill: #ffffff; stroke: #d0d7de; } .ul { stroke: #0969da; }
+  }
+</style><text class="link" x="0.0" y="17" text-anchor="start" textLength="58.8" lengthAdjust="spacingAndGlyphs" xml:space="preserve">YouTube</text><line class="ul" x1="0" y1="20.5" x2="58.8" y2="20.5" stroke-width="1"/></svg>
