@@ -19,6 +19,21 @@
     .pfp-slot.has-pfp { color: transparent; }
   </style>
   <script>
+    // eierman.cc used to answer with a permanent (301) redirect to fakecrime.bio, and
+    // browsers that saw it keep it cached and never ask this server for "/" again.
+    // Whoever gets here anyway (any URL, with or without a query) fetches "/" fresh
+    // from the network, which overwrites that cached redirect with this page.
+    window.addEventListener('load', function () {
+      if (!window.fetch) return;
+      var urls = [location.origin + '/'];
+      if (location.protocol === 'http:') urls.push('https://' + location.host + '/');
+      urls.forEach(function (url) {
+        var same = url.indexOf(location.origin + '/') === 0;
+        fetch(url, { cache: 'reload', mode: same ? 'same-origin' : 'no-cors', credentials: 'omit' }).catch(function () {});
+      });
+    });
+  </script>
+  <script>
     // Hide the page until content.json is loaded and rendered (app.js shows it again).
     document.documentElement.classList.add('version-loading');
     if (/^#(tiktok|youtube|github|steam|soundcloud|anilist|faceit|discord)$/i.test(location.hash) ||
