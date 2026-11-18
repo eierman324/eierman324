@@ -92,7 +92,9 @@ window.VERSIONS.github = {
       if (!m) return;
       var cmd = '';
       try { cmd = decodeURIComponent(m[1]); } catch (e) { cmd = m[1]; }
-      if (window.history && history.replaceState) history.replaceState(history.state, '', location.pathname + location.search + '#github');
+      // window.history: "history" in here is the list of typed commands.
+      var h = window.history;
+      if (h && h.replaceState) h.replaceState(h.state, '', location.pathname + location.search + '#github');
       if (cmd.trim()) run(cmd);
       input.focus();
     }
