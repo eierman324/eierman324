@@ -2,7 +2,7 @@
 // Without a version the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in versions/, so browsers fetch the new versions.
-  var VERSION = '36';
+  var VERSION = '37';
   var S = window.SITE;
   var ids = S.versions.map(function (e) { return e.id; });
   window.VERSIONS = window.VERSIONS || {};
@@ -59,8 +59,8 @@
   var PROFILE_API = 'https://eierman324.pelmeni.workers.dev';
 
   // ---- Views: the Worker counts each IP address once (POST /view) -------------
-  // Every element with data-views gets "· 1,234 views"; it stays hidden when the
-  // Worker can't be reached.
+  // Every element with data-views shows an eye and "1,234 views"; it stays hidden
+  // when the Worker can't be reached.
   var viewsReady = PROFILE_API && window.fetch
     ? fetch(PROFILE_API.replace(/\/+$/, '') + '/view', { method: 'POST' })
         .then(function (r) { return r.ok ? r.json() : null; })
@@ -72,7 +72,8 @@
     viewsReady.then(function (n) {
       if (n === null) return;
       root.querySelectorAll('[data-views]').forEach(function (el) {
-        el.textContent = ' · ' + n.toLocaleString('en-US') + (n === 1 ? ' view' : ' views');
+        el.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></g></svg>' +
+          '<span><b>' + n.toLocaleString('en-US') + '</b>' + (n === 1 ? ' view' : ' views') + '</span>';
         el.hidden = false;
       });
     });
@@ -196,7 +197,7 @@
       var cur = e.id === current ? ' aria-current="page"' : '';
       return '<a href="' + href + '"' + cur + '>' + esc(e.label) + '</a>';
     }).join('');
-    return '<nav class="versions" aria-label="Other versions of this page"><p>This page has a version for every place you might come from.<span class="views-count" data-views hidden></span></p><div>' + items + '</div></nav>';
+    return '<nav class="versions" aria-label="Other versions of this page"><p>This page has a version for every place you might come from</p><div>' + items + '</div></nav>';
   };
 
   function fromReferrer() {
@@ -408,7 +409,8 @@
       document.body.className = 'vs-' + id;
       // Always-visible way back to the default page (styled in index.html, so it
       // looks the same in every version).
-      document.body.innerHTML = '<a class="to-default" href="#default"><span aria-hidden="true">←</span> Default version</a>' +
+      document.body.innerHTML = '<div class="top-pills"><span class="view-pill" data-views hidden></span>' +
+        '<a class="to-default" href="#default"><span aria-hidden="true">←</span> Default version</a></div>' +
         window.VERSIONS[id].render(S) + versionsBar(id);
       if (window.VERSIONS[id].mount) window.VERSIONS[id].mount(document.body, S);
       window.hydrateProfiles(document.body);

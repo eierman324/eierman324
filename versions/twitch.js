@@ -85,10 +85,23 @@ window.VERSIONS.twitch = {
       '</div>';
   },
   mount: function (root, S) {
+    // Scroll to a section, but never past the end of the Twitch page itself:
+    // the versions footer below it only shows when you scroll on by hand.
+    var layout = root.querySelector('.tw-layout');
+    function stuckHeight() {
+      var h = 0;
+      [root.querySelector('.tw-top'), root.querySelector('.top-pills')].forEach(function (el) {
+        if (el && getComputedStyle(el).position === 'sticky') h += el.offsetHeight;
+      });
+      return h;
+    }
     root.querySelectorAll('[data-go]').forEach(function (b) {
       b.addEventListener('click', function () {
         var el = document.getElementById(b.dataset.go);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (!el) return;
+        var target = el.getBoundingClientRect().top + window.scrollY - stuckHeight() - 8;
+        var end = layout.getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
+        window.scrollTo({ top: Math.max(0, Math.min(target, end)), behavior: 'smooth' });
       });
     });
     var fb = root.querySelector('button.tw-follow');
