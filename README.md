@@ -1,6 +1,6 @@
 # eierman324 profile Worker
 
-Cloudflare Worker that serves the profile pictures and names for [eierman.cc](https://eierman.cc). It fetches them live from GitHub, TikTok, YouTube, Steam, AniList and FACEIT; platforms without a picture get the GitHub one.
+Cloudflare Worker that serves the profile pictures and names for [eierman.cc](https://eierman.cc). It fetches them live from GitHub, TikTok, YouTube, Steam, AniList, FACEIT and Twitch; platforms without a picture get the GitHub one.
 
 | Request | Answer |
 |---|---|
@@ -8,7 +8,9 @@ Cloudflare Worker that serves the profile pictures and names for [eierman.cc](ht
 | `/profiles` | the same for every platform |
 | `/avatar?p=tiktok` | the picture itself |
 
-Platforms: `github`, `tiktok`, `youtube`, `steam`, `anilist`, `faceit`, `discord`, `soundcloud`.
+Platforms: `github`, `tiktok`, `youtube`, `steam`, `anilist`, `faceit`, `discord`, `soundcloud`, `twitch`.
+
+Twitch pictures come from [decapi.me](https://decapi.me), because Twitch's own API needs an app key; the name is `TWITCH_USER`.
 
 Discord goes through [Lanyard](https://github.com/Phineas/lanyard), which also gives the live status (`presence.state` online/idle/dnd/offline and `presence.text`). Lanyard only knows you after you join its Discord server once (discord.gg/lanyard); until then the Worker uses `DISCORD_NAME` and the GitHub picture.
 

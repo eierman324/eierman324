@@ -13,7 +13,7 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 const PROFILE_TTL = 600;   // seconds a profile stays cached
 const AVATAR_TTL = 3600;   // seconds a picture stays cached
 const PRESENCE_TTL = 60;   // seconds Discord (with its live status) stays cached
-const PLATFORMS = ['github', 'tiktok', 'youtube', 'steam', 'anilist', 'faceit', 'discord', 'soundcloud'];
+const PLATFORMS = ['github', 'tiktok', 'youtube', 'steam', 'anilist', 'faceit', 'discord', 'soundcloud', 'twitch'];
 
 async function text(url, init = {}) {
   const r = await fetch(url, {
@@ -91,6 +91,14 @@ const SOURCES = {
       avatar,
       presence: { state: d.discord_status || 'offline', text: activityText(d) },
     };
+  },
+  async twitch(env) {
+    // Twitch only fills in its pages with JavaScript and its API needs an app key,
+    // so the picture comes from decapi.me (https://decapi.me). It answers unknown
+    // users with a plain text message, so only a Twitch picture URL counts.
+    const url = (await text(`https://decapi.me/twitch/avatar/${env.TWITCH_USER}`).catch(() => '')).trim();
+    const own = /^https:\/\/static-cdn\.jtvnw\.net\//.test(url) && !/user-default-pictures/.test(url);
+    return { name: env.TWITCH_USER, handle: env.TWITCH_USER, avatar: own ? url : null };
   },
   async soundcloud() {
     return { name: null, handle: null, avatar: null };
