@@ -2,7 +2,7 @@
 // Without a version the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in versions/, so browsers fetch the new versions.
-  var VERSION = '28';
+  var VERSION = '29';
   var S = window.SITE;
   var ids = S.versions.map(function (e) { return e.id; });
   window.VERSIONS = window.VERSIONS || {};
@@ -339,8 +339,9 @@
     }).join('');
   }
 
+  // "#github/ls" shows the GitHub version and runs "ls" there; only the part before "/" picks the version.
   function current() {
-    var h = location.hash.slice(1).toLowerCase();
+    var h = location.hash.slice(1).toLowerCase().split('/')[0];
     if (ids.indexOf(h) !== -1) return h;
     if (h === '') return fromReferrer();
     return null;
@@ -396,7 +397,7 @@
   }
 
   window.addEventListener('hashchange', function () {
-    var h = location.hash.slice(1).toLowerCase();
+    var h = location.hash.slice(1).toLowerCase().split('/')[0];
     // In-page anchors like #al-list are not versions; leave the page alone.
     if (h && ids.indexOf(h) === -1) return;
     show(current());

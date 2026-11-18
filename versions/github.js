@@ -84,5 +84,19 @@ window.VERSIONS.github = {
     print('<p class="gh-dim">Last login: from github.com</p>');
     ['whoami', 'about', 'ls'].forEach(run);
     out.scrollTop = 0;
+
+    // Links like "#github/links" (from the GitHub profile README) type that command
+    // right away; "#github/" alone just puts the cursor into the prompt.
+    function fromHash() {
+      var m = /^#github\/(.*)$/i.exec(location.hash);
+      if (!m) return;
+      var cmd = '';
+      try { cmd = decodeURIComponent(m[1]); } catch (e) { cmd = m[1]; }
+      if (window.history && history.replaceState) history.replaceState(history.state, '', location.pathname + location.search + '#github');
+      if (cmd.trim()) run(cmd);
+      input.focus();
+    }
+    fromHash();
+    window.addEventListener('hashchange', fromHash);
   }
 };

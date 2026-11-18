@@ -1,0 +1,23 @@
+name: Update profile README
+
+# The profile README on main is generated from this branch. When the content
+# changes, start the generator there (.github/workflows/readme.yml on main).
+on:
+  push:
+    branches: [website]
+    paths:
+      - "content.json"
+      - "projects.json"
+      - "site.js"
+      - "versions/github.*"
+
+permissions:
+  actions: write
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run readme.yml --ref main --repo "$GITHUB_REPOSITORY"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
