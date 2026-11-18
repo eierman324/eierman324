@@ -23,14 +23,20 @@
     // browsers that saw it keep it cached and never ask this server for "/" again.
     // Whoever gets here anyway (any URL, with or without a query) fetches "/" fresh
     // from the network, which overwrites that cached redirect with this page.
+    // Afterwards a query like "?=0" (from the fakecrime redirect) is removed from the URL.
     window.addEventListener('load', function () {
-      if (!window.fetch) return;
+      function dropQuery() {
+        if (location.search && window.history && history.replaceState) {
+          history.replaceState(history.state, '', location.pathname + location.hash);
+        }
+      }
+      if (!window.fetch || !window.Promise) { dropQuery(); return; }
       var urls = [location.origin + '/'];
       if (location.protocol === 'http:') urls.push('https://' + location.host + '/');
-      urls.forEach(function (url) {
+      Promise.all(urls.map(function (url) {
         var same = url.indexOf(location.origin + '/') === 0;
-        fetch(url, { cache: 'reload', mode: same ? 'same-origin' : 'no-cors', credentials: 'omit' }).catch(function () {});
-      });
+        return fetch(url, { cache: 'reload', mode: same ? 'same-origin' : 'no-cors', credentials: 'omit' }).catch(function () {});
+      })).then(dropQuery);
     });
   </script>
   <script>
