@@ -2,7 +2,7 @@
 
   <h1>Hi, I'm Felix 👋 <sub><sup>aka eierman</sup></sub></h1>
 
-  <p>Working in IT &nbsp;·&nbsp; E-scooter tuner &nbsp;·&nbsp; Breaking game mechanics for fun</p>
+  <p>Working in IT &nbsp;·&nbsp; E-scooter tuner &nbsp;·&nbsp; Building small tools</p>
 
   <a href="https://eierman.cc"><img src="https://img.shields.io/badge/Website-eierman.cc-D946EF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="eierman.cc"></a>
   <a href="https://discord.com/users/1253218430396403714"><img src="https://img.shields.io/badge/Discord-eierman-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
@@ -23,7 +23,7 @@
 
 - 💻 **Working in IT:** breaking and fixing things is literally my job.
 - 🛴 **E-scooter tuning:** modding them and making them faster than intended. Only SHU so far, VESC is coming up.
-- 🎮 **Gamer:** I enjoy finding exploits and breaking game mechanics.
+- 🎮 **Gamer:** mostly Fortnite, Valorant and Minecraft with friends.
 - 🛠️ **Side projects:** small tools that scratch my own itch, from Fortnite chest counters to Minecraft plugins and userscripts.
 - 🌐 **Not a native speaker:** English isn't my first language, but I try my best. German is.
 - 💬 **Feel free to reach out**, I don't bite 🙂
@@ -76,7 +76,7 @@ My planning list keeps growing faster than I can watch.
 - 🌪️ **Fortnite:** my main game right now. Built [StormReport](https://github.com/eierman324/StormReport) because I wanted to know how many chests I actually open.
 - ⛏️ **Minecraft:** running and playing on SMPs with friends, which is where most of my plugins and mods come from.
 - 🔫 **Valorant:** my shooter of choice these days. Used to play Counter-Strike on [FACEIT](https://www.faceit.com/de/players/eierman324).
-- 🧩 **Roblox:** poking at how games work under the hood, on my [second channel](https://www.youtube.com/@justloldog).
+- 🧩 **Roblox:** videos on my [second channel](https://www.youtube.com/@justloldog).
 
 ---
 
