@@ -11,12 +11,12 @@
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --bg: #f6f2ff;
-    --surface: #ebe4fb;
+    --bg: #e9e0ff;
+    --surface: #d9cbfb;
     --text: #1c1633;
-    --muted: #5d5480;
-    --accent: #a8238f;
-    --line: #d6cdef;
+    --muted: #4b4176;
+    --accent: #9c1585;
+    --line: #c3b2f0;
   }
 }
 
