@@ -2,7 +2,7 @@
 // Without a version the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in versions/, so browsers fetch the new versions.
-  var VERSION = '30';
+  var VERSION = '31';
   var S = window.SITE;
   var ids = S.versions.map(function (e) { return e.id; });
   window.VERSIONS = window.VERSIONS || {};
@@ -399,7 +399,7 @@
   window.addEventListener('hashchange', function () {
     var h = location.hash.slice(1).toLowerCase().split('/')[0];
     // In-page anchors like #al-list are not versions; leave the page alone.
-    if (h && ids.indexOf(h) === -1) return;
+    if (h && h !== 'default' && ids.indexOf(h) === -1) return;
     show(current());
   });
 
@@ -407,6 +407,12 @@
   var projectsReady = contentReady.then(loadProjects);
 
   var first = current();
+  // "#default" shows the default page even when the visitor comes from a site
+  // that has its own version (e.g. the "Default" link in the GitHub README).
+  // current() has already seen it, so it can go from the address bar now.
+  if (/^#default$/i.test(location.hash) && window.history && history.replaceState) {
+    history.replaceState(history.state, '', location.pathname + location.search);
+  }
   if (first) {
     show(first);
   } else {
