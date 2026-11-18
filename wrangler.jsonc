@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "eierman-profiles",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-01",
+  "observability": { "enabled": true },
+  "vars": {
+    // Pages that may call the Worker (comma separated).
+    "ALLOWED_ORIGINS": "https://eierman.cc,https://www.eierman.cc,https://eierman324.github.io,http://localhost:8731",
+    "GITHUB_USER": "eierman324",
+    "TIKTOK_USER": "eierman.cc",
+    "YOUTUBE_HANDLE": "eierman324",
+    "STEAM_ID": "eierman324",
+    "ANILIST_USER": "eierman324",
+    "FACEIT_NICK": "eierman324",
+    "DISCORD_NAME": "eierman"
+  }
+}
