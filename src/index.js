@@ -3,7 +3,7 @@
 // Fetches name, handle and profile picture live from each platform and serves
 // them to the website, so every profile picture on the site goes through here.
 //
-//   GET /profile?p=tiktok  -> {"platform","name","handle","avatar","own"}
+//   GET /profile?p=tiktok  -> {"platform","name","handle","avatar","own","presence"}
 //   GET /profiles          -> the same for every platform at once
 //   GET /avatar?p=tiktok   -> the picture itself (falls back to the GitHub one)
 //
@@ -12,6 +12,7 @@
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
 const PROFILE_TTL = 600;   // seconds a profile stays cached
 const AVATAR_TTL = 3600;   // seconds a picture stays cached
+const PRESENCE_TTL = 60;   // seconds Discord (with its live status) stays cached
 const PLATFORMS = ['github', 'tiktok', 'youtube', 'steam', 'anilist', 'faceit', 'discord', 'soundcloud'];
 
 async function text(url, init = {}) {
@@ -73,13 +74,44 @@ const SOURCES = {
     return { name: d.nickname, handle: d.nickname, avatar: d.avatar || null };
   },
   async discord(env) {
-    // Discord has no public profile lookup without a bot token.
-    return { name: env.DISCORD_NAME, handle: env.DISCORD_NAME, avatar: null };
+    // Discord itself has no public profile lookup, so this goes through Lanyard
+    // (https://github.com/Phineas/lanyard). It only works after joining the
+    // Lanyard Discord server; until then the name from DISCORD_NAME is used.
+    const fallback = { name: env.DISCORD_NAME, handle: env.DISCORD_NAME, avatar: null, presence: null };
+    if (!env.DISCORD_ID) return fallback;
+    const res = JSON.parse(await text(`https://api.lanyard.rest/v1/users/${env.DISCORD_ID}`).catch(() => '{}'));
+    if (!res.success || !res.data) return fallback;
+    const d = res.data, u = d.discord_user || {};
+    const avatar = u.avatar
+      ? `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.${u.avatar.startsWith('a_') ? 'gif' : 'png'}?size=256`
+      : null;
+    return {
+      name: u.global_name || u.display_name || u.username || env.DISCORD_NAME,
+      handle: u.username || env.DISCORD_NAME,
+      avatar,
+      presence: { state: d.discord_status || 'offline', text: activityText(d) },
+    };
   },
   async soundcloud() {
     return { name: null, handle: null, avatar: null };
   },
 };
+
+// One line describing what you're doing on Discord, like the client shows it.
+function activityText(d) {
+  const acts = d.activities || [];
+  const custom = acts.find((a) => a.type === 4);
+  if (custom && (custom.state || (custom.emoji && custom.emoji.name))) {
+    return [custom.emoji && !custom.emoji.id ? custom.emoji.name : '', custom.state || ''].filter(Boolean).join(' ');
+  }
+  if (d.listening_to_spotify && d.spotify) return `Listening to ${d.spotify.song} by ${d.spotify.artist}`;
+  const a = acts.find((x) => x.type !== 4);
+  if (!a) return null;
+  const verb = { 0: 'Playing', 1: 'Streaming', 2: 'Listening to', 3: 'Watching', 5: 'Competing in' }[a.type] || 'Playing';
+  return `${verb} ${a.name}`;
+}
+
+const ttl = (platform) => (platform === 'discord' ? PRESENCE_TTL : PROFILE_TTL);
 
 // Raw profile data, cached so the platforms aren't asked on every page view.
 async function rawProfile(platform, env, ctx) {
@@ -87,7 +119,7 @@ async function rawProfile(platform, env, ctx) {
   const hit = await caches.default.match(key);
   if (hit) return hit.json();
   const data = await SOURCES[platform](env);
-  ctx.waitUntil(caches.default.put(key, Response.json(data, { headers: { 'Cache-Control': `public, max-age=${PROFILE_TTL}` } })));
+  ctx.waitUntil(caches.default.put(key, Response.json(data, { headers: { 'Cache-Control': `public, max-age=${ttl(platform)}` } })));
   return data;
 }
 
@@ -100,6 +132,7 @@ async function profile(platform, env, ctx, origin) {
     // Always a picture: the platform's own one, otherwise the GitHub one.
     avatar: `${origin}/avatar?p=${platform}`,
     own: !!data.avatar,
+    presence: data.presence || null,
   };
 }
 
@@ -144,13 +177,13 @@ export default {
     if (request.method !== 'GET') return new Response('method not allowed', { status: 405, headers: cors });
 
     const platform = (url.searchParams.get('p') || '').toLowerCase();
-    const json = (data, status = 200) => Response.json(data, {
-      status, headers: { ...cors, 'Cache-Control': `public, max-age=${PROFILE_TTL}` },
+    const json = (data, status = 200, maxAge = PROFILE_TTL) => Response.json(data, {
+      status, headers: { ...cors, 'Cache-Control': `public, max-age=${maxAge}` },
     });
 
     if (url.pathname === '/profiles') {
       return json(Object.fromEntries(await Promise.all(
-        PLATFORMS.map(async (p) => [p, await profile(p, env, ctx, url.origin)]))));
+        PLATFORMS.map(async (p) => [p, await profile(p, env, ctx, url.origin)]))), 200, PRESENCE_TTL);
     }
     if (!PLATFORMS.includes(platform)) {
       return json({ error: 'unknown platform', platforms: PLATFORMS }, 400);
@@ -162,7 +195,7 @@ export default {
       return out;
     }
     if (url.pathname === '/profile' || url.pathname === '/') {
-      return json(await profile(platform, env, ctx, url.origin));
+      return json(await profile(platform, env, ctx, url.origin), 200, ttl(platform));
     }
     return new Response('not found', { status: 404, headers: cors });
   },

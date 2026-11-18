@@ -10,7 +10,9 @@ Cloudflare Worker that serves the profile pictures and names for [eierman.cc](ht
 
 Platforms: `github`, `tiktok`, `youtube`, `steam`, `anilist`, `faceit`, `discord`, `soundcloud`.
 
-Profiles are cached for 10 minutes and pictures for an hour, so the platforms aren't asked on every page view.
+Discord goes through [Lanyard](https://github.com/Phineas/lanyard), which also gives the live status (`presence.state` online/idle/dnd/offline and `presence.text`). Lanyard only knows you after you join its Discord server once (discord.gg/lanyard); until then the Worker uses `DISCORD_NAME` and the GitHub picture.
+
+Profiles are cached for 10 minutes (Discord for 1 minute, because of the status) and pictures for an hour, so the platforms aren't asked on every page view.
 
 ## Deploy
 
