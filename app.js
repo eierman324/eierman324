@@ -2,7 +2,7 @@
 // Without an edition the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '26';
+  var VERSION = '27';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};
@@ -131,6 +131,9 @@
       img.src = src;
     });
   }
+
+  // Fetch a profile again, e.g. for the live Discord status.
+  window.refreshProfile = function (id) { delete cache[id]; return window.loadProfile(id); };
 
   window.hydrateProfiles = function (root) {
     var ids = {};

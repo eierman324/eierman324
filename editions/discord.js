@@ -25,14 +25,14 @@ window.EDITIONS.discord = {
         '<ul class="dc-channels">' + channels.map(function (c, i) {
           return '<li><button type="button" data-ch="' + c.id + '" data-topic="' + esc(c.topic) + '"' + (i === 0 ? ' aria-current="true"' : '') + '><span aria-hidden="true">#</span>' + c.id + '</button></li>';
         }).join('') + '</ul>' +
-        '<div class="dc-me">' + avatar('discord', 'dc-av sm').replace('</span>', '<i></i></span>') + '<div><strong>' + pname('discord') + '</strong><small>Online</small></div></div>' +
+        '<div class="dc-me">' + avatar('discord', 'dc-av sm').replace('</span>', '<i></i></span>') + '<div><strong>' + pname('discord') + '</strong><small data-pstate>Online</small></div></div>' +
       '</aside>' +
       '<main class="dc-chat">' +
         '<header class="dc-head"><span aria-hidden="true">#</span><h1 id="dc-title">welcome</h1><p id="dc-topic">Start here</p></header>' +
         '<div class="dc-msgs" id="dc-msgs" aria-live="polite"></div>' +
         '<div class="dc-compose">' + linkTo('discord', 'Message @' + pname('discord') + ' on Discord') + '</div>' +
       '</main>' +
-      '<aside class="dc-members" aria-label="Members"><p class="dc-cat">Online, 1</p><div class="dc-member">' + avatar('discord', 'dc-av sm').replace('</span>', '<i></i></span>') + '<div><strong>' + pname('discord') + '</strong><small>' + esc(S.status) + '</small></div></div></aside>' +
+      '<aside class="dc-members" aria-label="Members"><p class="dc-cat" data-pheader>Online, 1</p><div class="dc-member">' + avatar('discord', 'dc-av sm').replace('</span>', '<i></i></span>') + '<div><strong>' + pname('discord') + '</strong><small data-pstatus>' + esc(S.status) + '</small></div></div></aside>' +
       '</div>';
   },
   mount: function (root, S) {
@@ -108,5 +108,21 @@ window.EDITIONS.discord = {
       s.addEventListener('click', function () { s.dataset.srv ? open('projects', s.dataset.srv) : open('welcome'); });
     });
     open('welcome');
+
+    // Live status from Lanyard (through the profile Worker), refreshed every minute.
+    var labels = { online: 'Online', idle: 'Idle', dnd: 'Do Not Disturb', offline: 'Offline' };
+    function applyPresence(p) {
+      var pr = p && p.presence;
+      var state = pr && labels[pr.state] ? pr.state : 'online';
+      root.querySelectorAll('.dc-av i').forEach(function (dot) { dot.className = 'is-' + state; });
+      root.querySelectorAll('[data-pstate]').forEach(function (el) { el.textContent = labels[state]; });
+      root.querySelectorAll('[data-pheader]').forEach(function (el) { el.textContent = (state === 'offline' ? 'Offline' : 'Online') + ', 1'; });
+      root.querySelectorAll('[data-pstatus]').forEach(function (el) { el.textContent = (pr && pr.text) || S.status; });
+    }
+    window.loadProfile('discord').then(applyPresence);
+    var timer = setInterval(function () {
+      if (!document.body.classList.contains('ed-discord')) { clearInterval(timer); return; }
+      window.refreshProfile('discord').then(applyPresence);
+    }, 60000);
   }
 };
