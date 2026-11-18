@@ -2,7 +2,7 @@
 // Without a version the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in versions/, so browsers fetch the new versions.
-  var VERSION = '35';
+  var VERSION = '36';
   var S = window.SITE;
   var ids = S.versions.map(function (e) { return e.id; });
   window.VERSIONS = window.VERSIONS || {};
@@ -57,6 +57,26 @@
   // from the browser and the other platforms show the fallback names from
   // profiles.js with the GitHub picture. Pictures are never stored in the repo.
   var PROFILE_API = 'https://eierman324.pelmeni.workers.dev';
+
+  // ---- Views: the Worker counts each IP address once (POST /view) -------------
+  // Every element with data-views gets "· 1,234 views"; it stays hidden when the
+  // Worker can't be reached.
+  var viewsReady = PROFILE_API && window.fetch
+    ? fetch(PROFILE_API.replace(/\/+$/, '') + '/view', { method: 'POST' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) { return d && typeof d.views === 'number' ? d.views : null; })
+        .catch(function () { return null; })
+    : Promise.resolve(null);
+
+  window.fillViews = function (root) {
+    viewsReady.then(function (n) {
+      if (n === null) return;
+      root.querySelectorAll('[data-views]').forEach(function (el) {
+        el.textContent = ' · ' + n.toLocaleString('en-US') + (n === 1 ? ' view' : ' views');
+        el.hidden = false;
+      });
+    });
+  };
 
   var GITHUB_USER = 'eierman324';
   var ANILIST_USER = 'eierman324';
@@ -136,6 +156,7 @@
   window.refreshProfile = function (id) { delete cache[id]; return window.loadProfile(id); };
 
   window.hydrateProfiles = function (root) {
+    window.fillViews(root);
     var ids = {};
     root.querySelectorAll('[data-pfp],[data-pname],[data-phandle]').forEach(function (el) {
       ids[el.dataset.pfp || el.dataset.pname || el.dataset.phandle] = true;
@@ -175,7 +196,7 @@
       var cur = e.id === current ? ' aria-current="page"' : '';
       return '<a href="' + href + '"' + cur + '>' + esc(e.label) + '</a>';
     }).join('');
-    return '<nav class="versions" aria-label="Other versions of this page"><p>This page has a version for every place you might come from.</p><div>' + items + '</div></nav>';
+    return '<nav class="versions" aria-label="Other versions of this page"><p>This page has a version for every place you might come from.<span class="views-count" data-views hidden></span></p><div>' + items + '</div></nav>';
   };
 
   function fromReferrer() {
