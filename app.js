@@ -2,7 +2,7 @@
 // Without a version the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in versions/, so browsers fetch the new versions.
-  var VERSION = '41';
+  var VERSION = '42';
   var S = window.SITE;
   var ids = S.versions.map(function (e) { return e.id; });
   window.VERSIONS = window.VERSIONS || {};
@@ -477,22 +477,39 @@
       var changed = 1 - shared(a, b).length / Math.max(a.length, b.length);
       return { name: names[at], mode: changed >= FULL_FROM ? 'full' : 'morph' };
     }
+    // ---- Pause while nobody can see it --------------------------------------------
+    // Scrolled out of view or tab in the background: the countdown stops and keeps
+    // the time that was left, so the name gets the rest of its 3 s when it's back.
+    var visible = true, due = 0, left = HOLD;
+    function running() { return visible && !document.hidden; }
+    function schedule(ms) { clearTimeout(timer); due = Date.now() + ms; timer = setTimeout(tick, ms); }
+    function pause() {
+      if (!timer) return;
+      clearTimeout(timer);
+      timer = null;
+      left = Math.max(0, due - Date.now());
+    }
+    function resume() { if (!timer && running()) schedule(Math.max(left, 600)); }
     function tick() {
-      if (document.hidden) return; // picked up again by visibilitychange
+      timer = null;
+      if (!running()) { left = 0; return; }
       var n = next();
       if (!n) return;
       show(n.name, n.mode);
-      timer = setTimeout(tick, HOLD);
+      schedule(HOLD);
     }
 
     base = baseSize();
     show(names[0], 'static');
     if (names.length < 2) return;
-    timer = setTimeout(tick, HOLD);
-    document.addEventListener('visibilitychange', function () {
-      clearTimeout(timer);
-      if (!document.hidden) timer = setTimeout(tick, 1200);
-    });
+    schedule(HOLD);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) pause(); else resume(); });
+    if (window.IntersectionObserver) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[entries.length - 1].isIntersecting;
+        if (visible) resume(); else pause();
+      }).observe(h1);
+    }
     var rz = null;
     window.addEventListener('resize', function () {
       clearTimeout(rz);
