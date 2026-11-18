@@ -2,10 +2,22 @@
 // Without an edition the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '7';
+  var VERSION = '8';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};
+
+  // Links to other sites open in a new tab. Checked on click, so it also covers
+  // content rendered later (Discord channels, the GitHub terminal, ...).
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a || a.target) return;
+    var url;
+    try { url = new URL(a.href, location.href); } catch (err) { return; }
+    if (!/^https?:$/.test(url.protocol) || url.origin === location.origin) return;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+  }, true);
 
   window.esc = function (s) {
     return String(s).replace(/[&<>"']/g, function (c) {
