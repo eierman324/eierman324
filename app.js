@@ -2,7 +2,7 @@
 // Without a version the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in versions/, so browsers fetch the new versions.
-  var VERSION = '40';
+  var VERSION = '41';
   var S = window.SITE;
   var ids = S.versions.map(function (e) { return e.id; });
   window.VERSIONS = window.VERSIONS || {};
@@ -271,7 +271,7 @@
   }
 
   function loadProjects() {
-    return fetchJSON('projects.json?v=' + VERSION).then(function (cfg) {
+    return fetchJSON('projects.json?v=' + VERSION, { cache: 'no-cache' }).then(function (cfg) {
       var entries = cfg.projects || [];
       var repos = entries.filter(function (e) { return e.repo; }).map(function (e) { return e.repo; });
       return withTimeout(githubRepos(repos), 5000).catch(function () { return {}; }).then(function (byName) {
@@ -314,7 +314,7 @@
 
   // ---- Content: content.json (intro, links, facts, anime) ----------------------
   function loadContent() {
-    return fetchJSON('content.json?v=' + VERSION).then(function (c) {
+    return fetchJSON('content.json?v=' + VERSION, { cache: 'no-cache' }).then(function (c) {
       Object.keys(c).forEach(function (k) { if (k.charAt(0) !== '_') S[k] = c[k]; });
     }).catch(function () { /* fall back to the defaults below */ }).then(function () {
       S.name = S.name || 'eierman';
@@ -328,6 +328,180 @@
       S.links = S.links || [];
       S.facts = S.facts || [];
       S.anime = S.anime || [];
+      // aliases: the names for the big heading, shown in this order. (Old entries
+      // written as { "name": …, "variants": […] } are read as a plain list too.)
+      var flat = [];
+      (function add(list) {
+        (Array.isArray(list) ? list : []).forEach(function (a) {
+          if (typeof a === 'string') a = { name: a };
+          if (!a || typeof a.name !== 'string' || !a.name.trim()) return;
+          if (flat.indexOf(a.name) === -1) flat.push(a.name);
+          add(a.variants);
+        });
+      })(S.aliases);
+      S.aliases = flat;
+    });
+  }
+
+  // ---- Default page: the big name cycles through "aliases" from content.json --
+  // The names come one after another in the order of the list, then it starts over.
+  // When two names are alike (eierman -> eiermann) only the letters that differ
+  // change and the shared ones glide to their new place. When they have little in
+  // common the whole word swaps: old letters lift away and blur out, new ones rise
+  // in and flash in the accent colour. The heading's width glides along (the cat
+  // rides with it) and long names shrink to fit the row.
+  function rotateNames(h1, names) {
+    if (!h1) return;
+    var plate = h1.parentNode, cat = plate.querySelector('.cat');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var HOLD = 3000;          // ms every name stays before the next one comes in
+    var EASE = 'cubic-bezier(0.65, 0, 0.35, 1)';
+    var word = null, current = '', timer = null, base = 0;
+
+    // Screen readers get one stable name; the animated letters are hidden from them.
+    h1.innerHTML = '<span class="sr-only">' + esc(S.name) + '</span>';
+    h1.classList.add('nm');
+
+    function chars(s) { return Array.from ? Array.from(s) : s.split(''); }
+    function build(name) {
+      var w = document.createElement('span');
+      w.className = 'nm-word';
+      w.setAttribute('aria-hidden', 'true');
+      chars(name).forEach(function (ch, k) {
+        var c = document.createElement('span');
+        c.className = 'nm-ch';
+        c.style.setProperty('--i', k);
+        c.textContent = ch === ' ' ? ' ' : ch;
+        w.appendChild(c);
+      });
+      return w;
+    }
+    function baseSize() {
+      var old = h1.style.fontSize;
+      h1.style.fontSize = '';
+      var px = parseFloat(getComputedStyle(h1).fontSize);
+      h1.style.fontSize = old;
+      return px;
+    }
+    // Width of a name at the base size and how much it has to shrink to fit.
+    function fit(w) {
+      w.classList.add('nm-measure');
+      h1.appendChild(w);
+      var now = parseFloat(getComputedStyle(h1).fontSize);
+      var natural = w.getBoundingClientRect().width / now * base;
+      w.classList.remove('nm-measure');
+      h1.removeChild(w);
+      var room = plate.clientWidth - (cat ? cat.offsetWidth + 12 : 0);
+      var scale = Math.min(1, room / natural);
+      return { size: base * scale, width: Math.ceil(natural * scale) + 2 };
+    }
+    // Letters two names share, in order (longest common subsequence): [[old, new], …]
+    function shared(a, b) {
+      var n = a.length, m = b.length, dp = [], i, j, out = [];
+      for (i = 0; i <= n; i++) { dp[i] = []; for (j = 0; j <= m; j++) dp[i][j] = 0; }
+      for (i = n - 1; i >= 0; i--) for (j = m - 1; j >= 0; j--) {
+        dp[i][j] = a[i] === b[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+      }
+      i = 0; j = 0;
+      while (i < n && j < m) {
+        if (a[i] === b[j]) { out.push([i, j]); i++; j++; }
+        else if (dp[i + 1][j] >= dp[i][j + 1]) i++;
+        else j++;
+      }
+      return out;
+    }
+    function drop(el) { setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 950); }
+
+    // mode: 'static' (no animation), 'full' (whole word) or 'morph' (changed letters only)
+    function show(name, mode) {
+      var next = build(name), f = fit(next), old = word;
+      if (mode !== 'static' && reduce) mode = 'fade';
+      var oldRects = null, keep = null;
+      if (old && mode === 'morph') {
+        oldRects = Array.prototype.map.call(old.children, function (c) { return c.getBoundingClientRect(); });
+        keep = shared(chars(current), chars(name));
+      }
+      h1.style.fontSize = f.size + 'px';
+      h1.style.width = f.width + 'px';
+
+      if (!old || mode === 'static') {
+        if (old) old.parentNode.removeChild(old);
+      } else if (mode === 'fade') {
+        old.parentNode.removeChild(old);
+        next.classList.add('is-fading');
+      } else {
+        old.className = 'nm-word is-leaving';
+        if (mode === 'morph') {
+          // Shared letters live on in the new word; only the others leave.
+          var kept = {};
+          keep.forEach(function (p) { kept[p[0]] = true; });
+          var gone = 0;
+          Array.prototype.forEach.call(old.children, function (c, k) {
+            if (kept[k]) c.style.visibility = 'hidden';
+            else c.style.setProperty('--i', gone++);
+          });
+        }
+        drop(old);
+        next.classList.add(mode === 'morph' ? 'is-morphing' : 'is-entering');
+      }
+      h1.appendChild(next);
+
+      if (old && mode === 'morph') {
+        var from = {};
+        keep.forEach(function (p) { from[p[1]] = p[0]; });
+        var added = 0, moved = [];
+        Array.prototype.forEach.call(next.children, function (c, k) {
+          if (!(k in from)) { c.classList.add('nm-add'); c.style.setProperty('--i', added++); return; }
+          // FLIP: start where the letter was, then slide to its new place.
+          var o = oldRects[from[k]], r = c.getBoundingClientRect();
+          c.style.transition = 'none';
+          c.style.transform = 'translate(' + (o.left - r.left) + 'px,' + (o.bottom - r.bottom) + 'px)';
+          moved.push(c);
+        });
+        next.getBoundingClientRect(); // apply the start positions
+        moved.forEach(function (c) {
+          c.style.transition = 'transform 0.75s ' + EASE;
+          c.style.transform = '';
+        });
+      }
+      word = next;
+      current = name;
+    }
+
+    // ---- What comes next: the next name in the list, then from the top again ----
+    var FULL_FROM = 0.6;      // from this share of changed letters on, swap the whole word
+    var at = 0;
+    function next() {
+      at = (at + 1) % names.length;
+      var a = chars(current), b = chars(names[at]);
+      var changed = 1 - shared(a, b).length / Math.max(a.length, b.length);
+      return { name: names[at], mode: changed >= FULL_FROM ? 'full' : 'morph' };
+    }
+    function tick() {
+      if (document.hidden) return; // picked up again by visibilitychange
+      var n = next();
+      if (!n) return;
+      show(n.name, n.mode);
+      timer = setTimeout(tick, HOLD);
+    }
+
+    base = baseSize();
+    show(names[0], 'static');
+    if (names.length < 2) return;
+    timer = setTimeout(tick, HOLD);
+    document.addEventListener('visibilitychange', function () {
+      clearTimeout(timer);
+      if (!document.hidden) timer = setTimeout(tick, 1200);
+    });
+    var rz = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(rz);
+      rz = setTimeout(function () {
+        h1.classList.add('nm-still');
+        base = baseSize();
+        show(current, 'static');
+        requestAnimationFrame(function () { requestAnimationFrame(function () { h1.classList.remove('nm-still'); }); });
+      }, 120);
     });
   }
 
@@ -335,6 +509,7 @@
   function renderHome() {
     function fill(id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; }
     fill('home-name', esc(S.name));
+    rotateNames(document.getElementById('home-name'), S.aliases.length ? S.aliases : [S.name]);
     fill('home-intro', esc(S.intro));
     fill('home-links', S.links.map(function (l) { return '<a href="' + esc(l.url) + '">' + esc(l.label) + '</a>'; }).join(''));
     fill('home-facts', S.facts.map(function (f) { return '<dt>' + esc(f.label) + '</dt><dd>' + esc(f.text) + '</dd>'; }).join(''));

@@ -1,45 +1,136 @@
 {
   "_help": [
     "Everything shown about you on every version comes from this file. Projects are in projects.json.",
+    "aliases: names for the big heading on the default page, shown one after another in this order (then it starts over). Put names that are alike next to each other: then only the letters that differ change.",
     "location: where you are. status: a short line shown as your status (Discord). hashtags: shown on the TikTok version.",
     "youtube: your channel, used for the Subscribe button on the YouTube version (not part of the link lists).",
     "links: shown in this order. \"icon\" is one of: link, discord, tiktok, anilist, github, globe.",
     "facts: short label plus one or two sentences.",
     "anime: title, AniList page and cover image."
   ],
-
   "name": "eierman",
   "realName": "Felix",
+  "aliases": [
+    "eierman",
+    "eierman324",
+    "Eiermann324",
+    "Eiermann",
+    "eierman.cc",
+    "ferikkusu.cc",
+    "ferikkusu",
+    "フェリックス",
+    "Felix324",
+    "Felix",
+    "Felix Hahn",
+    "FilexNahh",
+    "FelixxDE",
+    "FelixxD",
+    "FelixxD_Twitch",
+    "FelixxD_YouTube",
+    "#G-Gaming",
+    "#G-Gaming_yt",
+    "goofybicycle",
+    "goofybicycle381",
+    "justloldog"
+  ],
   "handle": "eierman324",
   "tagline": "IT, e-scooter tuning and small tools that scratch my own itch.",
   "intro": "Hi, I'm Felix. I work in IT and tune e-scooters past their limits. Whatever bugs me along the way turns into a small tool.",
   "location": "Germany",
   "status": "Probably tuning a scooter",
-  "hashtags": ["it", "escooter", "gaming", "anime"],
+  "hashtags": [
+    "it",
+    "escooter",
+    "gaming",
+    "anime"
+  ],
   "youtube": "https://www.youtube.com/@eierman324",
-
   "links": [
-    { "id": "fakecrime", "label": "fakecrime", "url": "https://fakecrime.bio/eierman", "icon": "link" },
-    { "id": "github", "label": "GitHub", "url": "https://github.com/eierman324", "icon": "github" },
-    { "id": "discord", "label": "Discord", "url": "https://discord.com/users/1253218430396403714", "icon": "discord" },
-    { "id": "tiktok", "label": "TikTok", "url": "https://www.tiktok.com/@eierman.cc", "icon": "tiktok" },
-    { "id": "twitch", "label": "Twitch", "url": "https://www.twitch.tv/eierman324", "icon": "link" },
-    { "id": "anilist", "label": "AniList", "url": "https://anilist.co/user/eierman324/animelist", "icon": "anilist" }
+    {
+      "id": "fakecrime",
+      "label": "fakecrime",
+      "url": "https://fakecrime.bio/eierman",
+      "icon": "link"
+    },
+    {
+      "id": "github",
+      "label": "GitHub",
+      "url": "https://github.com/eierman324",
+      "icon": "github"
+    },
+    {
+      "id": "discord",
+      "label": "Discord",
+      "url": "https://discord.com/users/1253218430396403714",
+      "icon": "discord"
+    },
+    {
+      "id": "tiktok",
+      "label": "TikTok",
+      "url": "https://www.tiktok.com/@eierman.cc",
+      "icon": "tiktok"
+    },
+    {
+      "id": "twitch",
+      "label": "Twitch",
+      "url": "https://www.twitch.tv/eierman324",
+      "icon": "link"
+    },
+    {
+      "id": "anilist",
+      "label": "AniList",
+      "url": "https://anilist.co/user/eierman324/animelist",
+      "icon": "anilist"
+    }
   ],
-
   "facts": [
-    { "label": "Scooters", "text": "Modding them and making them faster than intended. Only SHU so far, VESC is next." },
-    { "label": "Games", "text": "Fortnite right now, Valorant for shooters, Minecraft SMPs with friends, and Roblox on my second channel." },
-    { "label": "Homelab", "text": "A NAS at home running Jellyfin, Immich and a few smaller things in Docker." },
-    { "label": "Anime", "text": "Romance, drama and slice of life. If it makes me cry, it's good." }
+    {
+      "label": "Scooters",
+      "text": "Modding them and making them faster than intended. Only SHU so far, VESC is next."
+    },
+    {
+      "label": "Games",
+      "text": "Fortnite right now, Valorant for shooters, Minecraft SMPs with friends, and Roblox on my second channel."
+    },
+    {
+      "label": "Homelab",
+      "text": "A NAS at home running Jellyfin, Immich and a few smaller things in Docker."
+    },
+    {
+      "label": "Anime",
+      "text": "Romance, drama and slice of life. If it makes me cry, it's good."
+    }
   ],
-
   "anime": [
-    { "title": "Your lie in April", "url": "https://anilist.co/anime/20665", "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20665-TLgkL8T8IRFd.png" },
-    { "title": "Rascal Does Not Dream of Bunny Girl Senpai", "url": "https://anilist.co/anime/101291", "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx101291-wfEdgPqtfU0l.jpg" },
-    { "title": "Call of the Night", "url": "https://anilist.co/anime/141391", "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx141391-M3ZgUKTPENUk.jpg" },
-    { "title": "Charlotte", "url": "https://anilist.co/anime/20997", "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20997-axVYrsIfjtYJ.jpg" },
-    { "title": "DARLING in the FRANXX", "url": "https://anilist.co/anime/99423", "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx99423-8MBxtwCeHf8B.png" },
-    { "title": "Cyberpunk: Edgerunners", "url": "https://anilist.co/anime/120377", "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx120377-ayZPoxiWt4Li.jpg" }
+    {
+      "title": "Your lie in April",
+      "url": "https://anilist.co/anime/20665",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20665-TLgkL8T8IRFd.png"
+    },
+    {
+      "title": "Rascal Does Not Dream of Bunny Girl Senpai",
+      "url": "https://anilist.co/anime/101291",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx101291-wfEdgPqtfU0l.jpg"
+    },
+    {
+      "title": "Call of the Night",
+      "url": "https://anilist.co/anime/141391",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx141391-M3ZgUKTPENUk.jpg"
+    },
+    {
+      "title": "Charlotte",
+      "url": "https://anilist.co/anime/20997",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20997-axVYrsIfjtYJ.jpg"
+    },
+    {
+      "title": "DARLING in the FRANXX",
+      "url": "https://anilist.co/anime/99423",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/nx99423-8MBxtwCeHf8B.png"
+    },
+    {
+      "title": "Cyberpunk: Edgerunners",
+      "url": "https://anilist.co/anime/120377",
+      "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx120377-ayZPoxiWt4Li.jpg"
+    }
   ]
 }

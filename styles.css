@@ -93,6 +93,29 @@ h1 {
   letter-spacing: -0.04em;
 }
 
+/* Name rotation (app.js rotateNames) */
+h1.nm { position: relative; white-space: nowrap; perspective: 600px;
+  transition: width 0.75s cubic-bezier(0.65, 0, 0.35, 1), font-size 0.75s cubic-bezier(0.65, 0, 0.35, 1); }
+h1.nm.nm-still { transition: none; }
+.nm-word { display: inline-block; }
+.nm-word.nm-measure { position: absolute; visibility: hidden; }
+.nm-word.is-leaving { position: absolute; left: 0; bottom: 0; pointer-events: none; }
+.nm-ch { display: inline-block; transform-origin: 50% 80%; }
+.nm-word.is-entering .nm-ch { animation: nm-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(0.18s + var(--i) * 45ms); }
+.nm-word.is-leaving .nm-ch { animation: nm-out 0.45s cubic-bezier(0.55, 0, 0.75, 0.2) both; animation-delay: calc(var(--i) * 28ms); }
+.nm-word.is-fading { animation: nm-fade 0.4s ease both; }
+/* Morph within a base name: only the new letters come in (the shared ones slide). */
+.nm-word.is-morphing .nm-ch.nm-add { animation: nm-in 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(0.15s + var(--i) * 55ms); }
+@keyframes nm-in {
+  from { opacity: 0; transform: translateY(0.5em) rotateX(-75deg); filter: blur(10px); color: var(--accent); }
+  55% { opacity: 1; filter: blur(0); color: var(--accent); }
+  to { opacity: 1; transform: none; filter: none; color: var(--text); }
+}
+@keyframes nm-out {
+  to { opacity: 0; transform: translateY(-0.4em) rotateX(65deg); filter: blur(8px); }
+}
+@keyframes nm-fade { from { opacity: 0; } }
+
 .cat {
   width: 64px;
   height: 64px;
@@ -173,5 +196,6 @@ footer .small { font-size: 0.875rem; color: var(--muted); }
 
 @media (prefers-reduced-motion: reduce) {
   .cat.running { animation: none; }
+  h1.nm { transition: none; }
   body, .controls button, .projects li, .hero { transition: none; }
 }
