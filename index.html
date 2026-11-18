@@ -29,6 +29,16 @@
       -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     }
     .to-default:hover { background: rgba(14, 14, 20, .97); }
+    /* Discord: sit in the empty right end of the channel header, not on the member list. */
+    .vs-discord .to-default { top: 8px; }
+    @media (min-width: 1101px) { .vs-discord .to-default { right: 252px; } }
+    /* Phones: no room to float, so it becomes a slim bar on top that pushes the page down. */
+    @media (max-width: 700px) {
+      .to-default, .vs-discord .to-default {
+        position: sticky; top: 0; right: auto; width: 100%; justify-content: center;
+        padding: 9px 12px; border-width: 0 0 1px; border-radius: 0; box-shadow: none;
+      }
+    }
     .to-default:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
   </style>
   <script>
