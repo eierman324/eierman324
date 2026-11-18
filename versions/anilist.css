@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap");
 
-.ed-anilist {
+.vs-anilist {
   --bg: #edf1f5; --card: #fafafa; --text: #5c728a; --strong: #3d5266; --blue: #3db4f2; --muted: #8ba0b2; --green: #7bd555; --orange: #f79a63;
   margin: 0;
   background: var(--bg);
@@ -8,12 +8,12 @@
   font: 400 0.9375rem/1.55 "Nunito", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
-  .ed-anilist { --bg: #0b1622; --card: #151f2e; --text: #9fadbd; --strong: #e0e6ec; --muted: #728aa1; }
+  .vs-anilist { --bg: #0b1622; --card: #151f2e; --text: #9fadbd; --strong: #e0e6ec; --muted: #728aa1; }
 }
 
-.ed-anilist a { color: var(--blue); text-decoration: none; }
-.ed-anilist a:hover { text-decoration: underline; }
-.ed-anilist a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.vs-anilist a { color: var(--blue); text-decoration: none; }
+.vs-anilist a:hover { text-decoration: underline; }
+.vs-anilist a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 
 .al-banner { position: relative; height: clamp(200px, 32vw, 320px); overflow: hidden; background: #2b2d42; }
 .al-covers { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(var(--covers), 1fr); filter: blur(2px) brightness(0.55) saturate(1.2); transform: scale(1.05); }
@@ -66,11 +66,11 @@
 .al-status::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: var(--green); }
 .al-status.is-wip::before { background: var(--orange); }
 
-.ed-anilist .editions { width: min(1100px, 100% - 32px); margin: 0 auto; padding: 0 0 48px; }
-.ed-anilist .editions p { margin: 0 0 10px; }
-.ed-anilist .editions div { display: flex; flex-wrap: wrap; gap: 6px; }
-.ed-anilist .editions a { padding: 4px 12px; border-radius: 4px; background: var(--card); font-weight: 600; }
-.ed-anilist .editions a[aria-current] { background: var(--blue); color: #fff; }
+.vs-anilist .versions { width: min(1100px, 100% - 32px); margin: 0 auto; padding: 0 0 48px; }
+.vs-anilist .versions p { margin: 0 0 10px; }
+.vs-anilist .versions div { display: flex; flex-wrap: wrap; gap: 6px; }
+.vs-anilist .versions a { padding: 4px 12px; border-radius: 4px; background: var(--card); font-weight: 600; }
+.vs-anilist .versions a[aria-current] { background: var(--blue); color: #fff; }
 
 @media (max-width: 820px) {
   .al-main { grid-template-columns: 1fr; }

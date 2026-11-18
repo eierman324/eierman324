@@ -1,5 +1,5 @@
-// AniList edition: a list profile. Projects are entries with a status and format, plus real favourites.
-window.EDITIONS.anilist = {
+// AniList version: a list profile. Projects are entries with a status and format, plus real favourites.
+window.VERSIONS.anilist = {
   render: function (S) {
     function status(p) { return p.external ? 'Contributing' : 'Released'; }
     function poster(p) {

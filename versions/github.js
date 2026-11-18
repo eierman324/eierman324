@@ -1,5 +1,5 @@
-// GitHub edition: a terminal you can type into.
-window.EDITIONS.github = {
+// GitHub version: a terminal you can type into.
+window.VERSIONS.github = {
   render: function (S) {
     return '<main class="gh-wrap">' +
       '<div class="gh-term" role="region" aria-label="Terminal">' +

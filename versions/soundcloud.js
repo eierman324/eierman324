@@ -1,5 +1,5 @@
-// SoundCloud edition: projects as tracks with waveforms. "Play" scrubs through the waveform.
-window.EDITIONS.soundcloud = {
+// SoundCloud version: projects as tracks with waveforms. "Play" scrubs through the waveform.
+window.VERSIONS.soundcloud = {
   render: function (S) {
     function wave(name) {
       var rnd = seeded(name + 'wave');

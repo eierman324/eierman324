@@ -1,11 +1,11 @@
-// Picks an edition from #hash (or the referrer) and renders it.
-// Without an edition the static home page in index.html stays as it is.
+// Picks a version from #hash (or the referrer) and renders it.
+// Without a version the static home page in index.html stays as it is.
 (function () {
-  // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '27';
+  // Bump this after changing files in versions/, so browsers fetch the new versions.
+  var VERSION = '28';
   var S = window.SITE;
-  var ids = S.editions.map(function (e) { return e.id; });
-  window.EDITIONS = window.EDITIONS || {};
+  var ids = S.versions.map(function (e) { return e.id; });
+  window.VERSIONS = window.VERSIONS || {};
 
   // URL of a link from content.js by its id, or '' if it isn't in the list.
   window.linkUrl = function (id) {
@@ -169,20 +169,20 @@
     return S.projects.filter(function (p) { return p.group === group; });
   };
 
-  window.editionsBar = function (current) {
-    var items = [{ id: '', label: 'Default' }].concat(S.editions).map(function (e) {
+  window.versionsBar = function (current) {
+    var items = [{ id: '', label: 'Default' }].concat(S.versions).map(function (e) {
       var href = e.id ? '#' + e.id : location.pathname;
       var cur = e.id === current ? ' aria-current="page"' : '';
       return '<a href="' + href + '"' + cur + '>' + esc(e.label) + '</a>';
     }).join('');
-    return '<nav class="editions" aria-label="Other editions of this page"><p>This page has an edition for every place you might come from.</p><div>' + items + '</div></nav>';
+    return '<nav class="versions" aria-label="Other versions of this page"><p>This page has a version for every place you might come from.</p><div>' + items + '</div></nav>';
   };
 
   function fromReferrer() {
     var host = '';
     try { host = new URL(document.referrer).hostname.replace(/^www\./, ''); } catch (e) { return null; }
-    for (var i = 0; i < S.editions.length; i++) {
-      var e = S.editions[i];
+    for (var i = 0; i < S.versions.length; i++) {
+      var e = S.versions[i];
       for (var j = 0; j < e.hosts.length; j++) {
         if (host === e.hosts[j] || host.slice(-e.hosts[j].length - 1) === '.' + e.hosts[j]) return e.id;
       }
@@ -359,45 +359,45 @@
   function show(id) {
     if (!id) {
       if (shown) location.reload();
-      document.documentElement.classList.remove('edition-loading');
+      document.documentElement.classList.remove('version-loading');
       return;
     }
     if (id === shown) return;
     var root = document.documentElement;
-    root.classList.add('edition-loading');
-    var ready = window.EDITIONS[id] ? Promise.resolve() : loadScript('editions/' + id + '.js?v=' + VERSION);
-    var css = document.getElementById('edition-css');
+    root.classList.add('version-loading');
+    var ready = window.VERSIONS[id] ? Promise.resolve() : loadScript('versions/' + id + '.js?v=' + VERSION);
+    var css = document.getElementById('version-css');
     if (!css) {
       css = document.createElement('link');
-      css.rel = 'stylesheet'; css.id = 'edition-css';
+      css.rel = 'stylesheet'; css.id = 'version-css';
       document.head.appendChild(css);
     }
     var cssReady = new Promise(function (resolve) { css.onload = resolve; css.onerror = resolve; });
-    css.href = 'editions/' + id + '.css?v=' + VERSION;
+    css.href = 'versions/' + id + '.css?v=' + VERSION;
     var base = document.getElementById('home-css');
     if (base) base.disabled = true;
 
     Promise.all([ready, cssReady, projectsReady]).then(function () {
-      // Drop the home palette so edition styles start clean.
+      // Drop the home palette so version styles start clean.
       ['bg', 'surface', 'text', 'muted', 'accent', 'line'].forEach(function (k) { root.style.removeProperty('--' + k); });
       root.style.colorScheme = '';
-      root.dataset.edition = id;
-      document.title = S.name + ' (' + S.editions[ids.indexOf(id)].label + ' edition)';
-      document.body.className = 'ed-' + id;
-      document.body.innerHTML = window.EDITIONS[id].render(S) + editionsBar(id);
-      if (window.EDITIONS[id].mount) window.EDITIONS[id].mount(document.body, S);
+      root.dataset.version = id;
+      document.title = S.name + ' (' + S.versions[ids.indexOf(id)].label + ' version)';
+      document.body.className = 'vs-' + id;
+      document.body.innerHTML = window.VERSIONS[id].render(S) + versionsBar(id);
+      if (window.VERSIONS[id].mount) window.VERSIONS[id].mount(document.body, S);
       window.hydrateProfiles(document.body);
       window.scrollTo(0, 0);
       shown = id;
-      root.classList.remove('edition-loading');
+      root.classList.remove('version-loading');
     }).catch(function () {
-      root.classList.remove('edition-loading');
+      root.classList.remove('version-loading');
     });
   }
 
   window.addEventListener('hashchange', function () {
     var h = location.hash.slice(1).toLowerCase();
-    // In-page anchors like #al-list are not editions; leave the page alone.
+    // In-page anchors like #al-list are not versions; leave the page alone.
     if (h && ids.indexOf(h) === -1) return;
     show(current());
   });
@@ -411,10 +411,10 @@
   } else {
     contentReady.then(function () {
       renderHome();
-      var slot = document.getElementById('editions-slot');
-      if (slot) slot.innerHTML = editionsBar('');
+      var slot = document.getElementById('versions-slot');
+      if (slot) slot.innerHTML = versionsBar('');
       window.hydrateProfiles(document.body);
-      document.documentElement.classList.remove('edition-loading');
+      document.documentElement.classList.remove('version-loading');
     });
     projectsReady.then(renderHomeProjects);
   }

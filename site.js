@@ -1,4 +1,4 @@
-// Technical setup shared by every edition: which editions exist and the icons.
+// Technical setup shared by every version: which versions exist and the icons.
 // Your content (intro, links, facts, anime) is in content.json, projects in projects.json.
 window.SITE = {
   // Single-colour icons (24x24, drawn in currentColor). Brand shapes from Simple Icons (CC0),
@@ -17,8 +17,8 @@ window.SITE = {
     link: '<g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g>'
   },
 
-  // Edition id -> label and the hosts that count as coming from there.
-  editions: [
+  // Version id -> label and the hosts that count as coming from there.
+  versions: [
     { id: 'tiktok',     label: 'TikTok',     hosts: ['tiktok.com'] },
     { id: 'youtube',    label: 'YouTube',    hosts: ['youtube.com', 'youtu.be'] },
     { id: 'github',     label: 'GitHub',     hosts: ['github.com'] },

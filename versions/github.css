@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap");
 
-.ed-github {
+.vs-github {
   --bg: #0d1117; --panel: #161b22; --line: #30363d; --text: #e6edf3; --dim: #8b949e;
   --green: #3fb950; --blue: #58a6ff; --purple: #d2a8ff; --red: #ff7b72;
   margin: 0;
@@ -10,11 +10,11 @@
   font: 400 0.9375rem/1.6 "JetBrains Mono", ui-monospace, monospace;
 }
 @media (prefers-color-scheme: light) {
-  .ed-github { --bg: #f6f8fa; --panel: #ffffff; --line: #d0d7de; --text: #1f2328; --dim: #59636e; --green: #1a7f37; --blue: #0969da; --purple: #8250df; --red: #cf222e; }
+  .vs-github { --bg: #f6f8fa; --panel: #ffffff; --line: #d0d7de; --text: #1f2328; --dim: #59636e; --green: #1a7f37; --blue: #0969da; --purple: #8250df; --red: #cf222e; }
 }
 
-.ed-github a { color: var(--blue); }
-.ed-github a:focus-visible, .ed-github button:focus-visible, .ed-github input:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.vs-github a { color: var(--blue); }
+.vs-github a:focus-visible, .vs-github button:focus-visible, .vs-github input:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 
 .gh-wrap { width: min(900px, 100% - 32px); margin: 0 auto; padding: clamp(24px, 6vw, 64px) 0 24px; }
 
@@ -57,9 +57,9 @@
 }
 .gh-note button:hover { border-color: var(--blue); }
 
-.ed-github .editions { width: min(900px, 100% - 32px); margin: 0 auto; padding: 16px 0 48px; color: var(--dim); font-size: 0.875rem; }
-.ed-github .editions p { margin: 0 0 8px; }
-.ed-github .editions p::before { content: "# "; }
-.ed-github .editions div { display: flex; flex-wrap: wrap; gap: 4px 14px; }
-.ed-github .editions a[aria-current] { color: var(--green); text-decoration: none; }
-.ed-github .editions a[aria-current]::before { content: "* "; }
+.vs-github .versions { width: min(900px, 100% - 32px); margin: 0 auto; padding: 16px 0 48px; color: var(--dim); font-size: 0.875rem; }
+.vs-github .versions p { margin: 0 0 8px; }
+.vs-github .versions p::before { content: "# "; }
+.vs-github .versions div { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.vs-github .versions a[aria-current] { color: var(--green); text-decoration: none; }
+.vs-github .versions a[aria-current]::before { content: "* "; }

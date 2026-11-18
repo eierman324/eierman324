@@ -1,5 +1,5 @@
-// TikTok edition: a vertical full-screen feed, one project per screen.
-window.EDITIONS.tiktok = {
+// TikTok version: a vertical full-screen feed, one project per screen.
+window.VERSIONS.tiktok = {
   render: function (S) {
     // "Open" as an icon: GitHub logo for a GitHub repo, a globe for any other link.
     function openIcon(p) {

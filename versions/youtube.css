@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap");
 
-.ed-youtube {
+.vs-youtube {
   --bg: #ffffff; --chip: #f2f2f2; --text: #131313; --muted: #5f5f5f; --red: #e3121b;
   margin: 0;
   background: var(--bg);
@@ -8,11 +8,11 @@
   font: 400 0.9375rem/1.45 "Rubik", system-ui, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
-  .ed-youtube { --bg: #141414; --chip: #272727; --text: #f1f1f1; --muted: #aaaaaa; --red: #ff3b3b; }
+  .vs-youtube { --bg: #141414; --chip: #272727; --text: #f1f1f1; --muted: #aaaaaa; --red: #ff3b3b; }
 }
 
-.ed-youtube a { color: inherit; text-decoration: none; }
-.ed-youtube a:focus-visible, .ed-youtube button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.vs-youtube a { color: inherit; text-decoration: none; }
+.vs-youtube a:focus-visible, .vs-youtube button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 
 .yt-top { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; height: 56px; padding: 0 16px; background: var(--bg); }
 .yt-logo { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.03em; }
@@ -91,11 +91,11 @@
 .yt-about ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .yt-about li a { color: #3ea6ff; }
 
-.ed-youtube .editions { width: min(1200px, 100% - 32px); margin: 0 auto; padding: 24px 0 48px; border-top: 1px solid var(--chip); }
-.ed-youtube .editions p { margin: 0 0 12px; color: var(--muted); }
-.ed-youtube .editions div { display: flex; flex-wrap: wrap; gap: 8px; }
-.ed-youtube .editions a { padding: 6px 12px; border-radius: 8px; background: var(--chip); font-weight: 500; }
-.ed-youtube .editions a[aria-current] { background: var(--text); color: var(--bg); }
+.vs-youtube .versions { width: min(1200px, 100% - 32px); margin: 0 auto; padding: 24px 0 48px; border-top: 1px solid var(--chip); }
+.vs-youtube .versions p { margin: 0 0 12px; color: var(--muted); }
+.vs-youtube .versions div { display: flex; flex-wrap: wrap; gap: 8px; }
+.vs-youtube .versions a { padding: 6px 12px; border-radius: 8px; background: var(--chip); font-weight: 500; }
+.vs-youtube .versions a[aria-current] { background: var(--text); color: var(--bg); }
 
 @media (max-width: 640px) {
   .yt-channel { flex-direction: column; gap: 12px; }

@@ -1,5 +1,5 @@
-// Discord edition: a chat server. Channels switch what eierman has posted.
-window.EDITIONS.discord = {
+// Discord version: a chat server. Channels switch what eierman has posted.
+window.VERSIONS.discord = {
   render: function (S) {
     var channels = [
       { id: 'welcome', topic: 'Start here' },
@@ -121,7 +121,7 @@ window.EDITIONS.discord = {
     }
     window.loadProfile('discord').then(applyPresence);
     var timer = setInterval(function () {
-      if (!document.body.classList.contains('ed-discord')) { clearInterval(timer); return; }
+      if (!document.body.classList.contains('vs-discord')) { clearInterval(timer); return; }
       window.refreshProfile('discord').then(applyPresence);
     }, 60000);
   }

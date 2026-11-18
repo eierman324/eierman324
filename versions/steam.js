@@ -1,5 +1,5 @@
-// Steam edition: a game library. Pick a project on the left, see it on the right.
-window.EDITIONS.steam = {
+// Steam version: a game library. Pick a project on the left, see it on the right.
+window.VERSIONS.steam = {
   render: function (S) {
     var list = S.groups.map(function (g) {
       var items = projectsIn(g.id);

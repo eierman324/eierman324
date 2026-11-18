@@ -1,6 +1,6 @@
 {
   "_help": [
-    "Projects shown on every edition, grouped by \"groups\" and in this order.",
+    "Projects shown on every version, grouped by \"groups\" and in this order.",
     "Give \"repo\": \"owner/name\" and the site fetches name, description, tags (GitHub topics), language, year and website from GitHub.",
     "Any field you write by hand wins over GitHub: name, description, tags, tech, year, url, homepage.",
     "Without \"repo\", write the fields yourself (name, description and url at least).",

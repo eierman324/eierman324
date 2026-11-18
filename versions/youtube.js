@@ -1,5 +1,5 @@
-// YouTube edition: a channel page with tabs, projects as video tiles.
-window.EDITIONS.youtube = {
+// YouTube version: a channel page with tabs, projects as video tiles.
+window.VERSIONS.youtube = {
   render: function (S) {
     function thumb(p) {
       var rnd = seeded(p.name);

@@ -1,8 +1,8 @@
 {
   "_help": [
-    "Everything shown about you on every edition comes from this file. Projects are in projects.json.",
-    "location: where you are. status: a short line shown as your status (Discord). hashtags: shown on the TikTok edition.",
-    "youtube: your channel, used for the Subscribe button on the YouTube edition (not part of the link lists).",
+    "Everything shown about you on every version comes from this file. Projects are in projects.json.",
+    "location: where you are. status: a short line shown as your status (Discord). hashtags: shown on the TikTok version.",
+    "youtube: your channel, used for the Subscribe button on the YouTube version (not part of the link lists).",
     "links: shown in this order. \"icon\" is one of: link, discord, tiktok, anilist, github, globe.",
     "facts: short label plus one or two sentences.",
     "anime: title, AniList page and cover image."

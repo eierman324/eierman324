@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
 
-.ed-discord {
+.vs-discord {
   --rail: #1e1f22; --side: #2b2d31; --chat: #313338; --hover: #393c41; --text: #dbdee1; --muted: #949ba4; --bright: #f2f3f5;
   --blurple: #5865f2; --green: #23a55a; --link: #00a8fc;
   margin: 0;
@@ -9,9 +9,9 @@
   font: 400 0.9375rem/1.375 "IBM Plex Sans", system-ui, sans-serif;
 }
 
-.ed-discord a { color: var(--link); text-decoration: none; }
-.ed-discord a:hover { text-decoration: underline; }
-.ed-discord a:focus-visible, .ed-discord button:focus-visible { outline: 2px solid var(--blurple); outline-offset: 2px; }
+.vs-discord a { color: var(--link); text-decoration: none; }
+.vs-discord a:hover { text-decoration: underline; }
+.vs-discord a:focus-visible, .vs-discord button:focus-visible { outline: 2px solid var(--blurple); outline-offset: 2px; }
 
 .dc-app { display: grid; grid-template-columns: 72px 240px 1fr 240px; height: 100svh; }
 
@@ -92,11 +92,11 @@
 
 .dc-members { background: var(--side); padding-top: 8px; }
 
-.ed-discord .editions { padding: 20px 16px 40px; background: var(--rail); }
-.ed-discord .editions p { margin: 0 0 10px; color: var(--muted); }
-.ed-discord .editions div { display: flex; flex-wrap: wrap; gap: 6px; }
-.ed-discord .editions a { padding: 4px 12px; border-radius: 4px; background: var(--side); color: var(--text); }
-.ed-discord .editions a[aria-current] { background: var(--blurple); color: #fff; }
+.vs-discord .versions { padding: 20px 16px 40px; background: var(--rail); }
+.vs-discord .versions p { margin: 0 0 10px; color: var(--muted); }
+.vs-discord .versions div { display: flex; flex-wrap: wrap; gap: 6px; }
+.vs-discord .versions a { padding: 4px 12px; border-radius: 4px; background: var(--side); color: var(--text); }
+.vs-discord .versions a[aria-current] { background: var(--blurple); color: #fff; }
 
 @media (max-width: 1100px) { .dc-app { grid-template-columns: 72px 220px 1fr; } .dc-members { display: none; } }
 @media (max-width: 700px) {

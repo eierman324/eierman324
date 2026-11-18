@@ -1,5 +1,5 @@
-// FACEIT edition: an esports player page. Projects are the match history, the stack is the loadout.
-window.EDITIONS.faceit = {
+// FACEIT version: an esports player page. Projects are the match history, the stack is the loadout.
+window.VERSIONS.faceit = {
   render: function (S) {
     var techs = [];
     S.projects.forEach(function (p) { if (p.tech && techs.indexOf(p.tech) === -1) techs.push(p.tech); });

@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap");
 
-html[data-edition="tiktok"] { scroll-snap-type: y mandatory; background: #000; }
+html[data-version="tiktok"] { scroll-snap-type: y mandatory; background: #000; }
 
-.ed-tiktok {
+.vs-tiktok {
   margin: 0;
   background: #000;
   color: #fff;
@@ -11,8 +11,8 @@ html[data-edition="tiktok"] { scroll-snap-type: y mandatory; background: #000; }
   --red: #fe2c55;
 }
 
-.ed-tiktok a { color: #fff; }
-.ed-tiktok a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+.vs-tiktok a { color: #fff; }
+.vs-tiktok a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
 
 .tt-slide {
   position: relative;
@@ -116,16 +116,16 @@ html[data-edition="tiktok"] { scroll-snap-type: y mandatory; background: #000; }
   .tt-rail a.tt-icon-link:hover { transform: none; }
 }
 
-.ed-tiktok .editions {
+.vs-tiktok .versions {
   scroll-snap-align: end;
   padding: 32px 16px 48px;
   background: #111;
   text-align: center;
 }
-.ed-tiktok .editions p { margin: 0 0 12px; color: #aaa; }
-.ed-tiktok .editions div { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-.ed-tiktok .editions a { padding: 6px 12px; border-radius: 4px; background: #222; text-decoration: none; font-weight: 700; }
-.ed-tiktok .editions a[aria-current] { background: var(--red); }
+.vs-tiktok .versions p { margin: 0 0 12px; color: #aaa; }
+.vs-tiktok .versions div { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.vs-tiktok .versions a { padding: 6px 12px; border-radius: 4px; background: #222; text-decoration: none; font-weight: 700; }
+.vs-tiktok .versions a[aria-current] { background: var(--red); }
 
 @media (prefers-reduced-motion: reduce) {
   .tt-hint { animation: none; }
