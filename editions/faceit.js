@@ -3,8 +3,9 @@ window.EDITIONS.faceit = {
   render: function (S) {
     var techs = [];
     S.projects.forEach(function (p) { if (techs.indexOf(p.tech) === -1) techs.push(p.tech); });
-    var shipped = S.projects.filter(function (p) { return p.group !== 'contrib'; }).length;
-    var map = { games: 'Games', tools: 'Tools', scooters: 'Scooters', contrib: 'Open source' };
+    var shipped = S.projects.filter(function (p) { return !p.external; }).length;
+    var map = {};
+    S.groups.forEach(function (g) { map[g.id] = g.label.split(' ')[0]; });
 
     return '<header class="fc-hero">' +
         '<div class="fc-wrap fc-player">' +
@@ -24,11 +25,11 @@ window.EDITIONS.faceit = {
             '<div class="fc-matches" role="table">' +
               '<div class="fc-m fc-mh" role="row"><span role="columnheader">Result</span><span role="columnheader">Project</span><span role="columnheader">Map</span><span role="columnheader">Stack</span><span role="columnheader">Year</span></div>' +
               S.projects.map(function (p) {
-                var win = p.group !== 'contrib';
+                var win = !p.external;
                 return '<div class="fc-m ' + (win ? 'is-win' : 'is-live') + '" role="row">' +
-                  '<span role="cell" class="fc-res">' + (win ? 'Shipped' : 'Live') + '</span>' +
+                  '<span role="cell" class="fc-res">' + (win ? 'Shipped' : 'Contrib') + '</span>' +
                   '<span role="cell" class="fc-proj"><a href="' + p.url + '">' + esc(p.name) + '</a><small>' + esc(p.desc) + '</small></span>' +
-                  '<span role="cell">' + esc(map[p.group]) + '</span>' +
+                  '<span role="cell">' + esc(map[p.group] || '') + '</span>' +
                   '<span role="cell">' + esc(p.tech) + '</span>' +
                   '<span role="cell">' + p.year + '</span></div>';
               }).join('') +

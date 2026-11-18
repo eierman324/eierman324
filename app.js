@@ -2,7 +2,7 @@
 // Without an edition the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '8';
+  var VERSION = '9';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};
@@ -227,7 +227,8 @@
       var entries = cfg.projects || [];
       var repos = entries.filter(function (e) { return e.repo; }).map(function (e) { return e.repo; });
       return withTimeout(githubRepos(repos), 5000).catch(function () { return {}; }).then(function (byName) {
-        S.groups = cfg.groups || [];
+        var groups = cfg.groups || [];
+        var known = groups.map(function (g) { return g.id; });
         S.projects = entries.map(function (e) {
           var gh = e.repo ? byName[e.repo.toLowerCase()] : null;
           var base = gh || (e.repo ? { name: e.repo.split('/')[1], url: 'https://github.com/' + e.repo } : {});
@@ -246,8 +247,15 @@
             year: p.year || '',
             url: p.url || (e.repo ? 'https://github.com/' + e.repo : '#'),
             homepage: p.homepage || '',
-            group: e.group
+            group: known.indexOf(e.group) !== -1 ? e.group : 'other'
           };
+        });
+        // Unknown groups end up under "Other"; groups without projects are hidden.
+        if (S.projects.some(function (p) { return p.group === 'other'; }) && known.indexOf('other') === -1) {
+          groups = groups.concat([{ id: 'other', label: 'Other' }]);
+        }
+        S.groups = groups.filter(function (g) {
+          return S.projects.some(function (p) { return p.group === g.id; });
         });
       });
     }).catch(function () {

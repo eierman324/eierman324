@@ -1,49 +1,29 @@
 {
   "_help": [
-    "Projects shown on every edition, in this order.",
+    "Projects shown on every edition, grouped by \"groups\" and in this order.",
     "Give \"repo\": \"owner/name\" and the site fetches name, description, tags (GitHub topics), language, year and website from GitHub.",
     "Any field you write by hand wins over GitHub: name, description, tags, tech, year, url, homepage.",
     "Without \"repo\", write the fields yourself (name, description and url at least).",
     "Repos that don't belong to eierman324 are shown as \"owner/name\".",
-    "\"group\" must be one of the ids under \"groups\"."
+    "\"group\" is one of the ids under \"groups\". Empty groups are hidden; an unknown group shows up as \"Other\"."
   ],
   "groups": [
-    {
-      "id": "games",
-      "label": "Games and Minecraft"
-    },
-    {
-      "id": "tools",
-      "label": "Tools and userscripts"
-    },
-    {
-      "id": "scooters",
-      "label": "Scooters"
-    },
-    {
-      "id": "contrib",
-      "label": "Contributions"
-    }
+    { "id": "anime", "label": "Anime" },
+    { "id": "music", "label": "Music and audio" },
+    { "id": "games", "label": "Games and Minecraft" },
+    { "id": "scooters", "label": "Scooters" }
   ],
   "projects": [
-    {
-      "repo": "eierman324/AniWorld-Downloader",
-      "group": "games"
-    },
-    {
-      "repo": "eierman324/anidl-renamer",
-      "group": "tools",
-      "tech": "Userscript"
-    },
-    {
-      "repo": "eierman324/fakecrime-music-import",
-      "group": "tools",
-      "tech": "Userscript"
-    },
-    {
-      "repo": "mspaint-cc/translations",
-      "group": "tools",
-      "tech": "xyz"
-    }
+    { "repo": "eierman324/AniWorld-Downloader", "group": "anime" },
+    { "repo": "eierman324/anidl-renamer", "group": "anime", "tech": "Userscript" },
+    { "repo": "eierman324/horimiya-manga-order", "group": "anime", "tech": "xyz" },
+
+    { "repo": "eierman324/fakecrime-music-import", "group": "music", "tech": "Userscript" },
+    { "repo": "eierman324/RecordPlayer", "group": "music", "tech": "xyz" },
+
+    { "repo": "eierman324/DomainGate", "group": "games", "tech": "xyz" },
+    { "repo": "mspaint-cc/translations", "group": "games", "tech": "xyz" },
+
+    { "repo": "eierman324/G2MApp", "group": "scooters", "tech": "xyz" }
   ]
 }

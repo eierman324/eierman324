@@ -1,7 +1,7 @@
 // AniList edition: a list profile. Projects are entries with a status and format, plus real favourites.
 window.EDITIONS.anilist = {
   render: function (S) {
-    function status(p) { return p.group === 'contrib' ? 'In review' : 'Released'; }
+    function status(p) { return p.external ? 'Contributing' : 'Released'; }
     function poster(p) {
       var h = Math.floor(seeded(p.name)() * 360);
       return '<span class="al-poster" style="--h:' + h + '"><span>' + esc(p.name) + '</span></span>';
@@ -41,7 +41,7 @@ window.EDITIONS.anilist = {
               '<div class="al-row al-th" role="row"><span role="columnheader">Title</span><span role="columnheader">Status</span><span role="columnheader">Format</span><span role="columnheader">Year</span></div>' +
               projectsIn(g.id).map(function (p) {
                 return '<div class="al-row" role="row"><span role="cell" class="al-name">' + poster(p) + '<span><a href="' + p.url + '">' + esc(p.name) + '</a><small>' + esc(p.desc) + '</small></span></span>' +
-                  '<span role="cell" class="al-status ' + (p.group === 'contrib' ? 'is-wip' : '') + '">' + status(p) + '</span>' +
+                  '<span role="cell" class="al-status ' + (p.external ? 'is-wip' : '') + '">' + status(p) + '</span>' +
                   '<span role="cell">' + esc(p.tech) + '</span><span role="cell">' + p.year + '</span></div>';
               }).join('') + '</div>';
           }).join('') + '</section>' +
