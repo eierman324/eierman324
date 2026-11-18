@@ -19,14 +19,14 @@ window.SITE = {
 
   // Version id -> label and the hosts that count as coming from there.
   versions: [
+    { id: 'github',     label: 'GitHub',     hosts: ['github.com'] },
+    { id: 'discord',    label: 'Discord',    hosts: ['discord.com', 'discord.gg', 'discordapp.com'] },
     { id: 'tiktok',     label: 'TikTok',     hosts: ['tiktok.com'] },
     { id: 'youtube',    label: 'YouTube',    hosts: ['youtube.com', 'youtu.be'] },
-    { id: 'github',     label: 'GitHub',     hosts: ['github.com'] },
-    { id: 'steam',      label: 'Steam',      hosts: ['steamcommunity.com', 'steampowered.com'] },
-    { id: 'soundcloud', label: 'SoundCloud', hosts: ['soundcloud.com'] },
+    { id: 'twitch',     label: 'Twitch',     hosts: ['twitch.tv'] },
     { id: 'anilist',    label: 'AniList',    hosts: ['anilist.co'] },
+    { id: 'steam',      label: 'Steam',      hosts: ['steamcommunity.com', 'steampowered.com'] },
     { id: 'faceit',     label: 'FACEIT',     hosts: ['faceit.com'] },
-    { id: 'discord',    label: 'Discord',    hosts: ['discord.com', 'discord.gg', 'discordapp.com'] },
-    { id: 'twitch',     label: 'Twitch',     hosts: ['twitch.tv'] }
+    { id: 'soundcloud', label: 'SoundCloud', hosts: ['soundcloud.com'] }
   ]
 };
