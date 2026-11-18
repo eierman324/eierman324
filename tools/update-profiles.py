@@ -1,10 +1,11 @@
-"""Fetch the profile picture and name from each platform and write profiles.js.
+"""Fetch the display name and handle from each platform and write profiles.js.
 
 Run from the website folder:  python tools/update-profiles.py
 
-Pictures are saved to assets/avatars/. A platform without a public picture
-(or one that fails) falls back to the GitHub picture. Only the Python
-standard library is used.
+profiles.js is only the fallback text shown until the live data arrives.
+Profile pictures are never stored: the page loads them live (GitHub and
+AniList directly, the other platforms through tools/profile-worker.js).
+Only the Python standard library is used.
 """
 
 import json
@@ -14,7 +15,6 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-AVATARS = ROOT / "assets" / "avatars"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
 
 GITHUB_USER = "eierman324"
@@ -23,7 +23,7 @@ YOUTUBE_HANDLE = "eierman324"
 STEAM_ID = "eierman324"
 ANILIST_USER = "eierman324"
 FACEIT_NICK = "eierman324"
-DISCORD_NAME = "eierman"  # Discord has no public profile API; name only.
+DISCORD_NAME = "eierman"  # Discord has no public profile API.
 
 
 def get(url, data=None, headers=None):
@@ -31,87 +31,57 @@ def get(url, data=None, headers=None):
     h.update(headers or {})
     req = urllib.request.Request(url, data=data, headers=h)
     with urllib.request.urlopen(req, timeout=20) as r:
-        return r.read(), r.headers.get_content_type()
-
-
-def text(url, **kw):
-    body, _ = get(url, **kw)
-    return body.decode("utf-8", "replace")
+        return r.read().decode("utf-8", "replace")
 
 
 def github():
-    d = json.loads(text(f"https://api.github.com/users/{GITHUB_USER}"))
-    return {"name": d.get("name") or d["login"], "handle": d["login"], "avatar": d["avatar_url"] + "&s=460"}
+    d = json.loads(get(f"https://api.github.com/users/{GITHUB_USER}"))
+    return {"name": d.get("name") or d["login"], "handle": d["login"]}
 
 
 def tiktok():
-    html = text(f"https://www.tiktok.com/@{TIKTOK_USER}")
-    def field(key):
-        m = re.search(r'"%s":"([^"]*)"' % key, html)
-        return m.group(1).encode().decode("unicode_escape") if m else None
-    return {"name": field("nickname"), "handle": "@" + TIKTOK_USER, "avatar": field("avatarLarger")}
+    m = re.search(r'"nickname":"([^"]*)"', get(f"https://www.tiktok.com/@{TIKTOK_USER}"))
+    return {"name": m and m.group(1).encode().decode("unicode_escape"), "handle": "@" + TIKTOK_USER}
 
 
 def youtube():
-    html = text(f"https://www.youtube.com/@{YOUTUBE_HANDLE}")
-    title = re.search(r'<meta property="og:title" content="([^"]*)"', html)
-    image = re.search(r'<meta property="og:image" content="([^"]*)"', html)
-    avatar = image and re.sub(r"=s\d+", "=s400", image.group(1))
-    return {"name": title and title.group(1), "handle": "@" + YOUTUBE_HANDLE, "avatar": avatar}
+    m = re.search(r'<meta property="og:title" content="([^"]*)"', get(f"https://www.youtube.com/@{YOUTUBE_HANDLE}"))
+    return {"name": m and m.group(1), "handle": "@" + YOUTUBE_HANDLE}
 
 
 def steam():
-    xml = text(f"https://steamcommunity.com/id/{STEAM_ID}/?xml=1")
-    name = re.search(r"<steamID><!\[CDATA\[(.*?)\]\]>", xml)
-    avatar = re.search(r"<avatarFull><!\[CDATA\[(.*?)\]\]>", xml)
-    return {"name": name and name.group(1), "handle": STEAM_ID, "avatar": avatar and avatar.group(1)}
+    m = re.search(r"<steamID><!\[CDATA\[(.*?)\]\]>", get(f"https://steamcommunity.com/id/{STEAM_ID}/?xml=1"))
+    return {"name": m and m.group(1), "handle": STEAM_ID}
 
 
 def anilist():
-    q = json.dumps({"query": '{User(name:"%s"){name avatar{large}}}' % ANILIST_USER}).encode()
-    d = json.loads(get("https://graphql.anilist.co", data=q, headers={"Content-Type": "application/json"})[0])["data"]["User"]
-    avatar = d["avatar"]["large"]
-    if avatar and avatar.endswith("/default.png"):
-        avatar = None
-    return {"name": d["name"], "handle": d["name"], "avatar": avatar}
+    q = json.dumps({"query": '{User(name:"%s"){name}}' % ANILIST_USER}).encode()
+    name = json.loads(get("https://graphql.anilist.co", data=q, headers={"Content-Type": "application/json"}))["data"]["User"]["name"]
+    return {"name": name, "handle": name}
 
 
 def faceit():
-    d = json.loads(text(f"https://www.faceit.com/api/users/v1/nicknames/{FACEIT_NICK}"))["payload"]
-    return {"name": d["nickname"], "handle": d["nickname"], "avatar": d.get("avatar") or None}
+    nick = json.loads(get(f"https://www.faceit.com/api/users/v1/nicknames/{FACEIT_NICK}"))["payload"]["nickname"]
+    return {"name": nick, "handle": nick}
 
 
 def discord():
-    return {"name": DISCORD_NAME, "handle": DISCORD_NAME, "avatar": None}
+    return {"name": DISCORD_NAME, "handle": DISCORD_NAME}
 
 
 def soundcloud():
-    return {"name": None, "handle": None, "avatar": None}
+    return {"name": None, "handle": None}
 
 
 SOURCES = {
     "github": github, "tiktok": tiktok, "youtube": youtube, "steam": steam,
     "anilist": anilist, "faceit": faceit, "discord": discord, "soundcloud": soundcloud,
 }
-EXT = {"image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/gif": "gif"}
-
-
-def save_avatar(platform, url):
-    body, ctype = get(url)
-    ext = EXT.get(ctype)
-    if not ext:
-        raise ValueError(f"unexpected type {ctype}")
-    for old in AVATARS.glob(platform + ".*"):
-        old.unlink()
-    path = AVATARS / f"{platform}.{ext}"
-    path.write_bytes(body)
-    return path.relative_to(ROOT).as_posix()
 
 
 def main():
-    AVATARS.mkdir(parents=True, exist_ok=True)
-    old = {}
     out_file = ROOT / "profiles.js"
+    old = {}
     if out_file.exists():
         m = re.search(r"window\.PROFILES = (\{.*\});", out_file.read_text(encoding="utf-8"), re.S)
         if m:
@@ -120,16 +90,16 @@ def main():
     profiles = {}
     for platform, fetch in SOURCES.items():
         try:
-            info = fetch()
-            avatar = save_avatar(platform, info["avatar"]) if info.get("avatar") else None
-            profiles[platform] = {"name": info.get("name"), "handle": info.get("handle"), "avatar": avatar}
-            print(f"{platform:11} {info.get('name')!s:12} {'picture' if avatar else 'no picture'}")
+            profiles[platform] = fetch()
+            print(f"{platform:11} {profiles[platform]['name']}")
         except Exception as e:  # keep the last known values when a platform fails
-            profiles[platform] = old.get(platform, {"name": None, "handle": None, "avatar": None})
+            prev = old.get(platform, {})
+            profiles[platform] = {"name": prev.get("name"), "handle": prev.get("handle")}
             print(f"{platform:11} failed ({e}); kept previous values", file=sys.stderr)
 
     out_file.write_text(
-        "// Generated by tools/update-profiles.py. Missing values fall back to GitHub.\n"
+        "// Generated by tools/update-profiles.py: fallback names shown until the live data arrives.\n"
+        "// Pictures are always loaded live (see app.js).\n"
         "window.PROFILES = " + json.dumps(profiles, indent=2, ensure_ascii=False) + ";\n",
         encoding="utf-8",
     )

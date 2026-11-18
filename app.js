@@ -2,7 +2,7 @@
 // Without an edition the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '11';
+  var VERSION = '12';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};
@@ -41,8 +41,9 @@
   //
   // GitHub and AniList are fetched live from the browser. The other platforms
   // block that, so they need a small server in between (see tools/profile-worker.js).
-  // Put its address here once it runs; until then they use profiles.js, which
-  // tools/update-profiles.py writes.
+  // Put its address here once it runs. Until then those platforms show the
+  // fallback names from profiles.js (written by tools/update-profiles.py) and the
+  // GitHub picture. Pictures are never stored in the repo.
   var PROFILE_API = '';
 
   var GITHUB_USER = 'eierman324';
@@ -50,7 +51,7 @@
 
   function snapshot(id) {
     var p = (window.PROFILES || {})[id] || {};
-    return { name: p.name || null, handle: p.handle || null, avatar: p.avatar ? p.avatar + '?v=' + VERSION : null };
+    return { name: p.name || null, handle: p.handle || null, avatar: null };
   }
 
   window.who = function (id) {
