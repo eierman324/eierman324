@@ -25,7 +25,7 @@ window.EDITIONS.soundcloud = {
         '<div class="sc-main">' +
           '<div class="sc-head"><button class="sc-play" type="button" aria-label="Play ' + esc(p.name) + '"><span aria-hidden="true"></span></button>' +
           '<div><p class="sc-artist">' + pname('soundcloud') + '</p><h3><a href="' + p.url + '">' + esc(p.name) + '</a></h3></div>' +
-          '<span class="sc-tag">#' + esc(p.tech) + '</span></div>' +
+          (p.tags.length ? p.tags.slice(0, 2) : [p.tech]).filter(Boolean).map(function (t) { return '<span class="sc-tag">#' + esc(t) + '</span>'; }).join('') + '</div>' +
           wave(p.name) +
           '<div class="sc-foot"><p>' + esc(p.desc) + '</p><span class="sc-time">' + mm + ':' + ss + '</span></div>' +
         '</div></li>';

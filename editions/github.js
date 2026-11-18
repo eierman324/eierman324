@@ -40,7 +40,7 @@ window.EDITIONS.github = {
           print('<p class="gh-dir">' + esc(g.id) + '/</p>');
           projectsIn(g.id).forEach(function (p, i, arr) {
             var branch = i === arr.length - 1 ? '└── ' : '├── ';
-            print('<p class="gh-tree">' + branch + '<a href="' + p.url + '">' + esc(p.name) + '</a> <span class="gh-dim">' + esc(p.tech) + '</span><br><span class="gh-comment">' + (i === arr.length - 1 ? '    ' : '│   ') + '# ' + esc(p.desc) + '</span></p>');
+            print('<p class="gh-tree">' + branch + '<a href="' + p.url + '">' + esc(p.name) + '</a> <span class="gh-dim">' + esc(p.tech) + '</span>' + (p.tags.length ? ' <span class="gh-key">[' + p.tags.map(esc).join(', ') + ']</span>' : '') + '<br><span class="gh-comment">' + (i === arr.length - 1 ? '    ' : '│   ') + '# ' + esc(p.desc) + '</span></p>');
           });
         });
       },

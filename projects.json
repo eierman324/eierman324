@@ -1,0 +1,42 @@
+{
+  "_help": [
+    "Projects shown on every edition, in this order.",
+    "Give \"repo\": \"owner/name\" and the site fetches name, description, tags (GitHub topics), language, year and website from GitHub.",
+    "Any field you write by hand wins over GitHub: name, description, tags, tech, year, url, homepage.",
+    "Without \"repo\", write the fields yourself (name, description and url at least).",
+    "\"group\" must be one of the ids under \"groups\"."
+  ],
+
+  "groups": [
+    { "id": "games", "label": "Games and Minecraft" },
+    { "id": "tools", "label": "Tools and userscripts" },
+    { "id": "scooters", "label": "Scooters" },
+    { "id": "contrib", "label": "Contributions" }
+  ],
+
+  "projects": [
+    { "repo": "eierman324/StormReport", "group": "games" },
+    {
+      "repo": "eierman324/FabisOSC",
+      "group": "games",
+      "description": "An orbital strike cannon for Minecraft, as a Paper plugin and a Fabric mod."
+    },
+    { "repo": "eierman324/DomainGate", "group": "games" },
+    { "repo": "eierman324/All-Basis-Items", "group": "games" },
+
+    { "repo": "eierman324/anidl-renamer", "group": "tools", "tech": "Userscript" },
+    { "repo": "eierman324/fakecrime-music-import", "group": "tools", "tech": "Userscript" },
+    { "repo": "eierman324/horimiya-manga-order", "group": "tools" },
+    { "repo": "eierman324/RecordPlayer", "group": "tools", "tech": "C# / WPF" },
+
+    { "repo": "eierman324/G2MApp", "group": "scooters", "tech": "Web Bluetooth" },
+
+    {
+      "repo": "eierman324/AniWorld-Downloader",
+      "group": "contrib",
+      "name": "AniWorld Downloader: Mediathek",
+      "tech": "Python",
+      "homepage": ""
+    }
+  ]
+}

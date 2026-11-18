@@ -39,7 +39,7 @@ window.EDITIONS.discord = {
     function embed(p) {
       var h = Math.floor(seeded(p.name)() * 360);
       return '<div class="dc-embed" style="--h:' + h + '"><a class="dc-etitle" href="' + p.url + '">' + esc(p.name) + '</a><p>' + esc(p.desc) + '</p>' +
-        '<dl><div><dt>Built with</dt><dd>' + esc(p.tech) + '</dd></div><div><dt>Year</dt><dd>' + p.year + '</dd></div></dl></div>';
+        '<dl><div><dt>Built with</dt><dd>' + esc(p.tech) + '</dd></div><div><dt>Year</dt><dd>' + p.year + '</dd></div>' + (p.tags.length ? '<div><dt>Tags</dt><dd>' + p.tags.map(esc).join(', ') + '</dd></div>' : '') + '</dl></div>';
     }
 
     var content = {

@@ -2,7 +2,7 @@
 // Without an edition the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '4';
+  var VERSION = '6';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};
@@ -110,12 +110,19 @@
       window.loadProfile(id).then(function (p) {
         if (p.name) root.querySelectorAll('[data-pname="' + id + '"]').forEach(function (el) { el.textContent = p.name; });
         if (p.handle) root.querySelectorAll('[data-phandle="' + id + '"]').forEach(function (el) { el.textContent = p.handle; });
-        if (!p.avatar) return;
-        preload(p.avatar).then(function () {
+        // Try the platform's picture, then GitHub's; if neither loads, the "e" stays.
+        var tryOwn = p.avatar ? preload(p.avatar).then(function () { return p.avatar; }) : Promise.reject();
+        tryOwn.catch(function () {
+          if (id === 'github') throw new Error('no picture');
+          return window.loadProfile('github').then(function (g) {
+            if (!g.avatar || g.avatar === p.avatar) throw new Error('no picture');
+            return preload(g.avatar).then(function () { return g.avatar; });
+          });
+        }).then(function (src) {
           root.querySelectorAll('[data-pfp="' + id + '"]').forEach(function (slot) {
             if (slot.querySelector('img')) return;
             var img = document.createElement('img');
-            img.src = p.avatar; img.alt = '';
+            img.src = src; img.alt = '';
             slot.insertBefore(img, slot.firstChild);
             slot.classList.add('has-pfp');
           });
@@ -147,6 +154,107 @@
       }
     }
     return null;
+  }
+
+  // ---- Projects: projects.json, filled in from GitHub ---------------------------
+  var GH_FIELDS = ['name', 'description', 'tags', 'tech', 'year', 'url', 'homepage'];
+
+  function cached(key, maxAgeMs, load) {
+    try {
+      var hit = JSON.parse(localStorage.getItem(key) || 'null');
+      if (hit && Date.now() - hit.t < maxAgeMs) return Promise.resolve(hit.v);
+    } catch (e) {}
+    return load().then(function (v) {
+      try { localStorage.setItem(key, JSON.stringify({ t: Date.now(), v: v })); } catch (e) {}
+      return v;
+    });
+  }
+
+  function slim(r) {
+    return {
+      full: r.full_name.toLowerCase(),
+      name: r.name,
+      description: r.description || '',
+      tags: r.topics || [],
+      tech: r.language || '',
+      year: r.created_at ? +r.created_at.slice(0, 4) : '',
+      url: r.html_url,
+      homepage: r.homepage || ''
+    };
+  }
+
+  function withTimeout(promise, ms) {
+    return Promise.race([promise, new Promise(function (_, reject) { setTimeout(function () { reject(new Error('timeout')); }, ms); })]);
+  }
+
+  // One request per owner covers all their repos; anything missing is fetched on its own.
+  function githubRepos(fullNames) {
+    var owners = {};
+    fullNames.forEach(function (f) { owners[f.split('/')[0].toLowerCase()] = true; });
+    var hour = 3600 * 1000;
+    return Promise.all(Object.keys(owners).map(function (owner) {
+      return cached('eierman-repos-' + owner, hour, function () {
+        return fetchJSON('https://api.github.com/users/' + owner + '/repos?per_page=100&sort=pushed')
+          .then(function (list) { return list.map(slim); });
+      }).catch(function () { return []; });
+    })).then(function (lists) {
+      var byName = {};
+      lists.forEach(function (l) { l.forEach(function (r) { byName[r.full] = r; }); });
+      var missing = fullNames.filter(function (f) { return !byName[f.toLowerCase()]; });
+      return Promise.all(missing.map(function (f) {
+        return cached('eierman-repo-' + f.toLowerCase(), hour, function () {
+          return fetchJSON('https://api.github.com/repos/' + f).then(slim);
+        }).then(function (r) { byName[r.full] = r; }).catch(function () {});
+      })).then(function () { return byName; });
+    });
+  }
+
+  function loadProjects() {
+    return fetchJSON('projects.json?v=' + VERSION).then(function (cfg) {
+      var entries = cfg.projects || [];
+      var repos = entries.filter(function (e) { return e.repo; }).map(function (e) { return e.repo; });
+      return withTimeout(githubRepos(repos), 5000).catch(function () { return {}; }).then(function (byName) {
+        S.groups = cfg.groups || [];
+        S.projects = entries.map(function (e) {
+          var gh = e.repo ? byName[e.repo.toLowerCase()] : null;
+          var base = gh || (e.repo ? { name: e.repo.split('/')[1], url: 'https://github.com/' + e.repo } : {});
+          var p = {};
+          GH_FIELDS.forEach(function (k) { p[k] = k in e ? e[k] : base[k]; });
+          return {
+            name: p.name || '',
+            desc: p.description || '',
+            tags: Array.isArray(p.tags) ? p.tags : [],
+            tech: p.tech || '',
+            year: p.year || '',
+            url: p.url || (e.repo ? 'https://github.com/' + e.repo : '#'),
+            homepage: p.homepage || '',
+            group: e.group
+          };
+        });
+      });
+    }).catch(function () {
+      S.groups = S.groups || [];
+      S.projects = S.projects || [];
+    });
+  }
+
+  // The default page's project list.
+  function renderHomeProjects() {
+    var box = document.getElementById('project-groups');
+    if (!box) return;
+    if (!S.projects.length) { box.innerHTML = '<p class="empty">Projects could not be loaded. They are all on <a href="https://github.com/eierman324">GitHub</a>.</p>'; return; }
+    box.innerHTML = S.groups.map(function (g) {
+      var items = projectsIn(g.id);
+      if (!items.length) return '';
+      return '<div class="group"><h3>' + esc(g.label) + '</h3><ul class="projects">' + items.map(function (p) {
+        return '<li><a class="name" href="' + esc(p.url) + '">' + esc(p.name) + '</a>' +
+          '<p>' + esc(p.desc) + '</p>' +
+          (p.tags.length || p.homepage ? '<p class="meta">' +
+            (p.homepage ? '<a href="' + esc(p.homepage) + '">Website</a>' : '') +
+            p.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</p>' : '') +
+          '<span class="tech">' + esc(p.tech) + '</span></li>';
+      }).join('') + '</ul></div>';
+    }).join('');
   }
 
   function current() {
@@ -187,7 +295,7 @@
     var base = document.getElementById('home-css');
     if (base) base.disabled = true;
 
-    Promise.all([ready, cssReady]).then(function () {
+    Promise.all([ready, cssReady, projectsReady]).then(function () {
       // Drop the home palette so edition styles start clean.
       ['bg', 'surface', 'text', 'muted', 'accent', 'line'].forEach(function (k) { root.style.removeProperty('--' + k); });
       root.style.colorScheme = '';
@@ -212,6 +320,8 @@
     show(current());
   });
 
+  var projectsReady = loadProjects();
+
   var first = current();
   if (first) {
     show(first);
@@ -220,5 +330,6 @@
     var slot = document.getElementById('editions-slot');
     if (slot) slot.innerHTML = editionsBar('');
     window.hydrateProfiles(document.body);
+    projectsReady.then(renderHomeProjects);
   }
 })();

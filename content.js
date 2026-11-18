@@ -1,4 +1,4 @@
-// Shared content for every edition of the site. Edit projects and links here.
+// Shared content for every edition of the site: intro, links, facts, anime. Projects are in projects.json.
 window.SITE = {
   name: 'eierman',
   realName: 'Felix',
@@ -16,35 +16,7 @@ window.SITE = {
     { id: 'faceit',     label: 'FACEIT',     url: 'https://www.faceit.com/de/players/eierman324' }
   ],
 
-  groups: [
-    { id: 'games', label: 'Games and Minecraft' },
-    { id: 'tools', label: 'Tools and userscripts' },
-    { id: 'scooters', label: 'Scooters' },
-    { id: 'contrib', label: 'Contributions' }
-  ],
-
-  projects: [
-    { name: 'StormReport', group: 'games', tech: 'C#', year: 2026, url: 'https://github.com/eierman324/StormReport',
-      desc: 'Counts the chests you open in Fortnite, match after match, from your replays, with an in-game overlay.' },
-    { name: 'FabisOSC', group: 'games', tech: 'Java', year: 2026, url: 'https://github.com/eierman324/FabisOSC',
-      desc: 'An orbital strike cannon for Minecraft, as a Paper plugin and a Fabric mod.' },
-    { name: 'DomainGate', group: 'games', tech: 'Java', year: 2026, url: 'https://github.com/eierman324/DomainGate',
-      desc: 'Minecraft server plugin that blocks, redirects or shows a custom MOTD depending on the domain players connect with.' },
-    { name: 'All-Basis-Items', group: 'games', tech: 'Python', year: 2026, url: 'https://github.com/eierman324/All-Basis-Items',
-      desc: "Exports every Minecraft item and recipe from the server's data generator." },
-    { name: 'anidl-renamer', group: 'tools', tech: 'Userscript', year: 2026, url: 'https://github.com/eierman324/anidl-renamer',
-      desc: 'Renames episodes downloaded with the AniWorld Downloader web UI to their real titles, with undo.' },
-    { name: 'fakecrime-music-import', group: 'tools', tech: 'Userscript', year: 2026, url: 'https://github.com/eierman324/fakecrime-music-import',
-      desc: 'Adds songs to your fakecrime.bio music player from a SoundCloud or YouTube link, with cover and title filled in.' },
-    { name: 'horimiya-manga-order', group: 'tools', tech: 'Python', year: 2026, url: 'https://github.com/eierman324/horimiya-manga-order',
-      desc: 'Recuts Horimiya and The Missing Pieces into manga order, one file per volume.' },
-    { name: 'RecordPlayer', group: 'tools', tech: 'C# / WPF', year: 2026, url: 'https://github.com/eierman324/RecordPlayer',
-      desc: 'Windows tray app that plays an audio input live, for record players and anything else on line-in.' },
-    { name: 'G2MApp', group: 'scooters', tech: 'Web Bluetooth', year: 2025, url: 'https://eierman324.github.io/G2MApp/',
-      desc: 'Web app that talks to the KuKirin G2 Master over Bluetooth: gears, lights, lock, cruise control and live stats.' },
-    { name: 'AniWorld Downloader: Mediathek', group: 'contrib', tech: 'Python', year: 2026, url: 'https://github.com/eierman324/AniWorld-Downloader',
-      desc: "Adds downloads from the public broadcasters' media libraries (ARD, ZDF, Arte, 3sat, ORF, SRF and more) via MediathekView. Pull request to the original project is open." }
-  ],
+  // Groups and projects live in projects.json.
 
   facts: [
     { label: 'Scooters', text: 'Modding them and making them faster than intended. Only SHU so far, VESC is next.' },

@@ -25,7 +25,7 @@ window.EDITIONS.tiktok = {
           '<p class="tt-user">' + phandle('tiktok') + ' <span>' + (i + 1) + ' / ' + S.projects.length + '</span></p>' +
           '<h2 class="tt-glitch" data-text="' + esc(p.name) + '">' + esc(p.name) + '</h2>' +
           '<p class="tt-desc">' + esc(p.desc) + '</p>' +
-          '<p class="tt-tags">#' + esc(p.tech.replace(/[^a-z0-9#]/gi, '').toLowerCase()) + ' #' + esc(group.label.split(' ')[0].toLowerCase()) + '</p>' +
+          '<p class="tt-tags">' + (p.tags.length ? p.tags.slice(0, 5) : [p.tech, group.label.split(' ')[0]]).filter(Boolean).map(function (t) { return '#' + esc(t.replace(/[^a-z0-9#]/gi, '').toLowerCase()); }).join(' ') + '</p>' +
         '</div>' +
         '<div class="tt-rail">' + avatar('tiktok', 'tt-avatar') +
           '<a href="' + p.url + '">Open</a>' +

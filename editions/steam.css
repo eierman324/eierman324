@@ -54,6 +54,9 @@
   color: #fff !important; font: 700 1.25rem "Barlow Condensed", sans-serif; letter-spacing: 0.06em;
 }
 .st-play:hover { filter: brightness(1.15); }
+.st-site { padding: 10px 18px; border-radius: 2px; background: rgb(103 193 245 / 0.2); color: var(--bright) !important; font: 600 1rem "Barlow Condensed", sans-serif; letter-spacing: 0.04em; }
+.st-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 0; padding: 0; }
+.st-tags li { padding: 2px 10px; background: rgb(103 193 245 / 0.2); color: var(--blue); border-radius: 2px; font-size: 0.8125rem; }
 .st-playbar dl { display: flex; flex-wrap: wrap; gap: 24px; margin: 0; }
 .st-playbar dt { color: #8f98a0; font-size: 0.75rem; }
 .st-playbar dd { margin: 0; color: var(--bright); }

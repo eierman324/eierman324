@@ -36,9 +36,9 @@ window.EDITIONS.steam = {
       buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.i === i)); });
       detail.innerHTML =
         '<div class="st-hero" style="--h:' + h + '"><h1>' + esc(p.name) + '</h1></div>' +
-        '<div class="st-playbar"><a class="st-play" href="' + p.url + '">Open</a>' +
+        '<div class="st-playbar"><a class="st-play" href="' + esc(p.url) + '">Open</a>' + (p.homepage ? '<a class="st-site" href="' + esc(p.homepage) + '">Website</a>' : '') +
         '<dl><div><dt>Built with</dt><dd>' + esc(p.tech) + '</dd></div><div><dt>Released</dt><dd>' + p.year + '</dd></div><div><dt>Category</dt><dd>' + esc(group.label) + '</dd></div></dl></div>' +
-        '<div class="st-about"><h2>About this project</h2><p>' + esc(p.desc) + '</p></div>';
+        '<div class="st-about"><h2>About this project</h2><p>' + esc(p.desc) + '</p>' + (p.tags.length ? '<ul class="st-tags">' + p.tags.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '') + '</div>';
     }
     buttons.forEach(function (b) {
       b.addEventListener('click', function () {
