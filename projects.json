@@ -12,7 +12,8 @@
     { "id": "anime", "label": "Anime", "icon": "anime" },
     { "id": "music", "label": "Music and audio", "icon": "music" },
     { "id": "games", "label": "Games and Minecraft", "icon": "games" },
-    { "id": "scooters", "label": "Scooters", "icon": "scooter" }
+    { "id": "scooters", "label": "Scooters", "icon": "scooter" },
+    { "id": "tools", "label": "Tools", "icon": "github" }
   ],
   "projects": [
     { "repo": "eierman324/AniWorld-Downloader", "group": "anime", "tech": "Python" },
@@ -25,6 +26,8 @@
     { "repo": "eierman324/DomainGate", "group": "games" },
     { "repo": "mspaint-cc/translations", "group": "games" },
 
-    { "repo": "eierman324/G2MApp", "group": "scooters" }
+    { "repo": "eierman324/G2MApp", "group": "scooters" },
+
+    { "repo": "eierman324/RandomPortGen", "group": "tools", "description": "Picks random free ports for your projects, with a local port scan." }
   ]
 }
