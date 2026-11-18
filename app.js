@@ -2,7 +2,7 @@
 // Without an edition the static home page in index.html stays as it is.
 (function () {
   // Bump this after changing files in editions/, so browsers fetch the new versions.
-  var VERSION = '17';
+  var VERSION = '18';
   var S = window.SITE;
   var ids = S.editions.map(function (e) { return e.id; });
   window.EDITIONS = window.EDITIONS || {};
@@ -50,11 +50,12 @@
   // Every avatar starts as the letter "e"; the picture is swapped in once it has
   // loaded live. Platforms without a picture use the GitHub one.
   //
-  // GitHub and AniList are fetched live from the browser. The other platforms
-  // block that, so they need a small server in between (see tools/profile-worker.js).
-  // Put its address here once it runs. Until then those platforms show the
-  // fallback names from profiles.js (written by tools/update-profiles.py) and the
-  // GitHub picture. Pictures are never stored in the repo.
+  // All profiles and pictures go through the profile Worker (branch "profile-worker"
+  // of this repo). Put its address here once it is deployed, for example
+  // 'https://eierman-profiles.<your-subdomain>.workers.dev'.
+  // Without it, or when it doesn't answer, GitHub and AniList are fetched directly
+  // from the browser and the other platforms show the fallback names from
+  // profiles.js with the GitHub picture. Pictures are never stored in the repo.
   var PROFILE_API = '';
 
   var GITHUB_USER = 'eierman324';
@@ -83,6 +84,15 @@
   }
 
   function live(id) {
+    if (PROFILE_API) {
+      return fetchJSON(PROFILE_API.replace(/\/+$/, '') + '/profile?p=' + encodeURIComponent(id))
+        .catch(function () { return direct(id); });
+    }
+    return direct(id);
+  }
+
+  // Without the Worker: what the browser can fetch on its own.
+  function direct(id) {
     if (id === 'github') {
       return fetchJSON('https://api.github.com/users/' + GITHUB_USER)
         .then(function (d) { return { name: d.name || d.login, handle: d.login, avatar: d.avatar_url + '&s=400' }; })
@@ -97,9 +107,6 @@
         var u = d.data.User, a = u.avatar && u.avatar.large;
         return { name: u.name, handle: u.name, avatar: a && !/\/default\.png$/.test(a) ? a : null };
       });
-    }
-    if (PROFILE_API) {
-      return fetchJSON(PROFILE_API + '?p=' + encodeURIComponent(id));
     }
     return Promise.resolve(snapshot(id));
   }

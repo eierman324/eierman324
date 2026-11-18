@@ -4,7 +4,8 @@ Run from the website folder:  python tools/update-profiles.py
 
 profiles.js is only the fallback text shown until the live data arrives.
 Profile pictures are never stored: the page loads them live (GitHub and
-AniList directly, the other platforms through tools/profile-worker.js).
+AniList directly, the other platforms through the profile Worker on the
+profile-worker branch).
 Only the Python standard library is used.
 """
 
