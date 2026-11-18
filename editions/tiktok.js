@@ -13,7 +13,13 @@ window.EDITIONS.tiktok = {
         '<p class="tt-hint">Swipe up for projects</p>' +
       '</div>' +
       '<div class="tt-rail">' + avatar('tiktok', 'tt-avatar') +
-        S.links.map(function (l) { return '<a href="' + l.url + '">' + esc(l.label) + '</a>'; }).join('') +
+        S.links.map(function (l) {
+          if (!l.icon) return '<a href="' + esc(l.url) + '">' + esc(l.label) + '</a>';
+          // Favicon button; if the icon doesn't load, the name shows instead.
+          return '<a class="tt-icon-link" href="' + esc(l.url) + '" aria-label="' + esc(l.label) + '" title="' + esc(l.label) + '">' +
+            '<img src="' + esc(l.icon) + '" alt="" width="26" height="26" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add(\'no-icon\')">' +
+            '<span>' + esc(l.label) + '</span></a>';
+        }).join('') +
       '</div>', 330, 'tt-first');
 
     var projects = S.projects.map(function (p, i) {

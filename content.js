@@ -7,11 +7,16 @@ window.SITE = {
   intro: "Hi, I'm Felix. I work in IT, tune e-scooters past their limits and like finding the spot where a game stops working as intended. Whatever bugs me along the way turns into a small tool.",
 
   // The links shown on every edition, in this order.
+  // "icon" is the site's favicon, loaded live from the site (used where an edition shows icons).
   links: [
-    { id: 'fakecrime', label: 'fakecrime', url: 'https://fakecrime.bio/eierman' },
-    { id: 'discord',   label: 'Discord',   url: 'https://discord.com/users/1253218430396403714' },
-    { id: 'tiktok',    label: 'TikTok',    url: 'https://www.tiktok.com/@eierman.cc' },
-    { id: 'anilist',   label: 'AniList',   url: 'https://anilist.co/user/eierman324/animelist' }
+    { id: 'fakecrime', label: 'fakecrime', url: 'https://fakecrime.bio/eierman',
+      icon: 'https://fakecrime.bio/favicon.ico' },
+    { id: 'discord',   label: 'Discord',   url: 'https://discord.com/users/1253218430396403714',
+      icon: 'https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/62fddf0fde45a8baedcc7ee5_847541504914fd33810e70a0ea73177e%20(2)-1.png' },
+    { id: 'tiktok',    label: 'TikTok',    url: 'https://www.tiktok.com/@eierman.cc',
+      icon: 'https://www.tiktok.com/favicon.ico' },
+    { id: 'anilist',   label: 'AniList',   url: 'https://anilist.co/user/eierman324/animelist',
+      icon: 'https://anilist.co/img/icons/apple-touch-icon.png' }
   ],
 
   // Groups and projects live in projects.json.
