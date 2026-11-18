@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="521" height="24" viewBox="0 0 521 24" role="img" aria-label="# This page has a version for every place you might come from."><style>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="24" viewBox="0 0 512 24" role="img" aria-label="# This page has a version for every place you might come from"><style>
   text { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 14px; fill: #e6edf3; }
   .dim { fill: #8b949e; } .link { fill: #58a6ff; } .cur { fill: #3fb950; }
   .btn { fill: #161b22; stroke: #30363d; } .ul { stroke: #58a6ff; }
@@ -6,4 +6,4 @@
     text { fill: #1f2328; } .dim { fill: #59636e; } .link { fill: #0969da; } .cur { fill: #1a7f37; }
     .btn { fill: #ffffff; stroke: #d0d7de; } .ul { stroke: #0969da; }
   }
-</style><text class="dim" x="0.0" y="17" text-anchor="start" textLength="520.8" lengthAdjust="spacingAndGlyphs" xml:space="preserve"># This page has a version for every place you might come from.</text></svg>
+</style><text class="dim" x="0.0" y="17" text-anchor="start" textLength="512.4" lengthAdjust="spacingAndGlyphs" xml:space="preserve"># This page has a version for every place you might come from</text></svg>
